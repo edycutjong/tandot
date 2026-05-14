@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Tandot 🎰</h1>
   <p><em>¿Tu organizador de tanda se fue con el dinero? Nunca más. AI + smart contracts garantizan cada pago.</em></p>
-  <img src="docs/assets/readme-hero.png" alt="Tandot" width="100%">
+  <img src="docs/readme-hero.png" alt="Tandot" width="100%">
 
   <br/>
 
@@ -12,12 +12,12 @@
 
   <br/>
 
-  ![Next.js](https://img.shields.io/badge/Next.js_16-black?style=flat&logo=next.js)
-  ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)
-  ![Tailwind](https://img.shields.io/badge/Tailwind_v4-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
-  ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)
-  ![OpenAI](https://img.shields.io/badge/GPT--4-412991?style=flat&logo=openai&logoColor=white)
-  ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+  ![Next.js](https://img.shields.io/badge/Next.js_16-black?style=for-the-badge&logo=next.js)
+  ![React](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+  ![Tailwind](https://img.shields.io/badge/Tailwind_v4-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
+  ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+  ![OpenAI](https://img.shields.io/badge/GPT--4-412991?style=for-the-badge&logo=openai&logoColor=white)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
   [![Tandot CI](https://github.com/edycutjong/tandot/actions/workflows/ci.yml/badge.svg)](https://github.com/edycutjong/tandot/actions/workflows/ci.yml)
 
 </div>
