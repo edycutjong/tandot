@@ -90,6 +90,28 @@ export interface Dictionary {
   dash_protected: string;
   dash_members: string;
 
+  // Tanda Detail Page
+  detail_back_to_tandas: string;
+  detail_ai_trust_analysis: string;
+  detail_members: string;
+  detail_payout_schedule: string;
+  detail_infrastructure: string;
+  detail_infrastructure_desc: string;
+  detail_contract_address: string;
+  detail_view_on_arbiscan: string;
+  detail_contribution_log: string;
+  detail_no_contributions: string;
+  detail_confirmed: string;
+  detail_pending: string;
+  detail_contributed: string;
+  detail_score: string;
+  detail_position: string;
+  detail_total_pool: string;
+  detail_contribution_per_round: string;
+  detail_frequency: string;
+  detail_progress: string;
+  detail_liquidator: string;
+
   // My Tandas Page
   dash_my_tandas_desc: string;
   dash_new_tanda_btn: string;
@@ -99,11 +121,34 @@ export interface Dictionary {
   // Status & Freq
   status_active: string;
   status_forming: string;
+  status_pending: string;
   status_completed: string;
   status_disputed: string;
   freq_weekly: string;
   freq_biweekly: string;
   freq_monthly: string;
+
+  // Payout Timeline
+  payout_round: string;
+  payout_current: string;
+  payout_paid: string;
+  payout_pending: string;
+  payout_scheduled: string;
+  payout_recipient: string;
+  payout_no_scheduled: string;
+
+  // Contribution Flow
+  contrib_title: string;
+  contrib_amount_to_deposit: string;
+  contrib_currency: string;
+  contrib_step_approve: string;
+  contrib_step_deposit: string;
+  contrib_btn_approve: string;
+  contrib_btn_approving: string;
+  contrib_btn_depositing: string;
+  contrib_success_msg: string;
+  contrib_btn_done: string;
+  contrib_network_notice: string;
 }
 
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -197,6 +242,28 @@ export const dictionaries: Record<Locale, Dictionary> = {
     dash_protected: 'protegidos',
     dash_members: 'miembros',
 
+    // Tanda Detail Page
+    detail_back_to_tandas: '← Volver a Mis Tandas',
+    detail_ai_trust_analysis: 'Análisis de Confianza IA',
+    detail_members: 'Miembros',
+    detail_payout_schedule: 'Cronograma de Pagos',
+    detail_infrastructure: 'Infraestructura',
+    detail_infrastructure_desc: 'Esta tanda utiliza un contrato de Escrow verificado en Arbitrum Sepolia para garantizar la rotación de fondos.',
+    detail_contract_address: 'Dirección del Contrato',
+    detail_view_on_arbiscan: 'Ver en Arbiscan ↗',
+    detail_contribution_log: 'Registro de Contribuciones',
+    detail_no_contributions: 'No hay contribuciones registradas en esta ronda.',
+    detail_confirmed: 'Confirmado',
+    detail_pending: 'Pendiente',
+    detail_contributed: 'aportado',
+    detail_score: 'Score',
+    detail_position: 'Posición',
+    detail_total_pool: 'Pozo Total',
+    detail_contribution_per_round: 'Cuota por Ronda',
+    detail_frequency: 'Frecuencia',
+    detail_progress: 'Progreso',
+    detail_liquidator: 'Liquidador',
+
     // My Tandas Page
     dash_my_tandas_desc: 'Administra tus tandas activas y explora nuevas',
     dash_new_tanda_btn: '+ Nueva Tanda',
@@ -206,11 +273,34 @@ export const dictionaries: Record<Locale, Dictionary> = {
     // Status & Freq
     status_active: 'Activa',
     status_forming: 'Formándose',
+    status_pending: 'Pendiente',
     status_completed: 'Completada',
     status_disputed: 'En disputa',
     freq_weekly: 'Semanal',
     freq_biweekly: 'Quincenal',
     freq_monthly: 'Mensual',
+
+    // Payout Timeline
+    payout_round: 'Ronda',
+    payout_current: 'Actual',
+    payout_paid: 'Pagado',
+    payout_pending: 'Pendiente',
+    payout_scheduled: 'Programado',
+    payout_recipient: 'Receptor',
+    payout_no_scheduled: 'No hay pagos programados aún.',
+
+    // Contribution Flow
+    contrib_title: 'Realizar Aportación',
+    contrib_amount_to_deposit: 'Monto a depositar',
+    contrib_currency: 'Moneda',
+    contrib_step_approve: 'Aprobación de Contrato',
+    contrib_step_deposit: 'Depósito en Escrow',
+    contrib_btn_approve: 'Aprobar y Depositar',
+    contrib_btn_approving: 'Aprobando MXNB...',
+    contrib_btn_depositing: 'Depositando fondos...',
+    contrib_success_msg: 'Tu aportación de {amount} ha sido procesada correctamente en Arbitrum.',
+    contrib_btn_done: 'Listo',
+    contrib_network_notice: 'Esta transacción será ejecutada en Arbitrum Sepolia vía Bitso.',
   },
 
   en: {
@@ -303,6 +393,28 @@ export const dictionaries: Record<Locale, Dictionary> = {
     dash_protected: 'protected',
     dash_members: 'members',
 
+    // Tanda Detail Page
+    detail_back_to_tandas: '← Back to My Tandas',
+    detail_ai_trust_analysis: 'AI Trust Analysis',
+    detail_members: 'Members',
+    detail_payout_schedule: 'Payout Schedule',
+    detail_infrastructure: 'Infrastructure',
+    detail_infrastructure_desc: 'This tanda uses a verified Escrow contract on Arbitrum Sepolia to guarantee fund rotation.',
+    detail_contract_address: 'Contract Address',
+    detail_view_on_arbiscan: 'View on Arbiscan ↗',
+    detail_contribution_log: 'Contribution Log',
+    detail_no_contributions: 'No contributions recorded in this round.',
+    detail_confirmed: 'Confirmed',
+    detail_pending: 'Pending',
+    detail_contributed: 'contributed',
+    detail_score: 'Score',
+    detail_position: 'Position',
+    detail_total_pool: 'Total Pool',
+    detail_contribution_per_round: 'Contribution per Round',
+    detail_frequency: 'Frequency',
+    detail_progress: 'Progress',
+    detail_liquidator: 'Liquidator',
+
     // My Tandas Page
     dash_my_tandas_desc: 'Manage your active tandas and explore new ones',
     dash_new_tanda_btn: '+ New Tanda',
@@ -312,10 +424,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
     // Status & Freq
     status_active: 'Active',
     status_forming: 'Forming',
+    status_pending: 'Pending',
     status_completed: 'Completed',
     status_disputed: 'Disputed',
     freq_weekly: 'Weekly',
     freq_biweekly: 'Biweekly',
     freq_monthly: 'Monthly',
+
+    // Payout Timeline
+    payout_round: 'Round',
+    payout_current: 'Current',
+    payout_paid: 'Paid',
+    payout_pending: 'Pending',
+    payout_scheduled: 'Scheduled',
+    payout_recipient: 'Recipient',
+    payout_no_scheduled: 'No scheduled payments yet.',
+
+    // Contribution Flow
+    contrib_title: 'Make Contribution',
+    contrib_amount_to_deposit: 'Amount to deposit',
+    contrib_currency: 'Currency',
+    contrib_step_approve: 'Contract Approval',
+    contrib_step_deposit: 'Escrow Deposit',
+    contrib_btn_approve: 'Approve & Deposit',
+    contrib_btn_approving: 'Approving MXNB...',
+    contrib_btn_depositing: 'Depositing funds...',
+    contrib_success_msg: 'Your contribution of {amount} has been successfully processed on Arbitrum.',
+    contrib_btn_done: 'Done',
+    contrib_network_notice: 'This transaction will be executed on Arbitrum Sepolia via Bitso.',
   },
 };

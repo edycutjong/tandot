@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import TandaDetailPage from '../page';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
+import { LocaleProvider } from '@/lib/LocaleContext';
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
@@ -83,6 +84,7 @@ jest.mock('@/lib/supabase/server', () => ({
                 amount: 10000,
                 round: 1,
                 status: 'completed',
+                recipient_id: 'member-1',
                 created_at: '2026-05-06T10:00:00Z',
               },
             ],
@@ -121,13 +123,17 @@ jest.mock('next/link', () => ({
 describe('TandaDetailPage', () => {
   it('renders the tanda details page', async () => {
     const Component = await TandaDetailPage({ params: Promise.resolve({ id: 'tanda-1' }) });
-    render(Component);
+    render(
+      <LocaleProvider locale="es" setLocale={jest.fn()}>
+        {Component}
+      </LocaleProvider>
+    );
     
     expect(screen.getByText('Test Tanda 1')).toBeInTheDocument();
     expect(screen.getByText('A test tanda')).toBeInTheDocument();
     
     expect(screen.getByText('Alice')).toBeInTheDocument();
-    expect(screen.getByText('1000 MXNB')).toBeInTheDocument(); // Contribution
+    expect(screen.getAllByText('1000 MXNB')[0]).toBeInTheDocument(); // Contribution
     expect(screen.getByText('10000 MXNB')).toBeInTheDocument(); // Payout
   });
 
@@ -227,6 +233,7 @@ describe('TandaDetailPage', () => {
                   amount: 10000,
                   round: 1,
                   status: 'pending',
+                  recipient_id: 'member-2',
                   created_at: '2026-05-06T10:00:00Z',
                   arbitrum_tx_hash: '0xhash2',
                 },
@@ -245,12 +252,16 @@ describe('TandaDetailPage', () => {
     });
 
     const Component = await TandaDetailPage({ params: Promise.resolve({ id: 'tanda-2' }) });
-    render(Component);
+    render(
+      <LocaleProvider locale="es" setLocale={jest.fn()}>
+        {Component}
+      </LocaleProvider>
+    );
     
     expect(screen.getByText('Test Tanda 2')).toBeInTheDocument();
     expect(screen.getByText('🎉 Este turno')).toBeInTheDocument();
     expect(screen.getByText('0xabc123')).toBeInTheDocument();
-    expect(screen.getByText('pending')).toBeInTheDocument(); // From status and unmapped frequency
+    expect(screen.getAllByText('Pendiente').length).toBeGreaterThan(0);
   });
 
   it('covers fallback branches when members/contributions/payouts are null', async () => {
@@ -286,7 +297,11 @@ describe('TandaDetailPage', () => {
     });
 
     const Component = await TandaDetailPage({ params: Promise.resolve({ id: 'tanda-3' }) });
-    render(Component);
+    render(
+      <LocaleProvider locale="es" setLocale={jest.fn()}>
+        {Component}
+      </LocaleProvider>
+    );
     expect(screen.getByText('Test Tanda 3')).toBeInTheDocument();
   });
 });

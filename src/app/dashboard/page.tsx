@@ -4,11 +4,12 @@ import { createClient } from '@/lib/supabase/server';
 import {
   formatMXN,
   formatMXNB,
-  trustLabel,
   timeAgo,
 } from '@/lib/constants';
 import { Database } from '@/lib/supabase/database.types';
-import type { Dictionary } from '@/lib/i18n';
+import { TandaCard } from '@/components/TandaCard';
+import { StatCard } from '@/components/StatCard';
+import { AIMatchPanel } from '@/components/AIMatchPanel';
 
 type Tanda = Database['public']['Tables']['tandas']['Row'];
 type Contribution = Database['public']['Tables']['contributions']['Row'];
@@ -123,8 +124,11 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* Recent Activity */}
+        {/* Recent Activity + AI Panel */}
         <div className="space-y-6">
+          {/* AI Audit Panel (New in Dashboard) */}
+          <AIMatchPanel score={95} />
+
           {/* Upcoming Payout */}
           <div>
             <h3 className="font-heading font-semibold text-base mb-3"><TText tKey="float_next_payout" /></h3>
@@ -235,116 +239,5 @@ export default async function DashboardPage() {
         </div>
       </div>
     </div>
-  );
-}
-
-// ── Stat Card Component ─────────────────────────────────────
-function StatCard({
-  label,
-  value,
-  suffix,
-  icon,
-  trend,
-  color,
-}: {
-  label: React.ReactNode;
-  value: string;
-  suffix: string | React.ReactNode;
-  icon: string;
-  trend: string | React.ReactNode;
-  color: string;
-}) {
-  return (
-    <div className="glass-card wow-card p-5">
-      <div className="flex items-start justify-between mb-3">
-        <span className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold" style={{ background: `color-mix(in srgb, ${color} 15%, transparent)`, color }}>{icon}</span>
-        <span className="text-xs font-medium" style={{ color: 'var(--emerald-400, #34d399)' }}>
-          {trend}
-        </span>
-      </div>
-      <div className="stat-value text-2xl mb-0.5">
-        {value}
-        {suffix && <span className="text-sm opacity-50 ml-1">{suffix}</span>}
-      </div>
-      <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{label}</p>
-    </div>
-  );
-}
-
-// ── Tanda Card Component ────────────────────────────────────
-function TandaCard({ tanda }: { tanda: Tanda }) {
-  const trust = trustLabel(tanda.ai_trust_score);
-  const progress = tanda.total_rounds > 0
-    ? (tanda.current_round / tanda.total_rounds) * 100
-    : 0;
-
-  return (
-    <Link href={`/dashboard/tandas/${tanda.id}`}>
-      <div className="glass-card wow-card p-5 cursor-pointer group">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="font-heading font-semibold text-base group-hover:text-cyan-400 transition-colors">
-                {tanda.name}
-              </h3>
-              <span className={`badge badge-${tanda.status}`}>
-                <TText tKey={`status_${tanda.status}` as keyof Dictionary} />
-              </span>
-            </div>
-            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-              {tanda.description}
-            </p>
-          </div>
-
-          {/* Trust Score Ring */}
-          <div className="trust-ring shrink-0 ml-4">
-            <svg width="56" height="56" viewBox="0 0 56 56">
-              <circle
-                cx="28" cy="28" r="24"
-                fill="none"
-                stroke="var(--border)"
-                strokeWidth="3"
-              />
-              <circle
-                cx="28" cy="28" r="24"
-                fill="none"
-                stroke={trust.color}
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeDasharray={`${(tanda.ai_trust_score / 100) * 150.8} 150.8`}
-              />
-            </svg>
-            <span className="score" style={{ color: trust.color }}>
-              {tanda.ai_trust_score}
-            </span>
-          </div>
-        </div>
-
-        {/* Progress bar */}
-        <div className="flex items-center gap-3 mb-2">
-          <div className="flex-1 h-1.5 rounded-full" style={{ background: 'var(--border)' }}>
-            <div
-              className="h-full rounded-full progress-animated"
-              style={{
-                width: `${progress}%`,
-                background: `linear-gradient(90deg, var(--cyan-500), var(--emerald-500))`,
-              }}
-            />
-          </div>
-          <span className="font-mono text-xs shrink-0" style={{ color: 'var(--text-muted)' }}>
-            {tanda.current_round}/{tanda.total_rounds}
-          </span>
-        </div>
-
-        {/* Meta row */}
-        <div className="flex items-center gap-4 text-xs" style={{ color: 'var(--text-muted)' }}>
-          <span className="font-mono">{formatMXN(tanda.contribution_amount)}</span>
-          <span>·</span>
-          <span><TText tKey={`freq_${tanda.frequency}` as keyof Dictionary} /></span>
-          <span>·</span>
-          <span>{tanda.max_members} <TText tKey="dash_members" /></span>
-        </div>
-      </div>
-    </Link>
   );
 }

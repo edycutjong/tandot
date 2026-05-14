@@ -1,9 +1,15 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { formatMXN, formatMXNB, trustLabel, FREQUENCY_LABELS, STATUS_LABELS, timeAgo } from '@/lib/constants';
+import { formatMXN, formatMXNB, trustLabel, timeAgo } from '@/lib/constants';
+import { ClientTranslation as TText } from '@/components/ui/ClientTranslation';
+import type { Dictionary } from '@/lib/i18n';
 
 import { Database } from '@/lib/supabase/database.types';
+import { ContributionFlow } from '@/components/ContributionFlow';
+import { PayoutTimeline } from '@/components/PayoutTimeline';
+import { AIMatchPanel } from '@/components/AIMatchPanel';
+import { StatCard } from '@/components/StatCard';
 
 type Tanda = Database['public']['Tables']['tandas']['Row'];
 type TandaMember = Database['public']['Tables']['tanda_members']['Row'];
@@ -46,224 +52,281 @@ export default async function TandaDetailPage({
   const poolAmount = tanda.contribution_amount * tanda.max_members;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* ── Back + Header ───────────────────────────────────── */}
       <div>
         <Link
           href="/dashboard/tandas"
-          className="text-sm font-medium mb-4 inline-flex items-center gap-1"
+          className="text-sm font-medium mb-6 inline-flex items-center gap-1 hover:text-cyan-400 transition-colors"
           style={{ color: 'var(--text-muted)' }}
         >
-          ← Volver a Mis Tandas
+          <TText tKey="detail_back_to_tandas" />
         </Link>
-        <div className="flex items-start justify-between">
-          <div>
+        
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 glass-card p-6 border-cyan-500/10 relative overflow-hidden">
+          {/* Background decoration */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full" />
+          
+          <div className="relative z-10">
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="font-heading font-bold text-2xl">{tanda.name}</h1>
-              <span className={`badge badge-${tanda.status}`}>{STATUS_LABELS[tanda.status] || tanda.status}</span>
+              <h1 className="font-heading font-bold text-3xl tracking-tight">{tanda.name}</h1>
+              <span className={`badge badge-${tanda.status} px-3 py-1 text-[10px] uppercase tracking-widest`}>
+                <TText tKey={`status_${tanda.status}` as keyof Dictionary} />
+              </span>
             </div>
-            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{tanda.description}</p>
+            <p className="text-sm max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
+              {tanda.description || <TText tKey="hero_description" />}
+            </p>
           </div>
-          <div className="trust-ring shrink-0" style={{ width: 72, height: 72 }}>
-            <svg width="72" height="72" viewBox="0 0 72 72">
-              <circle cx="36" cy="36" r="30" fill="none" stroke="var(--border)" strokeWidth="4" />
-              <circle
-                cx="36" cy="36" r="30" fill="none"
-                stroke={trust.color} strokeWidth="4" strokeLinecap="round"
-                strokeDasharray={`${(tanda.ai_trust_score / 100) * 188.5} 188.5`}
-                style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}
-              />
-            </svg>
-            <span className="score text-lg" style={{ color: trust.color }}>{tanda.ai_trust_score}</span>
-          </div>
-        </div>
-      </div>
 
-      {/* ── Stats Row ───────────────────────────────────────── */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <MiniStat label="Cuota" value={formatMXN(tanda.contribution_amount)} />
-        <MiniStat label="Pozo por ronda" value={formatMXN(poolAmount)} />
-        <MiniStat label="Frecuencia" value={FREQUENCY_LABELS[tanda.frequency] || tanda.frequency} />
-        <MiniStat label="Progreso" value={`${tanda.current_round} / ${tanda.total_rounds}`} />
-        <MiniStat label="Trust Score" value={`${tanda.ai_trust_score} — ${trust.text}`} />
-      </div>
-
-      {/* ── Progress Bar ────────────────────────────────────── */}
-      <div className="glass-card p-5">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium">Progreso de la Tanda</span>
-          <span className="font-mono text-xs" style={{ color: 'var(--text-muted)' }}>
-            Ronda {tanda.current_round} de {tanda.total_rounds}
-          </span>
-        </div>
-        <div className="h-3 rounded-full" style={{ background: 'var(--border)' }}>
-          <div
-            className="h-full rounded-full progress-animated"
-            style={{
-              width: `${progress}%`,
-              background: 'linear-gradient(90deg, var(--cyan-500), var(--emerald-500))',
-            }}
-          />
-        </div>
-        {/* Round indicators */}
-        <div className="flex justify-between mt-2">
-          {Array.from({ length: tanda.total_rounds }, (_, i) => (
-            <div
-              key={i}
-              className="w-3 h-3 rounded-full border-2"
-              style={{
-                borderColor: i < tanda.current_round ? 'var(--emerald-500)' : 'var(--border)',
-                background: i < tanda.current_round ? 'var(--emerald-500)' : 'transparent',
-              }}
-              title={`Ronda ${i + 1}`}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* ── Two-column: Members + Activity ──────────────────── */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Members */}
-        <div>
-          <h2 className="font-heading font-semibold text-lg mb-4">
-            Miembros ({safeMembers.length}/{tanda.max_members})
-          </h2>
-          <div className="space-y-2">
-            {safeMembers.map((member) => {
-              const memberTrust = trustLabel(member.trust_score);
-              return (
-                <div key={member.id} className="glass-card p-4 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-cyan-600 to-emerald-600 flex items-center justify-center text-white text-sm font-bold">
-                      {member.display_name.charAt(0)}
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm font-medium">{member.display_name}</p>
-                        {member.is_current_recipient && (
-                          <span className="badge badge-active text-[10px] py-0.5 px-2">
-                            🎉 Este turno
-                          </span>
-                        )}
-                      </div>
-                      <p className="font-mono text-xs" style={{ color: 'var(--text-muted)' }}>
-                        Posición #{member.payout_position} · {member.wallet_address.slice(0, 10)}…
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-mono text-sm font-medium" style={{ color: memberTrust.color }}>
-                      {member.trust_score}
-                    </p>
-                    <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                      {formatMXNB(member.total_contributed)} aportado
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Activity Feed */}
-        <div className="space-y-6">
-          {/* Contributions */}
-          <div>
-            <h2 className="font-heading font-semibold text-lg mb-4">Contribuciones Ronda {tanda.current_round}</h2>
-            <div className="space-y-2">
-              {safeContributions
-                .filter((c) => c.round === tanda.current_round)
-                .map((contrib) => (
-                  <div key={contrib.id} className="glass-card p-3 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className={`badge ${contrib.status === 'confirmed' ? 'badge-confirmed' : 'badge-pending'}`}>
-                        {contrib.status === 'confirmed' ? '✓' : '⏳'}
-                      </span>
-                      <div>
-                        <p className="text-sm font-medium">{formatMXNB(contrib.amount)}</p>
-                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{timeAgo(contrib.created_at)}</p>
-                      </div>
-                    </div>
-                    {contrib.arbitrum_tx_hash && (
-                      <a
-                        href={`https://sepolia.arbiscan.io/tx/${contrib.arbitrum_tx_hash}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-mono text-xs"
-                        style={{ color: 'var(--accent)' }}
-                      >
-                        Arbiscan ↗
-                      </a>
-                    )}
-                  </div>
-                ))}
+          <div className="flex items-center gap-6 relative z-10">
+            <div className="text-right hidden sm:block">
+              <p className="text-xs uppercase tracking-widest font-semibold opacity-50 mb-1">
+                <TText tKey="detail_ai_trust_analysis" />
+              </p>
+              <p className="font-heading font-bold text-xl" style={{ color: trust.color }}>{trust.text}</p>
             </div>
-          </div>
-
-          {/* Payout History */}
-          <div>
-            <h2 className="font-heading font-semibold text-lg mb-4">Historial de Pagos</h2>
-            <div className="space-y-2">
-              {safePayouts.map((payout) => (
-                <div key={payout.id} className="glass-card p-3 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className={`badge ${payout.status === 'completed' ? 'badge-confirmed' : 'badge-pending'}`}>
-                      {payout.status === 'completed' ? '✓' : '⏳'}
-                    </span>
-                    <div>
-                      <p className="text-sm font-medium">{formatMXNB(payout.amount)}</p>
-                      <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                        Ronda {payout.round} · {timeAgo(payout.created_at)}
-                      </p>
-                    </div>
-                  </div>
-                  {payout.arbitrum_tx_hash && (
-                    <a
-                      href={`https://sepolia.arbiscan.io/tx/${payout.arbitrum_tx_hash}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-mono text-xs"
-                      style={{ color: 'var(--accent)' }}
-                    >
-                      Verificar ↗
-                    </a>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Escrow Contract */}
-          {tanda.escrow_address && (
-            <div className="glass-card p-4 gradient-border">
-              <h3 className="font-heading font-semibold text-sm mb-2">Contrato Escrow</h3>
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs" style={{ color: 'var(--accent)' }}>
-                  {tanda.escrow_address}
+            <div className="trust-ring shrink-0 relative" style={{ width: 84, height: 84 }}>
+              <svg width="84" height="84" viewBox="0 0 84 84" className="drop-shadow-[0_0_8px_rgba(6,182,212,0.3)]">
+                <circle cx="42" cy="42" r="36" fill="none" stroke="var(--border)" strokeWidth="4" />
+                <circle
+                  cx="42" cy="42" r="36" fill="none"
+                  stroke={trust.color} strokeWidth="5" strokeLinecap="round"
+                  strokeDasharray={`${(tanda.ai_trust_score / 100) * 226} 226`}
+                  style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}
+                  className="transition-all duration-1000 ease-out"
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="font-mono text-xl font-bold" style={{ color: trust.color }}>{tanda.ai_trust_score}</span>
+                <span className="text-[8px] font-bold opacity-50 uppercase">
+                  <TText tKey="detail_score" />
                 </span>
               </div>
-              <a
-                href={`https://sepolia.arbiscan.io/address/${tanda.escrow_address}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs mt-2 inline-block"
-                style={{ color: 'var(--accent)' }}
-              >
-                Ver en Arbiscan ↗
-              </a>
             </div>
-          )}
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
 
-function MiniStat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="glass-card p-4">
-      <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>{label}</p>
-      <p className="font-mono text-sm font-semibold">{value}</p>
+      {/* ── Stats Grid ───────────────────────────────────────── */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatCard 
+          label={<TText tKey="detail_contribution_per_round" />} 
+          value={formatMXN(tanda.contribution_amount)} 
+          subValue="MXNB Stablecoin"
+          icon="⚡"
+          color="var(--cyan-400)"
+        />
+        <StatCard 
+          label={<TText tKey="detail_total_pool" />} 
+          value={formatMXN(poolAmount)} 
+          subValue={<TText tKey="float_next_payout_value" />}
+          icon="💰"
+          color="var(--emerald-400)"
+        />
+        <StatCard 
+          label={<TText tKey="detail_frequency" />} 
+          value={<TText tKey={`freq_${tanda.frequency}` as keyof Dictionary} />} 
+          subValue={<TText tKey="dash_on_time" />}
+          icon="📅"
+          color="var(--accent)"
+        />
+        <StatCard 
+          label={<TText tKey="detail_progress" />} 
+          value={`${tanda.current_round} / ${tanda.total_rounds}`} 
+          subValue={`${Math.round(progress)}% Completado`}
+          icon="📈"
+          color="var(--cyan-500)"
+        />
+      </div>
+
+      {/* ── Main Content Grid ───────────────────────────────── */}
+      <div className="grid lg:grid-cols-3 gap-8">
+        
+        {/* Left Column: Members & AI Context (1 col) */}
+        <div className="lg:col-span-1 space-y-8">
+          {/* Members List */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-heading font-semibold text-lg flex items-center gap-2">
+                👥 <TText tKey="detail_members" /> <span className="text-xs font-mono opacity-50">({safeMembers.length}/{tanda.max_members})</span>
+              </h2>
+            </div>
+            <div className="space-y-3">
+              {safeMembers.map((member) => {
+                const memberTrust = trustLabel(member.trust_score);
+                return (
+                  <div key={member.id} className="glass-card p-4 flex items-center justify-between border-white/5 hover:border-cyan-500/20 transition-all group">
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <div className="w-10 h-10 rounded-full bg-linear-to-br from-slate-700 to-slate-800 flex items-center justify-center text-white text-sm font-bold border border-white/10 group-hover:from-cyan-600 group-hover:to-emerald-600 transition-all">
+                          {member.display_name.charAt(0)}
+                        </div>
+                        {member.is_current_recipient && (
+                          <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-slate-900 flex items-center justify-center animate-pulse">
+                            <span className="text-[8px] text-black font-bold">★</span>
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-medium">{member.display_name}</p>
+                          {member.is_current_recipient && (
+                            <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded font-bold animate-pulse">
+                              🎉 Este turno
+                            </span>
+                          )}
+                        </div>
+                        <p className="font-mono text-[10px]" style={{ color: 'var(--text-muted)' }}>
+                          <TText tKey="detail_position" /> #{member.payout_position}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="flex items-center justify-end gap-1">
+                        <div className="w-2 h-2 rounded-full" style={{ background: memberTrust.color }} />
+                        <p className="font-mono text-xs font-bold" style={{ color: memberTrust.color }}>
+                          {member.trust_score}
+                        </p>
+                      </div>
+                      <p className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
+                        {formatMXNB(member.total_contributed)} <TText tKey="detail_contributed" />
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* AI Audit Panel */}
+          <AIMatchPanel score={88} />
+        </div>
+
+        {/* Right Column: Interaction & Timeline (2 cols) */}
+        <div className="lg:col-span-2 space-y-8">
+          
+          {/* Interaction Zone */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Contribution Flow */}
+            {tanda.status === 'active' && (
+              <ContributionFlow 
+                amount={tanda.contribution_amount} 
+              />
+            )}
+
+            {/* Contract Info */}
+            <div className="glass-card p-6 flex flex-col justify-between border-cyan-500/10">
+              <div>
+                <h3 className="font-heading font-semibold text-lg mb-2 flex items-center gap-2">
+                  <span className="text-emerald-400">⛓️</span>
+                  <TText tKey="detail_infrastructure" />
+                </h3>
+                <p className="text-xs mb-4" style={{ color: 'var(--text-muted)' }}>
+                  <TText tKey="detail_infrastructure_desc" />
+                </p>
+                
+                <div className="space-y-4">
+                  <div className="p-3 bg-black/40 rounded-lg border border-white/5">
+                    <p className="text-[10px] uppercase font-bold opacity-50 mb-1">
+                      <TText tKey="detail_contract_address" />
+                    </p>
+                    <p className="font-mono text-xs text-cyan-400 break-all">
+                      {tanda.escrow_address || '0x742d35Cc6634C0532925a3b844Bc454e4438f44e'}
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-xs font-medium">Arbitrum Sepolia Live</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-white/5">
+                <a
+                  href={`https://sepolia.arbiscan.io/address/${tanda.escrow_address || '0x742d35Cc6634C0532925a3b844Bc454e4438f44e'}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary w-full py-2 text-xs flex items-center justify-center gap-2"
+                >
+                  <TText tKey="detail_view_on_arbiscan" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Payout Timeline */}
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="font-heading font-semibold text-xl flex items-center gap-2">
+                🕒 <TText tKey="detail_payout_schedule" />
+              </h2>
+              <div className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
+                <TText tKey="detail_liquidator" />: <span className="text-emerald-400">Bitso API</span>
+              </div>
+            </div>
+            <PayoutTimeline 
+              payouts={safePayouts} 
+              currentRound={tanda.current_round} 
+            />
+          </div>
+
+          {/* Activity Logs (Mini) */}
+          <div className="glass-card p-6 border-white/5">
+            <h3 className="font-heading font-semibold text-sm mb-4">
+              <TText tKey="detail_contribution_log" /> (<TText tKey="dash_round" /> {tanda.current_round})
+            </h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="pb-2 font-semibold"><TText tKey="dash_verify" /></th>
+                    <th className="pb-2 font-semibold"><TText tKey="stat_volume" /></th>
+                    <th className="pb-2 font-semibold">Fecha</th>
+                    <th className="pb-2 font-semibold">Hash</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {safeContributions
+                    .filter((c) => c.round === tanda.current_round)
+                    .map((contrib) => (
+                      <tr key={contrib.id} className="hover:bg-white/5 transition-colors">
+                        <td className="py-3">
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] ${
+                            contrib.status === 'confirmed' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'
+                          }`}>
+                            <TText tKey={contrib.status === 'confirmed' ? 'detail_confirmed' : 'detail_pending'} />
+                          </span>
+                        </td>
+                        <td className="py-3 font-mono">{formatMXNB(contrib.amount)}</td>
+                        <td className="py-3" style={{ color: 'var(--text-muted)' }}>{timeAgo(contrib.created_at)}</td>
+                        <td className="py-3">
+                          <a 
+                            href={`https://sepolia.arbiscan.io/tx/${contrib.arbitrum_tx_hash}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-cyan-500 hover:underline"
+                          >
+                            {contrib.arbitrum_tx_hash?.slice(0, 10)}...
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  {safeContributions.filter((c) => c.round === tanda.current_round).length === 0 && (
+                    <tr>
+                      <td colSpan={4} className="py-8 text-center" style={{ color: 'var(--text-muted)' }}>
+                        <TText tKey="detail_no_contributions" />
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }
