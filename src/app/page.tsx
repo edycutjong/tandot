@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SITE } from '@/lib/constants';
@@ -13,13 +13,14 @@ import { ShieldCheck, BrainCircuit, Zap, ArrowRight, Coins } from 'lucide-react'
 import type { Locale } from '@/lib/i18n';
 
 export default function LandingPage() {
-  const [locale, setLocaleRaw] = useState<Locale>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('tandot-locale');
-      if (saved === 'es' || saved === 'en') return saved;
+  const [locale, setLocaleRaw] = useState<Locale>('es');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('tandot-locale');
+    if (saved === 'es' || saved === 'en') {
+      setLocaleRaw(saved);
     }
-    return 'es';
-  });
+  }, []);
 
   const setLocale = useCallback((l: Locale) => {
     setLocaleRaw(l);
@@ -53,13 +54,13 @@ function LandingContent() {
     <div className="min-h-dvh flex flex-col relative overflow-hidden">
       {/* ── Background Mesh ──────────────────────────────────── */}
       <div className="absolute inset-0 mesh-bg opacity-40 pointer-events-none -z-10" />
-      <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] pointer-events-none -z-10 mix-blend-overlay" />
+      <div className="absolute inset-0 bg-(image:--noise-svg) opacity-[0.03] pointer-events-none -z-10 mix-blend-overlay" />
 
       {/* ── Navigation ──────────────────────────────────────── */}
       <nav className="fixed top-0 inset-x-0 z-50 border-b border-(--border)"
            style={{ background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <Image
               src="/icon.svg"
               alt="Tandot logo"
@@ -69,11 +70,11 @@ function LandingContent() {
               priority
             />
             <span className="font-heading font-bold text-lg tracking-tight">{SITE.name}</span>
-          </div>
+          </Link>
           <div className="flex items-center gap-3">
             <LanguageToggle />
-            <Link href="/dashboard" className="btn-primary text-sm">
-              {t.nav_launch} <ArrowRight className="w-4 h-4 ml-1" />
+            <Link href="/dashboard" className="btn-primary text-sm w-[160px] justify-center shrink-0">
+              {t.nav_launch} <ArrowRight className="w-4 h-4 ml-1 shrink-0" />
             </Link>
           </div>
         </div>
@@ -297,45 +298,50 @@ function LandingContent() {
                 name: 'Bitso',
                 href: 'https://bitso.com',
                 logo: (
-                  <svg viewBox="0 0 100 26" className="h-7 fill-current">
-                    <text x="0" y="20" fontFamily="system-ui, sans-serif" fontWeight="700" fontSize="22" letterSpacing="-0.5">bitso</text>
-                  </svg>
+                  <div className="flex items-center gap-2">
+                    <Image src="/logos/logo-bitso.svg" alt="Bitso" width={24} height={24} className="w-6 h-6 object-contain brightness-0 invert" />
+                    <span className="font-bold text-xl tracking-tight">bitso</span>
+                  </div>
                 ),
               },
               {
                 name: 'Arbitrum',
                 href: 'https://arbitrum.io',
                 logo: (
-                  <svg viewBox="0 0 130 26" className="h-7 fill-current">
-                    <text x="0" y="20" fontFamily="system-ui, sans-serif" fontWeight="700" fontSize="20" letterSpacing="-0.5">◆ Arbitrum</text>
-                  </svg>
+                  <div className="flex items-center gap-2">
+                    <Image src="/logos/logo-arbitrum.svg" alt="Arbitrum" width={24} height={24} className="w-6 h-6 object-contain" />
+                    <span className="font-bold text-xl tracking-tight">Arbitrum</span>
+                  </div>
                 ),
               },
               {
                 name: 'Ethereum Mexico',
                 href: 'https://dorahacks.io/hackathon/ethmexico2026bitso/detail',
                 logo: (
-                  <svg viewBox="0 0 170 26" className="h-7 fill-current">
-                    <text x="0" y="20" fontFamily="system-ui, sans-serif" fontWeight="700" fontSize="18" letterSpacing="-0.3">⟠ Ethereum Mexico</text>
-                  </svg>
+                  <div className="flex items-center gap-2">
+                    <Image src="/logos/logo-ethereum.svg" alt="Ethereum" width={24} height={24} className="w-6 h-6 object-contain brightness-0 invert opacity-90" />
+                    <span className="font-bold text-lg tracking-tight">Ethereum Mexico</span>
+                  </div>
                 ),
               },
               {
                 name: 'Supabase',
                 href: 'https://supabase.com',
                 logo: (
-                  <svg viewBox="0 0 120 26" className="h-6 fill-current">
-                    <text x="0" y="20" fontFamily="system-ui, sans-serif" fontWeight="600" fontSize="18">⚡ Supabase</text>
-                  </svg>
+                  <div className="flex items-center gap-2">
+                    <Image src="/logos/logo-supabase.svg" alt="Supabase" width={24} height={24} className="w-6 h-6 object-contain" />
+                    <span className="font-semibold text-xl tracking-tight">Supabase</span>
+                  </div>
                 ),
               },
               {
                 name: 'OpenAI',
                 href: 'https://openai.com',
                 logo: (
-                  <svg viewBox="0 0 100 26" className="h-6 fill-current">
-                    <text x="0" y="20" fontFamily="system-ui, sans-serif" fontWeight="600" fontSize="18">◎ OpenAI</text>
-                  </svg>
+                  <div className="flex items-center gap-2">
+                    <Image src="/logos/logo-openai.svg" alt="OpenAI" width={24} height={24} className="w-6 h-6 object-contain brightness-0 invert" />
+                    <span className="font-semibold text-xl tracking-tight">OpenAI</span>
+                  </div>
                 ),
               },
             ].map((sponsor) => (
