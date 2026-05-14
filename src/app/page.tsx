@@ -73,7 +73,7 @@ function LandingContent() {
           </Link>
           <div className="flex items-center gap-3">
             <LanguageToggle />
-            <Link href="/dashboard" className="btn-primary text-sm w-[160px] justify-center shrink-0">
+            <Link href="/dashboard" className="btn-primary text-sm min-w-[160px] justify-center shrink-0">
               {t.nav_launch} <ArrowRight className="w-4 h-4 ml-1 shrink-0" />
             </Link>
           </div>
