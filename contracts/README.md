@@ -47,7 +47,29 @@ cp .env.example .env
 | `ARBITRUM_RPC_URL` | ❌ | RPC endpoint (defaults to public Arbitrum Sepolia) |
 | `ARBISCAN_API_KEY` | ❌ | For contract verification on Arbiscan |
 
-> **Faucet**: Get testnet ETH at [faucet.quicknode.com/arbitrum/sepolia](https://faucet.quicknode.com/arbitrum/sepolia)
+### Funding Your Deployer Wallet
+
+Your wallet needs **Arbitrum Sepolia ETH** (L2) for gas — not regular Sepolia ETH (L1).
+
+> [!WARNING]
+> Faucets like [Google Cloud Web3 Faucet](https://cloud.google.com/application/web3/faucet/ethereum/sepolia) dispense **Ethereum Sepolia (L1) ETH**, which won't work for Arbitrum deployments. You must either use an Arbitrum-specific faucet or bridge L1 → L2.
+
+**Option A — Direct Arbitrum Sepolia faucets** (recommended):
+
+| Faucet | Auth | Link |
+|--------|------|------|
+| QuickNode | None | [faucet.quicknode.com/arbitrum/sepolia](https://faucet.quicknode.com/arbitrum/sepolia) |
+| Chainlink | GitHub | [faucets.chain.link/arbitrum-sepolia](https://faucets.chain.link/arbitrum-sepolia) |
+| Triangle | None | [faucet.triangleplatform.com/arbitrum/sepolia](https://faucet.triangleplatform.com/arbitrum/sepolia) |
+
+**Option B — Bridge from Ethereum Sepolia**:
+
+If you already have Sepolia L1 ETH, bridge it to Arbitrum Sepolia:
+
+1. Go to [bridge.arbitrum.io](https://bridge.arbitrum.io/?destinationChain=arbitrum-sepolia&sourceChain=sepolia)
+2. Connect wallet → select **Sepolia → Arbitrum Sepolia**
+3. Bridge your ETH (keep ~0.002 ETH on L1 for gas)
+4. Wait ~10 minutes for the bridge to complete
 
 ## Commands
 
