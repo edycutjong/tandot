@@ -24,7 +24,7 @@ export const MOCK_STATS: DashboardStats = {
 // ── Tandas ──────────────────────────────────────────────────
 export const MOCK_TANDAS: Tanda[] = [
   {
-    id: 'tanda-001',
+    id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
     name: 'Las Comadres de Puebla',
     description: 'Tanda semanal entre amigas del mercado de La Victoria. Ahorramos para Navidad. 🎄',
     contribution_amount: 500,
@@ -39,7 +39,7 @@ export const MOCK_TANDAS: Tanda[] = [
     next_payout_at: '2026-05-18T10:00:00Z',
   },
   {
-    id: 'tanda-002',
+    id: 'd2885ba1-1a2d-4af4-8d80-afc732c33c26',
     name: 'Albañiles de Nezahualcóyotl',
     description: 'Tanda quincenal de la cuadrilla. Para herramientas y emergencias. 🔨',
     contribution_amount: 1000,
@@ -54,7 +54,7 @@ export const MOCK_TANDAS: Tanda[] = [
     next_payout_at: '2026-05-20T14:00:00Z',
   },
   {
-    id: 'tanda-003',
+    id: '049f1f4d-72b8-45e3-afd4-e59e1f9a2758',
     name: 'Maestras de Oaxaca',
     description: 'Tanda mensual del colectivo de profesoras rurales. Para útiles escolares. 📚',
     contribution_amount: 2000,
@@ -69,7 +69,7 @@ export const MOCK_TANDAS: Tanda[] = [
     next_payout_at: '2026-06-01T08:00:00Z',
   },
   {
-    id: 'tanda-004',
+    id: 'ff5dbf1b-23c8-451d-9457-717b1cc44129',
     name: 'Taxistas CDMX',
     description: 'Tanda semanal para mantenimiento vehicular del sitio Reforma. 🚕',
     contribution_amount: 750,
@@ -84,7 +84,7 @@ export const MOCK_TANDAS: Tanda[] = [
     next_payout_at: '2026-04-12T09:00:00Z',
   },
   {
-    id: 'tanda-005',
+    id: '4740134f-4cf5-46a3-a179-daeccbf27c50',
     name: 'Emprendedoras Guadalajara',
     description: 'Nueva tanda para emprendedoras del Mercado San Juan de Dios. ¡Únete! 💪',
     contribution_amount: 1500,
@@ -93,19 +93,19 @@ export const MOCK_TANDAS: Tanda[] = [
     current_round: 0,
     total_rounds: 10,
     status: 'forming',
-    escrow_address: '',
+    escrow_address: null,
     ai_trust_score: 0,
     created_at: '2026-05-10T16:00:00Z',
-    next_payout_at: '',
+    next_payout_at: null,
   },
 ];
 
 // ── Members ─────────────────────────────────────────────────
 export const MOCK_MEMBERS: TandaMember[] = [
   {
-    id: 'member-001',
-    tanda_id: 'tanda-001',
-    wallet_address: '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
+    id: 'c8e8a51d-4290-459b-9eed-aa55f7084cfd',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    wallet_address: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
     display_name: 'María González',
     avatar_url: null,
     trust_score: 96,
@@ -116,9 +116,9 @@ export const MOCK_MEMBERS: TandaMember[] = [
     joined_at: '2026-04-15T10:05:00Z',
   },
   {
-    id: 'member-002',
-    tanda_id: 'tanda-001',
-    wallet_address: '0x4E83362442B8d1beC281594ceA3052c8',
+    id: 'bbc5962e-62a8-48e8-a787-309e3c09ad10',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    wallet_address: '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
     display_name: 'Lupita Hernández',
     avatar_url: null,
     trust_score: 92,
@@ -129,9 +129,9 @@ export const MOCK_MEMBERS: TandaMember[] = [
     joined_at: '2026-04-15T10:10:00Z',
   },
   {
-    id: 'member-003',
-    tanda_id: 'tanda-001',
-    wallet_address: '0x7E5F4552091A69125d5DfCb7b8C2659',
+    id: 'b306334f-4ee5-4935-ab09-ba3a187d81a7',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    wallet_address: '0x90F79bf6EB2c4f870365E785982E1f101E93b906',
     display_name: 'Rosa Martínez',
     avatar_url: null,
     trust_score: 88,
@@ -142,9 +142,9 @@ export const MOCK_MEMBERS: TandaMember[] = [
     joined_at: '2026-04-15T10:15:00Z',
   },
   {
-    id: 'member-004',
-    tanda_id: 'tanda-001',
-    wallet_address: '0x2B5AD5c4795c026514f8317c7a215E2',
+    id: '6bee417c-aa6f-4317-8e26-2a496016244c',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    wallet_address: '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65',
     display_name: 'Ana Juárez',
     avatar_url: null,
     trust_score: 85,
@@ -155,9 +155,9 @@ export const MOCK_MEMBERS: TandaMember[] = [
     joined_at: '2026-04-15T10:20:00Z',
   },
   {
-    id: 'member-005',
-    tanda_id: 'tanda-001',
-    wallet_address: '0x6813Eb9362372EEF6200f3b1dbC3f819',
+    id: '6f4701a1-2390-4e4f-83db-fede2488ecad',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    wallet_address: '0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc',
     display_name: 'Carmen Díaz',
     avatar_url: null,
     trust_score: 79,
@@ -172,9 +172,9 @@ export const MOCK_MEMBERS: TandaMember[] = [
 // ── Recent Contributions ────────────────────────────────────
 export const MOCK_CONTRIBUTIONS: Contribution[] = [
   {
-    id: 'contrib-001',
-    tanda_id: 'tanda-001',
-    member_id: 'member-001',
+    id: '73542108-11ee-4b9f-af6f-86eb03c7ece0',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    member_id: 'c8e8a51d-4290-459b-9eed-aa55f7084cfd',
     round: 4,
     amount: 500,
     currency: 'MXNB',
@@ -185,9 +185,9 @@ export const MOCK_CONTRIBUTIONS: Contribution[] = [
     confirmed_at: '2026-05-11T08:30:45Z',
   },
   {
-    id: 'contrib-002',
-    tanda_id: 'tanda-001',
-    member_id: 'member-002',
+    id: '5f22b3cd-8455-451f-a59c-8774191a8724',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    member_id: 'bbc5962e-62a8-48e8-a787-309e3c09ad10',
     round: 4,
     amount: 500,
     currency: 'MXNB',
@@ -198,9 +198,9 @@ export const MOCK_CONTRIBUTIONS: Contribution[] = [
     confirmed_at: '2026-05-11T09:15:32Z',
   },
   {
-    id: 'contrib-003',
-    tanda_id: 'tanda-001',
-    member_id: 'member-003',
+    id: '72185759-52b8-4111-afe3-3a1cb6409d36',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    member_id: 'b306334f-4ee5-4935-ab09-ba3a187d81a7',
     round: 4,
     amount: 500,
     currency: 'MXNB',
@@ -211,9 +211,9 @@ export const MOCK_CONTRIBUTIONS: Contribution[] = [
     confirmed_at: '2026-05-11T10:00:28Z',
   },
   {
-    id: 'contrib-004',
-    tanda_id: 'tanda-001',
-    member_id: 'member-004',
+    id: '86a8c502-e2d8-4d28-9b02-3105073729eb',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    member_id: '6bee417c-aa6f-4317-8e26-2a496016244c',
     round: 4,
     amount: 500,
     currency: 'MXNB',
@@ -224,9 +224,9 @@ export const MOCK_CONTRIBUTIONS: Contribution[] = [
     confirmed_at: null,
   },
   {
-    id: 'contrib-005',
-    tanda_id: 'tanda-001',
-    member_id: 'member-005',
+    id: '545b1a05-6f82-4a1b-a2b7-a043ffa60dd4',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    member_id: '6f4701a1-2390-4e4f-83db-fede2488ecad',
     round: 4,
     amount: 500,
     currency: 'MXNB',
@@ -241,9 +241,9 @@ export const MOCK_CONTRIBUTIONS: Contribution[] = [
 // ── Recent Payouts ──────────────────────────────────────────
 export const MOCK_PAYOUTS: Payout[] = [
   {
-    id: 'payout-001',
-    tanda_id: 'tanda-001',
-    recipient_id: 'member-001',
+    id: '0ecd3ea0-7b7e-402d-a722-86b4006fa4c4',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    recipient_id: 'c8e8a51d-4290-459b-9eed-aa55f7084cfd',
     round: 1,
     amount: 5000,
     currency: 'MXNB',
@@ -254,9 +254,9 @@ export const MOCK_PAYOUTS: Payout[] = [
     completed_at: '2026-04-22T10:01:15Z',
   },
   {
-    id: 'payout-002',
-    tanda_id: 'tanda-001',
-    recipient_id: 'member-002',
+    id: '88a2effe-95c0-4276-8084-9d8da9c98d2d',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    recipient_id: 'bbc5962e-62a8-48e8-a787-309e3c09ad10',
     round: 2,
     amount: 5000,
     currency: 'MXNB',
@@ -267,9 +267,9 @@ export const MOCK_PAYOUTS: Payout[] = [
     completed_at: '2026-04-29T10:00:52Z',
   },
   {
-    id: 'payout-003',
-    tanda_id: 'tanda-001',
-    recipient_id: 'member-003',
+    id: '3a62b559-a92b-44fd-b148-2463068066e5',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    recipient_id: 'b306334f-4ee5-4935-ab09-ba3a187d81a7',
     round: 3,
     amount: 5000,
     currency: 'MXNB',
@@ -280,9 +280,9 @@ export const MOCK_PAYOUTS: Payout[] = [
     completed_at: '2026-05-06T10:01:03Z',
   },
   {
-    id: 'payout-004',
-    tanda_id: 'tanda-001',
-    recipient_id: 'member-004',
+    id: '65e31904-4a93-412e-a0df-9c0fbad611fe',
+    tanda_id: 'd41f5312-214e-4030-8047-1a7743bcbc39',
+    recipient_id: '6bee417c-aa6f-4317-8e26-2a496016244c',
     round: 4,
     amount: 5000,
     currency: 'MXNB',
