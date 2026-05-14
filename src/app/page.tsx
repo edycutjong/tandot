@@ -100,7 +100,7 @@ function LandingContent() {
               variants={itemVariants}
               className="font-heading font-extrabold text-5xl md:text-7xl text-center md:text-left leading-[1.1] mb-6 tracking-tight text-(--text-hi)"
             >
-              {t.hero_headline_prefix}<br/><span className="bg-gradient-to-r from-(--cyan-400) to-(--emerald-400) bg-clip-text text-transparent">{t.hero_headline_highlight}</span>
+              {t.hero_headline_prefix}<br/><span className="bg-linear-to-r from-(--cyan-400) to-(--emerald-400) bg-clip-text text-transparent">{t.hero_headline_highlight}</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -121,7 +121,7 @@ function LandingContent() {
             {/* CTA Buttons */}
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center md:justify-start w-full">
               <Link href="/dashboard" className="btn-primary text-base px-8 py-4 glow-cyan group relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <Coins className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                 {t.hero_cta_primary}
               </Link>
@@ -146,7 +146,7 @@ function LandingContent() {
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 rounded-2xl border border-(--cyan-500)/40 bg-(--bg-elevated)/80 backdrop-blur-xl p-6 shadow-[0_0_60px_rgba(6,182,212,0.25)] z-20"
             >
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-(--cyan-400) to-(--emerald-400) flex items-center justify-center shadow-glow">
+                <div className="w-12 h-12 rounded-full bg-linear-to-br from-(--cyan-400) to-(--emerald-400) flex items-center justify-center shadow-glow">
                   <BrainCircuit className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -220,7 +220,7 @@ function LandingContent() {
             { value: '82', label: t.stat_trust, suffix: '/100', isRing: true },
           ].map((stat) => (
             <GlassCard key={stat.label} className="p-6 text-center flex flex-col items-center justify-center relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-b from-(--border-subtle) to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-linear-to-b from-(--border-subtle) to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               {stat.isRing ? (
                 <div className="mb-2">
                   <TrustRing score={82} size={64} strokeWidth={5} />

@@ -135,7 +135,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-live inline-block" />
               Demo Mode
             </div>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-600 to-emerald-600 flex items-center justify-center text-white text-xs font-bold">
+            <div className="w-8 h-8 rounded-full bg-linear-to-br from-cyan-600 to-emerald-600 flex items-center justify-center text-white text-xs font-bold">
               E
             </div>
           </div>

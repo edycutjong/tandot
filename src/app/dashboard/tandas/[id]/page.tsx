@@ -134,7 +134,7 @@ export default async function TandaDetailPage({
               return (
                 <div key={member.id} className="glass-card p-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-600 to-emerald-600 flex items-center justify-center text-white text-sm font-bold">
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-cyan-600 to-emerald-600 flex items-center justify-center text-white text-sm font-bold">
                       {member.display_name.charAt(0)}
                     </div>
                     <div>
