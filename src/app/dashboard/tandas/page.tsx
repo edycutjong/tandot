@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { formatMXN, FREQUENCY_LABELS, STATUS_LABELS, trustLabel } from '@/lib/constants';
+import { formatMXN, trustLabel } from '@/lib/constants';
+import { ClientTranslation as TText } from '@/components/ui/ClientTranslation';
+import type { Dictionary } from '@/lib/i18n';
 
 import { Database } from '@/lib/supabase/database.types';
 
@@ -24,13 +26,13 @@ export default async function TandasPage({
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-heading font-bold text-2xl mb-1">Mis Tandas</h1>
+          <h1 className="font-heading font-bold text-2xl mb-1"><TText tKey="dash_my_tandas" /></h1>
           <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-            Administra tus tandas activas y explora nuevas
+            <TText tKey="dash_my_tandas_desc" />
           </p>
         </div>
         <Link href="/dashboard/create" className="btn-primary">
-          + Nueva Tanda
+          <TText tKey="dash_new_tanda_btn" />
         </Link>
       </div>
 
@@ -46,7 +48,7 @@ export default async function TandasPage({
                 : 'text-slate-400 hover:bg-slate-800'
             }`}
           >
-            {f === 'all' ? 'Todas' : STATUS_LABELS[f] || f}
+            {f === 'all' ? <TText tKey="dash_all" /> : <TText tKey={`status_${f}` as keyof Dictionary} />}
           </Link>
         ))}
       </div>
@@ -54,7 +56,7 @@ export default async function TandasPage({
       {/* Tanda Grid */}
       {safeTandas.length === 0 ? (
         <div className="glass-card p-12 text-center text-sm" style={{ color: 'var(--text-muted)' }}>
-          No se encontraron tandas con este filtro.
+          <TText tKey="dash_no_tandas_filter" />
         </div>
       ) : (
         <div className="grid md:grid-cols-2 gap-4">
@@ -76,7 +78,7 @@ export default async function TandasPage({
                         </h3>
                       </div>
                       <span className={`badge badge-${tanda.status}`}>
-                        {STATUS_LABELS[tanda.status] || tanda.status}
+                        <TText tKey={`status_${tanda.status}` as keyof Dictionary} />
                       </span>
                     </div>
 
@@ -126,9 +128,9 @@ export default async function TandasPage({
                       {formatMXN(tanda.contribution_amount)}
                     </span>
                     <span>·</span>
-                    <span>{FREQUENCY_LABELS[tanda.frequency] || tanda.frequency}</span>
+                    <span><TText tKey={`freq_${tanda.frequency}` as keyof Dictionary} /></span>
                     <span>·</span>
-                    <span>{tanda.max_members} miembros</span>
+                    <span>{tanda.max_members} <TText tKey="dash_members" /></span>
                     {tanda.escrow_address && (
                       <>
                         <span>·</span>

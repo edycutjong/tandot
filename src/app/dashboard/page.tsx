@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ClientTranslation as TText } from '@/components/ui/ClientTranslation';
 import { createClient } from '@/lib/supabase/server';
 import {
   formatMXN,
@@ -9,6 +10,7 @@ import {
   timeAgo,
 } from '@/lib/constants';
 import { Database } from '@/lib/supabase/database.types';
+import type { Dictionary } from '@/lib/i18n';
 
 type Tanda = Database['public']['Tables']['tandas']['Row'];
 type Contribution = Database['public']['Tables']['contributions']['Row'];
@@ -55,44 +57,44 @@ export default async function DashboardPage() {
     <div className="space-y-8">
       {/* ── Page Header ─────────────────────────────────────── */}
       <div>
-        <h1 className="font-heading font-bold text-2xl mb-1">Resumen</h1>
+        <h1 className="font-heading font-bold text-2xl mb-1"><TText tKey="dash_summary" /></h1>
         <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-          Vista general de tus tandas y actividad reciente
+          <TText tKey="dash_summary_desc" />
         </p>
       </div>
 
       {/* ── Stats Grid ──────────────────────────────────────── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          label="Tandas Activas"
+          label={<TText tKey="dash_active_tandas" />}
           value={stats.active_tandas.toString()}
           suffix={`/ ${stats.total_tandas}`}
           icon="◎"
-          trend="+3 este mes"
+          trend={<>+3 <TText tKey="dash_this_month" /></>}
           color="var(--cyan-400)"
         />
         <StatCard
-          label="Volumen Protegido"
+          label={<TText tKey="stat_volume" />}
           value={formatMXN(stats.total_volume_mxn)}
           suffix=""
           icon="◆"
-          trend="+$125K esta semana"
+          trend={<>+$125K <TText tKey="dash_this_week" /></>}
           color="var(--emerald-400, #34d399)"
         />
         <StatCard
-          label="Pagos Exitosos"
+          label={<TText tKey="stat_payouts" />}
           value={stats.successful_payouts.toString()}
           suffix=""
           icon="✓"
-          trend="100% on-time"
+          trend={<>100% <TText tKey="dash_on_time" /></>}
           color="var(--emerald-400, #34d399)"
         />
         <StatCard
-          label="Fraudes Prevenidos"
+          label={<TText tKey="dash_fraud_prevented" />}
           value={stats.fraud_prevented.toString()}
           suffix=""
           icon="⊘"
-          trend="$45K protegidos"
+          trend={<>$45K <TText tKey="dash_protected" /></>}
           color="var(--red-500, #ef4444)"
         />
       </div>
@@ -102,16 +104,16 @@ export default async function DashboardPage() {
         {/* Active Tandas */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-heading font-semibold text-lg">Tandas Activas</h2>
+            <h2 className="font-heading font-semibold text-lg"><TText tKey="dash_my_tandas" /></h2>
             <Link href="/dashboard/tandas" className="text-xs font-medium" style={{ color: 'var(--accent)' }}>
-              Ver todas →
+              <TText tKey="dash_view_all" />
             </Link>
           </div>
 
           <div className="space-y-3">
             {safeTandas.length === 0 ? (
               <div className="glass-card p-8 text-center text-sm" style={{ color: 'var(--text-muted)' }}>
-                No hay tandas activas.
+                <TText tKey="dash_no_active_tandas" />
               </div>
             ) : (
               safeTandas
@@ -127,9 +129,9 @@ export default async function DashboardPage() {
         <div className="space-y-6">
           {/* Upcoming Payout */}
           <div>
-            <h3 className="font-heading font-semibold text-base mb-3">Próximo Pago</h3>
+            <h3 className="font-heading font-semibold text-base mb-3"><TText tKey="float_next_payout" /></h3>
             {safePayouts.filter((p) => p.status === 'scheduled').length === 0 ? (
-              <div className="text-xs" style={{ color: 'var(--text-muted)' }}>No hay pagos programados.</div>
+              <div className="text-xs" style={{ color: 'var(--text-muted)' }}><TText tKey="dash_no_scheduled_payouts" /></div>
             ) : (
               safePayouts
                 .filter((p) => p.status === 'scheduled')
@@ -138,15 +140,15 @@ export default async function DashboardPage() {
                     <div className="flex items-center justify-between mb-2">
                       <span className="badge badge-pending">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-400 pulse-live inline-block" />
-                        Programado
+                        <TText tKey="dash_scheduled" />
                       </span>
                       <span className="font-mono text-xs" style={{ color: 'var(--text-muted)' }}>
-                        Ronda {payout.round}
+                        <TText tKey="dash_round" /> {payout.round}
                       </span>
                     </div>
                     <p className="stat-value text-3xl mb-1">{formatMXNB(payout.amount)}</p>
                     <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                      Destinatario: {payout.recipient_id.slice(0, 8)}...
+                      <TText tKey="dash_recipient" /> {payout.recipient_id.slice(0, 8)}...
                     </p>
                   </div>
                 ))
@@ -155,10 +157,10 @@ export default async function DashboardPage() {
 
           {/* Recent Contributions */}
           <div>
-            <h3 className="font-heading font-semibold text-base mb-3">Contribuciones Recientes</h3>
+            <h3 className="font-heading font-semibold text-base mb-3"><TText tKey="dash_recent_contributions" /></h3>
             <div className="space-y-2">
               {safeContributions.length === 0 ? (
-                <div className="text-xs" style={{ color: 'var(--text-muted)' }}>No hay contribuciones recientes.</div>
+                <div className="text-xs" style={{ color: 'var(--text-muted)' }}><TText tKey="dash_no_recent_contributions" /></div>
               ) : (
                 safeContributions.map((contrib) => (
                   <div key={contrib.id} className="glass-card p-3 flex items-center justify-between">
@@ -174,8 +176,8 @@ export default async function DashboardPage() {
                         <p className="text-sm font-medium">
                           {formatMXNB(contrib.amount)}
                         </p>
-                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                          Ronda {contrib.round} · {timeAgo(contrib.created_at)}
+                        <p suppressHydrationWarning className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                          <TText tKey="dash_round" /> {contrib.round} · {timeAgo(contrib.created_at)}
                         </p>
                       </div>
                     </div>
@@ -198,10 +200,10 @@ export default async function DashboardPage() {
 
           {/* Completed Payouts */}
           <div>
-            <h3 className="font-heading font-semibold text-base mb-3">Pagos Completados</h3>
+            <h3 className="font-heading font-semibold text-base mb-3"><TText tKey="dash_completed_payouts" /></h3>
             <div className="space-y-2">
               {safePayouts.filter((p) => p.status === 'completed').length === 0 ? (
-                <div className="text-xs" style={{ color: 'var(--text-muted)' }}>No hay pagos completados.</div>
+                <div className="text-xs" style={{ color: 'var(--text-muted)' }}><TText tKey="dash_no_completed_payouts" /></div>
               ) : (
                 safePayouts
                   .filter((p) => p.status === 'completed')
@@ -211,8 +213,8 @@ export default async function DashboardPage() {
                         <span className="badge badge-confirmed">✓</span>
                         <div>
                           <p className="text-sm font-medium">{formatMXNB(payout.amount)}</p>
-                          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                            Ronda {payout.round} · {timeAgo(payout.created_at)}
+                          <p suppressHydrationWarning className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                            <TText tKey="dash_round" /> {payout.round} · {timeAgo(payout.created_at)}
                           </p>
                         </div>
                       </div>
@@ -224,7 +226,7 @@ export default async function DashboardPage() {
                           className="font-mono text-xs"
                           style={{ color: 'var(--accent)' }}
                         >
-                          Verificar ↗
+                          <TText tKey="dash_verify" />
                         </a>
                       )}
                     </div>
@@ -247,11 +249,11 @@ function StatCard({
   trend,
   color,
 }: {
-  label: string;
+  label: React.ReactNode;
   value: string;
-  suffix: string;
+  suffix: string | React.ReactNode;
   icon: string;
-  trend: string;
+  trend: string | React.ReactNode;
   color: string;
 }) {
   return (
@@ -288,7 +290,7 @@ function TandaCard({ tanda }: { tanda: Tanda }) {
                 {tanda.name}
               </h3>
               <span className={`badge badge-${tanda.status}`}>
-                {STATUS_LABELS[tanda.status] || tanda.status}
+                <TText tKey={`status_${tanda.status}` as keyof Dictionary} />
               </span>
             </div>
             <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
@@ -340,9 +342,9 @@ function TandaCard({ tanda }: { tanda: Tanda }) {
         <div className="flex items-center gap-4 text-xs" style={{ color: 'var(--text-muted)' }}>
           <span className="font-mono">{formatMXN(tanda.contribution_amount)}</span>
           <span>·</span>
-          <span>{FREQUENCY_LABELS[tanda.frequency] || tanda.frequency}</span>
+          <span><TText tKey={`freq_${tanda.frequency}` as keyof Dictionary} /></span>
           <span>·</span>
-          <span>{tanda.max_members} miembros</span>
+          <span>{tanda.max_members} <TText tKey="dash_members" /></span>
         </div>
       </div>
     </Link>

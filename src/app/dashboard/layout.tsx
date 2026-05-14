@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -14,6 +14,7 @@ import {
   History,
   BrainCircuit,
   Search,
+  User,
 } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 
@@ -22,13 +23,14 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [locale, setLocaleRaw] = useState<Locale>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('tandot-locale');
-      if (saved === 'es' || saved === 'en') return saved;
+  const [locale, setLocaleRaw] = useState<Locale>('es');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('tandot-locale');
+    if (saved === 'es' || saved === 'en') {
+      setLocaleRaw(saved);
     }
-    return 'es';
-  });
+  }, []);
 
   const setLocale = useCallback((l: Locale) => {
     setLocaleRaw(l);
@@ -66,7 +68,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         style={{ background: 'rgba(2, 6, 23, 0.95)', backdropFilter: 'blur(16px)' }}
       >
         {/* Logo */}
-        <div className="h-16 px-5 flex items-center gap-3 border-b border-(--border)">
+        <Link href="/" className="h-16 px-5 flex items-center gap-3 border-b border-(--border) hover:opacity-80 transition-opacity">
           <Image
             src="/icon.svg"
             alt="Tandot logo"
@@ -75,7 +77,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
             className="w-8 h-8"
           />
           <span className="font-heading font-bold text-lg tracking-tight">{SITE.name}</span>
-        </div>
+        </Link>
 
         {/* Navigation */}
         <nav className="flex-1 p-4 space-y-1">
@@ -126,7 +128,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         >
           <div>
             <h2 className="font-heading font-semibold text-sm" style={{ color: 'var(--text-secondary)' }}>
-              {SITE.tagline}
+              {t.dash_tagline}
             </h2>
           </div>
           <div className="flex items-center gap-4">
@@ -135,8 +137,8 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-live inline-block" />
               Demo Mode
             </div>
-            <div className="w-8 h-8 rounded-full bg-linear-to-br from-cyan-600 to-emerald-600 flex items-center justify-center text-white text-xs font-bold">
-              E
+            <div className="w-8 h-8 rounded-full bg-slate-800/50 border border-(--border) flex items-center justify-center text-white text-xs font-bold hover:bg-slate-800 transition-colors cursor-pointer" title="User Profile / Perfil de Usuario">
+              <User className="w-4 h-4 text-slate-400" />
             </div>
           </div>
         </header>
