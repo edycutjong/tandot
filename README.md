@@ -100,6 +100,18 @@ npm run dev
 > **For Judges:** Skip account creation! Use test credentials:
 > **Email:** `judge@hackathon.com` | **Password:** `winner123`
 
+### Smart Contract Deployment
+
+To deploy the Tanda escrow contract and Mock MXNB token to the Arbitrum Sepolia testnet:
+
+```bash
+cd contracts
+npm install
+cp .env.example .env   # Add your Arbitrum RPC URL and Private Key
+npx hardhat compile
+npx hardhat run scripts/deploy.ts --network arbitrumSepolia
+```
+
 ## 🧪 Testing & CI
 
 ```bash
