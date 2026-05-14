@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tandot 🎰 Pitch Deck</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="apple-touch-icon" href="/icon.svg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Tandot Design System Tokens */
+        :root {
+            --cyan-500: #06b6d4;
+            --cyan-400: #22d3ee;
+            --emerald-500: #10b981;
+            --emerald-400: #34d399;
+            --amber-500: #f59e0b;
+            --red-500: #ef4444;
+
+            --slate-50: #f8fafc;
+            --slate-400: #94a3b8;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            --slate-950: #020617;
+
+            --bg-primary: var(--slate-950);
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(148, 163, 184, 0.08);
+            --border-hover: rgba(148, 163, 184, 0.2);
+
+            --r-main-font: 'Inter', sans-serif;
+            --r-heading-font: 'Outfit', sans-serif;
+            --r-heading-color: var(--cyan-500);
+            --r-link-color: var(--emerald-500);
+            --r-link-color-hover: var(--emerald-400);
+            --r-selection-background-color: var(--cyan-500);
+            --r-heading-text-transform: none;
+            --r-background-color: var(--bg-primary);
+        }
+
+        body {
+            background: radial-gradient(circle at 20% 30%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 60%),
+                var(--bg-primary);
+        }
+
+        .reveal .progress span {
+            background-color: var(--emerald-500);
+        }
+
+        .reveal .controls {
+            color: var(--cyan-500);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal h1 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, var(--cyan-400), var(--emerald-500));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal table {
+            font-size: 0.8em;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .reveal table th {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--cyan-500);
+        }
+
+        .reveal table td {
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .reveal ul {
+            margin-left: 0;
+            display: inline-block;
+            text-align: center;
+            list-style-position: inside;
+        }
+
+        .reveal li {
+            margin-bottom: 0.8em;
+            color: var(--slate-50);
+        }
+
+        /* Tandot aesthetic classes */
+        .text-cyan {
+            color: var(--cyan-500);
+        }
+
+        .text-emerald {
+            color: var(--emerald-500);
+        }
+
+        .text-muted {
+            color: var(--slate-400);
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* WOW Factor Classes */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.08);
+        }
+
+        .wow-card {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        .wow-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.2);
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        .wow-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wow-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-20deg);
+            animation: shine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <!-- prettier-ignore -->
+        <div class="slides">
+            <section data-markdown data-separator="^\s*---\s*$" data-separator-vertical="^\s*--\s*$" data-separator-notes="^\s*Note:">
+                <textarea data-template>
+<!-- .slide: class="center" style="text-align: center; padding-top: 10%;" -->
+# Tandot 🎰
+### Trustless, AI-Managed Savings Circles for LATAM
+<br />
+<div class="text-cyan wow-shine">A dynamic, glowing network of members connected by an AI core,<br />with MXNB flowing securely between them.</div>
+
+Note:
+Start with a high-energy hook. "In Mexico, everyone knows someone who lost money in a tanda. Today, we end that."
+
+---
+
+## The $40B Trust Problem
+
+<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
+
+- **Tandas** (rotating savings circles) are a cultural staple in LATAM.
+- **1 in 3** tandas fail because the organizer disappears with the funds.
+- Zero recourse, zero insurance, zero proof.
+
+<br />
+<div class="text-muted">It's not just lost money; it's broken community trust.</div>
+</div>
+
+Note:
+Emphasize the emotional pain point. It's not just lost money; it's broken community trust.
+
+---
+
+## The Solution
+### Tandot: AI Organizer + Smart Contract Escrow
+
+<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
+
+- We replace the human organizer with an **unbiased AI agent**.
+- Funds are secured in an Arbitrum smart contract using **MXNB** (Mexican Peso stablecoin).
+- Guaranteed payouts, every round, every time.
+</div>
+
+Note:
+Introduce the "silver bullet". AI brings the intelligence, blockchain brings the guarantee.
+
+---
+
+## Three Steps. Zero Trust Required.
+
+<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
+
+1. **Join:** AI evaluates your trust score to match you with a safe group.
+2. **Contribute:** Pay-in with MXNB via Bitso.
+3. **Get Paid:** Smart contracts auto-disburse your payout on your turn.
+
+<br />
+<div class="text-emerald animate-fade-in-up" style="text-align: center; margin-top: 1em;">Fully automated, end-to-end on-chain execution.</div>
+</div>
+
+Note:
+Walk through the seamless user experience. Highlight the premium fintech aesthetic.
+
+---
+
+## Built for Speed, Security, and Scale
+
+<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
+
+- **AI Core:** GPT-4 for Trust Scoring & Fraud Detection.
+- **On-Chain Escrow:** Solidity contracts on Arbitrum Sepolia.
+- **Payments:** Bitso Business API for MXNB fiat on/off ramps.
+- **Frontend:** Next.js 16, React 19, Tailwind v4.
+</div>
+
+Note:
+Highlight the complexity. It's a full-stack Web3 + AI + Fintech product.
+
+---
+
+## A Massive Untapped Financial Market
+
+<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
+
+- **TAM:** $40B informal savings market in LATAM.
+- **SAM:** $10B digital-first unbanked/underbanked population.
+- **SOM:** $100M transaction volume captured in year 1.
+</div>
+
+Note:
+This isn't a niche tool; it's a structural upgrade to an existing multi-billion dollar cultural institution.
+
+---
+
+## Sustainable Monetization
+
+<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
+
+- **Free for users:** No fees to join or withdraw.
+- **Yield Generation:** Idle MXNB in escrow earns DeFi yield during the cycle.
+- **Premium Features:** AI credit-building reports for traditional banking access.
+</div>
+
+Note:
+Explain how the platform makes money without taxing the users, using standard DeFi yield models.
+
+---
+
+## Why Tandot Wins
+
+<div class="glass-card wow-card" style="padding: 1em; margin-top: 1em;">
+
+| Feature | Traditional Tandas | Web2 Apps | Tandot |
+|---|---|---|---|
+| Trust | High Risk | Medium | **Trustless** |
+| Friction | High | High (Bank Req) | **Low (Crypto)** |
+| Intelligence | None | Basic | **AI Scoring** |
+</div>
+
+Note:
+Contrast against existing alternatives to show the clear technological moat.
+
+---
+
+## Ready for Production
+
+<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
+
+- ✅ Escrow contracts deployed and audited on Arbitrum Sepolia.
+- ✅ Bitso API integration complete for seamless MXNB bridging.
+- ✅ Fully functional staging environment.
+</div>
+
+Note:
+We didn't just build a mockup; we built a working protocol.
+
+---
+
+## What's Next (30/60/90 Days)
+
+<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: left;">
+
+- **30 Days:** Mainnet launch on Arbitrum + Bitso production keys.
+- **60 Days:** WhatsApp bot integration for older demographics.
+- **90 Days:** Cross-border remittances feeding directly into savings circles.
+</div>
+
+Note:
+Show that the project has legs beyond the hackathon weekend.
+
+---
+
+## The Right Builders
+
+<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: left;">
+
+- Full-stack Web3 & AI Engineers.
+- Deep understanding of LATAM fintech culture.
+</div>
+
+Note:
+Briefly highlight the team's technical chops and cultural alignment with the problem.
+
+---
+
+<!-- .slide: class="center" style="text-align: center; padding-top: 15%;" -->
+# Trust, Automated.
+
+Support our mission to secure the savings of millions.<br />
+<span class="text-emerald wow-shine" style="display:inline-block;">Let's make financial loss in tandas a thing of the past.</span>
+
+Note:
+End with a strong, memorable statement.
+                </textarea>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            margin: 0.15,
+            transition: 'fade',
+            backgroundTransition: 'fade',
+            plugins: [RevealMarkdown, RevealNotes]
+        });
+    </script>
+</body>
+
+</html>
