@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShieldAlert, ArrowLeft } from 'lucide-react';
-import { SITE } from '@/lib/constants';
 
 export default function NotFound() {
   return (
@@ -38,7 +37,7 @@ export default function NotFound() {
         </h2>
         
         <p className="text-(--text-mid) mb-10 max-w-md font-body text-lg">
-          We couldn't find the page you were looking for. It might have been moved or doesn't exist.
+          We couldn&apos;t find the page you were looking for. It might have been moved or doesn&apos;t exist.
         </p>
 
         <Link href="/" className="btn-primary text-base px-8 py-4 glow-cyan group">

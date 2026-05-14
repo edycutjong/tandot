@@ -18,6 +18,7 @@ export default function LandingPage() {
   useEffect(() => {
     const saved = localStorage.getItem('tandot-locale');
     if (saved === 'es' || saved === 'en') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLocaleRaw(saved);
     }
   }, []);
@@ -220,7 +221,7 @@ function LandingContent() {
             { value: '234', label: t.stat_payouts, suffix: '' },
             { value: '82', label: t.stat_trust, suffix: '/100', isRing: true },
           ].map((stat) => (
-            <GlassCard key={stat.label} className="p-6 text-center flex flex-col items-center justify-center relative overflow-hidden group">
+            <GlassCard key={stat.label} className="p-6 text-center flex flex-col items-center justify-center relative overflow-hidden group wow-card wow-shine">
               <div className="absolute inset-0 bg-linear-to-b from-(--border-subtle) to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               {stat.isRing ? (
                 <div className="mb-2">
@@ -271,7 +272,7 @@ function LandingContent() {
                 desc: t.how_step3_desc,
               },
             ].map((item) => (
-              <GlassCard key={item.step} className="p-8 relative group">
+              <GlassCard key={item.step} className="p-8 relative group wow-card">
                 <div className="absolute top-6 right-6 font-display font-bold text-xl text-(--border-default) group-hover:text-(--cyan-500) transition-colors">
                   {item.step}
                 </div>

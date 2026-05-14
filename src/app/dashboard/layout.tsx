@@ -28,6 +28,7 @@ export default function DashboardLayout({
   useEffect(() => {
     const saved = localStorage.getItem('tandot-locale');
     if (saved === 'es' || saved === 'en') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLocaleRaw(saved);
     }
   }, []);

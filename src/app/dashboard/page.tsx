@@ -5,8 +5,6 @@ import {
   formatMXN,
   formatMXNB,
   trustLabel,
-  FREQUENCY_LABELS,
-  STATUS_LABELS,
   timeAgo,
 } from '@/lib/constants';
 import { Database } from '@/lib/supabase/database.types';
@@ -54,7 +52,7 @@ export default async function DashboardPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-fade-in-up">
       {/* ── Page Header ─────────────────────────────────────── */}
       <div>
         <h1 className="font-heading font-bold text-2xl mb-1"><TText tKey="dash_summary" /></h1>
@@ -136,7 +134,7 @@ export default async function DashboardPage() {
               safePayouts
                 .filter((p) => p.status === 'scheduled')
                 .map((payout) => (
-                  <div key={payout.id} className="glass-card p-4 gradient-border mb-3">
+                  <div key={payout.id} className="glass-card wow-card p-4 gradient-border mb-3">
                     <div className="flex items-center justify-between mb-2">
                       <span className="badge badge-pending">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-400 pulse-live inline-block" />
@@ -163,7 +161,7 @@ export default async function DashboardPage() {
                 <div className="text-xs" style={{ color: 'var(--text-muted)' }}><TText tKey="dash_no_recent_contributions" /></div>
               ) : (
                 safeContributions.map((contrib) => (
-                  <div key={contrib.id} className="glass-card p-3 flex items-center justify-between">
+                  <div key={contrib.id} className="glass-card wow-card p-3 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <span
                         className={`badge ${
@@ -208,7 +206,7 @@ export default async function DashboardPage() {
                 safePayouts
                   .filter((p) => p.status === 'completed')
                   .map((payout) => (
-                    <div key={payout.id} className="glass-card p-3 flex items-center justify-between">
+                    <div key={payout.id} className="glass-card wow-card p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <span className="badge badge-confirmed">✓</span>
                         <div>
@@ -257,7 +255,7 @@ function StatCard({
   color: string;
 }) {
   return (
-    <div className="glass-card p-5">
+    <div className="glass-card wow-card p-5">
       <div className="flex items-start justify-between mb-3">
         <span className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold" style={{ background: `color-mix(in srgb, ${color} 15%, transparent)`, color }}>{icon}</span>
         <span className="text-xs font-medium" style={{ color: 'var(--emerald-400, #34d399)' }}>
@@ -282,7 +280,7 @@ function TandaCard({ tanda }: { tanda: Tanda }) {
 
   return (
     <Link href={`/dashboard/tandas/${tanda.id}`}>
-      <div className="glass-card p-5 cursor-pointer group">
+      <div className="glass-card wow-card p-5 cursor-pointer group">
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
