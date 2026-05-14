@@ -8,6 +8,7 @@
   [![Live Demo](https://img.shields.io/badge/🚀_Live-Demo-06b6d4?style=for-the-badge)](https://tandot.edycu.dev)
   [![Pitch Deck](https://img.shields.io/badge/📊_Pitch-Deck-f59e0b?style=for-the-badge)](https://tandot.edycu.dev/pitch)
   [![Pitch Video](https://img.shields.io/badge/🎬_Pitch-Video-ef4444?style=for-the-badge)](https://youtu.be/your-video)
+  [![Arbiscan](https://img.shields.io/badge/📜_Arbiscan-Contracts-28A0F0?style=for-the-badge)](https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c)
   [![Built for ETH Mexico](https://img.shields.io/badge/DoraHacks-ETH_Mexico_2026-8b5cf6?style=for-the-badge)](https://dorahacks.io/hackathon/ethmexico2026bitso/detail)
 
   <br/>
@@ -16,6 +17,8 @@
   ![React](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
   ![Tailwind](https://img.shields.io/badge/Tailwind_v4-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
   ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+  ![Arbitrum](https://img.shields.io/badge/Arbitrum-28A0F0?style=for-the-badge&logo=arbitrum&logoColor=white)
+  ![Solidity](https://img.shields.io/badge/Solidity_0.8-363636?style=for-the-badge&logo=solidity&logoColor=white)
   ![OpenAI](https://img.shields.io/badge/GPT--4-412991?style=for-the-badge&logo=openai&logoColor=white)
   ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
   [![Tandot CI](https://github.com/edycutjong/tandot/actions/workflows/ci.yml/badge.svg)](https://github.com/edycutjong/tandot/actions/workflows/ci.yml)
@@ -54,9 +57,8 @@ In Mexico, **tandas** (rotating savings circles) are the most popular informal s
 | **Styling** | Tailwind CSS v4 |
 | **Database** | Supabase (PostgreSQL + Realtime) |
 | **Payments** | Bitso Business API (Pay-ins, Payouts, MXNB, Webhooks, Mass Payouts) |
-| **Chain** | Arbitrum (MXNB stablecoin, escrow smart contract) |
+| **Chain** | Arbitrum Sepolia (MXNB stablecoin, escrow smart contract) |
 | **AI** | OpenAI GPT-4 (trust scoring, group matching, fraud detection) |
-
 | **Deploy** | Vercel |
 
 ```mermaid
@@ -97,7 +99,18 @@ cp .env.example .env.local   # Add your API keys
 npm run dev                  # http://localhost:3000
 ```
 
-> **For Judges:** No login required — connect any wallet (MetaMask) on Arbitrum Sepolia to explore.
+### 🧑‍⚖️ For Judges — Quick Start
+
+> **No login, no deploy, no API keys needed to explore the dashboard.**
+
+| What | Status |
+|---|---|
+| **Wallet** | Install [MetaMask](https://metamask.io) → switch to **Arbitrum Sepolia** |
+| **Smart Contracts** | ✅ Already deployed (see addresses below) |
+| **Supabase DB** | ✅ Pre-seeded with demo data |
+| **Bitso API** | ✅ Staging keys included in demo — no personal account needed |
+| **OpenAI** | ✅ Trust scoring works with pre-computed scores in demo mode |
+| **Testnet ETH** | Get free ETH from [Arbitrum Sepolia Faucet](https://faucet.quicknode.com/arbitrum/sepolia) |
 
 ### Deployed Contracts (Arbitrum Sepolia)
 

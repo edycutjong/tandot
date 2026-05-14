@@ -2,6 +2,15 @@
 
 Solidity escrow contracts for the Tandot rotating savings platform. Deployed on **Arbitrum Sepolia**.
 
+## Deployed Addresses
+
+| Contract | Address | Arbiscan |
+|----------|---------|----------|
+| **TandaEscrow** | `0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c` | [View ↗](https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c) |
+| **MockMXNB** | `0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7` | [View ↗](https://sepolia.arbiscan.io/address/0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7) |
+
+> Deployer: `0x4cCB355e6e97c9cEcC936b58e5e0CfDB5ede95d8`
+
 ## Contracts
 
 | Contract | Description |
