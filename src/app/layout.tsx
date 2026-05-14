@@ -54,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className="dark" suppressHydrationWarning>
+    <html lang="es" className="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="grid-bg">
         {children}
       </body>

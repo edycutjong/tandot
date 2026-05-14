@@ -29,7 +29,8 @@ export function AIMatchPanel({ memberId, score }: AIMatchPanelProps) {
     let currentLogIndex = 0;
     const interval = setInterval(() => {
       if (currentLogIndex < rawLogs.length) {
-        setLogs(prev => [...prev, rawLogs[currentLogIndex]]);
+        const logToAdd = rawLogs[currentLogIndex];
+        setLogs(prev => [...prev, logToAdd]);
         currentLogIndex++;
       } else {
         setIsScanning(false);
