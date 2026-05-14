@@ -9,13 +9,26 @@ dotenv.config();
 const privateKey = process.env.PRIVATE_KEY || "0x0000000000000000000000000000000000000000000000000000000000000001";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.24",
+  solidity: {
+    version: "0.8.24",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
   networks: {
     arbitrumSepolia: {
       url: process.env.ARBITRUM_RPC_URL || "https://sepolia-rollup.arbitrum.io/rpc",
       accounts: [privateKey]
     }
-  }
+  },
+  etherscan: {
+    apiKey: {
+      arbitrumSepolia: process.env.ARBISCAN_API_KEY || "",
+    },
+  },
 };
 
 export default config;
