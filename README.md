@@ -1,6 +1,7 @@
 <div align="center">
   <h1>Tandot 🎰</h1>
-  <p><em>¿Tu organizador de tanda se fue con el dinero? Nunca más. AI + smart contracts garantizan cada pago.</em></p>
+  <p><em>"Did your tanda organizer run off with the money?"</em> — <strong>Never again.</strong><br/>
+  AI + smart contracts guarantee every payout, protecting informal savings on-chain.</p>
   <img src="docs/readme-hero.png" alt="Tandot" width="100%">
 
   <br/>
@@ -23,6 +24,9 @@
   ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
   [![Tandot CI](https://github.com/edycutjong/tandot/actions/workflows/ci.yml/badge.svg)](https://github.com/edycutjong/tandot/actions/workflows/ci.yml)
 
+  <p>
+    <a href="README.es.md">🇲🇽 Versión en Español</a>
+  </p>
 </div>
 
 ---
@@ -171,7 +175,9 @@ tandot/
 ├── public/               # Icon, OG image
 ├── .env.example          # Environment variable template (with source URLs)
 ├── .github/workflows/    # CI pipeline (Node 20/22/24 matrix)
-└── README.md             # You are here
+├── README.md             # You are here
+└── README.es.md          # Spanish version
+
 ```
 
 ## 📄 License
