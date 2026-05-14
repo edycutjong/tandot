@@ -292,7 +292,7 @@ function LandingContent() {
             {t.sponsor_label}
           </p>
           <div className="flex flex-wrap justify-center gap-x-12 gap-y-8 items-center opacity-70">
-            {['Bitso Business API', 'MXNB Stablecoin', 'Arbitrum Escrow', 'Rare Protocol', 'Supabase', 'OpenAI GPT-4'].map((sponsor) => (
+            {['Bitso Business API', 'MXNB Stablecoin', 'Arbitrum Escrow', 'Supabase', 'OpenAI GPT-4'].map((sponsor) => (
               <div key={sponsor} className="font-display text-sm font-medium tracking-wide text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors cursor-default">
                 {sponsor}
               </div>

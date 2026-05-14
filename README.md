@@ -56,7 +56,7 @@ In Mexico, **tandas** (rotating savings circles) are the most popular informal s
 | **Payments** | Bitso Business API (Pay-ins, Payouts, MXNB, Webhooks, Mass Payouts) |
 | **Chain** | Arbitrum (MXNB stablecoin, escrow smart contract) |
 | **AI** | OpenAI GPT-4 (trust scoring, group matching, fraud detection) |
-| **NFT** | Rare Protocol CLI (participation badges) |
+
 | **Deploy** | Vercel |
 
 ```mermaid
@@ -69,7 +69,7 @@ graph TB
     AI -->|Trust Score| DB
     Escrow -->|Auto Payout| Bitso
     Bitso -->|MXNB Transfer| Winner[🏆 Round Winner]
-    API -->|Mint Badge| Rare[Rare Protocol NFT]
+
     DB -->|Realtime| Dashboard[Dashboard UI]
 ```
 
@@ -80,7 +80,7 @@ graph TB
 | **Bitso Business Startup** | $3,900 | Pay-ins, Payouts, MXNB transfers, Webhooks, Mass Payouts — see `src/lib/` |
 | **ETH Mexico Main** | $1,500 | Full DeFi tanda platform solving financial trust in LATAM |
 | **Arbitrum** | $650 | Escrow smart contract deployed on Arbitrum — see `contracts/` |
-| **Rare Protocol** | $700 | Participation badge NFTs minted per completed tanda — see `src/lib/` |
+
 
 ## 🚀 Getting Started
 
@@ -137,6 +137,6 @@ tandot/
 
 ## 🙏 Acknowledgments
 
-Built for **DoraHacks Ethereum Mexico 2026**. Thank you to Bitso, Arbitrum, Rare Protocol, and the ETH Mexico community for the APIs, tools, and inspiration.
+Built for **DoraHacks Ethereum Mexico 2026**. Thank you to Bitso, Arbitrum, and the ETH Mexico community for the APIs, tools, and inspiration.
 
 ¡Gracias por revisar este proyecto! 🇲🇽

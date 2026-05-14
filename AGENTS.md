@@ -10,7 +10,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 AI-managed fraud-proof rotating savings circles (tandas) on-chain using MXNB stablecoin. Eliminates the trust problem in Mexico's most popular informal savings institution — tandas — by replacing the human organizer with an AI agent + Arbitrum escrow.
 
 ## Hackathon
-**DoraHacks Ethereum Mexico 2026** — Targeting Bitso Business Startup bounty ($3,900) with multi-bounty stacking across ETH Mexico ($1,500), Arbitrum ($650), and Rare Protocol ($700).
+**DoraHacks Ethereum Mexico 2026** — Targeting Bitso Business Startup bounty ($3,900) with multi-bounty stacking across ETH Mexico ($1,500) and Arbitrum ($650).
 
 ## Structure
 - `src/app/` — Next.js 16 App Router pages (landing, dashboard, tanda detail, API routes)
@@ -29,7 +29,7 @@ AI-managed fraud-proof rotating savings circles (tandas) on-chain using MXNB sta
 | **Payments** | Bitso Business API (Pay-ins, Payouts, MXNB, Webhooks, Mass Payouts) |
 | **Chain** | Arbitrum (MXNB stablecoin, escrow smart contract) |
 | **AI** | OpenAI GPT-4 (trust scoring, group matching, fraud detection) |
-| **NFT** | Rare Protocol CLI (participation badges) |
+
 | **Deploy** | Vercel |
 
 ## Key Rules
