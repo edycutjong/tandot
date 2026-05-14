@@ -94,15 +94,23 @@ git clone https://github.com/edycutjong/tandot.git
 cd tandot
 npm install
 cp .env.example .env.local   # Add your API keys
-npm run dev
+npm run dev                  # http://localhost:3000
 ```
 
-> **For Judges:** Skip account creation! Use test credentials:
-> **Email:** `judge@hackathon.com` | **Password:** `winner123`
+> **For Judges:** No login required — connect any wallet (MetaMask) on Arbitrum Sepolia to explore.
 
-### Smart Contract Deployment
+### Deployed Contracts (Arbitrum Sepolia)
 
-To deploy the Tanda escrow contract and Mock MXNB token to the Arbitrum Sepolia testnet:
+| Contract | Address |
+|---|---|
+| **TandaEscrow** | [`0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c`](https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c) |
+| **MockMXNB (ERC-20)** | [`0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7`](https://sepolia.arbiscan.io/address/0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7) |
+
+> **For Judges:** Contracts are already live — no deployment needed. The dashboard reads from these addresses automatically.
+
+### Redeploy Contracts (Optional)
+
+To deploy your own instance of the escrow contract and Mock MXNB token:
 
 ```bash
 cd contracts
@@ -111,6 +119,16 @@ cp .env.example .env   # Add your Arbitrum RPC URL and Private Key
 npx hardhat compile
 npx hardhat run scripts/deploy.ts --network arbitrumSepolia
 ```
+
+Then update `NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS` and `NEXT_PUBLIC_MXNB_TOKEN_ADDRESS` in `.env.local`.
+
+### Bitso Business API (Staging)
+
+> ⚠️ **Use the staging environment** — never production for hackathon testing.
+
+1. Create an account at [`stage.bitso.com`](https://stage.bitso.com)
+2. Generate API keys under API Settings
+3. Add `BITSO_API_KEY` and `BITSO_API_SECRET` to your `.env.local`
 
 ## 🧪 Testing & CI
 
