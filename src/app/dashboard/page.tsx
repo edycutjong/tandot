@@ -11,6 +11,8 @@ import {
 import { Database } from '@/lib/supabase/database.types';
 
 type Tanda = Database['public']['Tables']['tandas']['Row'];
+type Contribution = Database['public']['Tables']['contributions']['Row'];
+type Payout = Database['public']['Tables']['payouts']['Row'];
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -31,9 +33,9 @@ export default async function DashboardPage() {
   ]);
 
   // Handle potential nulls
-  const safeTandas = tandas || [];
-  const safeContributions = recentContributions || [];
-  const safePayouts = recentPayouts || [];
+  const safeTandas = (tandas as Tanda[]) || [];
+  const safeContributions = (recentContributions as Contribution[]) || [];
+  const safePayouts = (recentPayouts as Payout[]) || [];
 
   // Calculate some derived stats
   const totalVolumeMXN = safeTandas.reduce((acc, t) => acc + (t.contribution_amount * t.max_members * t.total_rounds), 0);

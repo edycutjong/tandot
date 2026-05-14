@@ -2,6 +2,10 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { formatMXN, FREQUENCY_LABELS, STATUS_LABELS, trustLabel } from '@/lib/constants';
 
+import { Database } from '@/lib/supabase/database.types';
+
+type Tanda = Database['public']['Tables']['tandas']['Row'];
+
 export default async function TandasPage({
   searchParams,
 }: {
@@ -10,14 +14,11 @@ export default async function TandasPage({
   const { filter = 'all' } = await searchParams;
   const supabase = await createClient();
 
-  let query = supabase.from('tandas').select('*').order('created_at', { ascending: false });
+  const query = supabase.from('tandas').select('*').order('created_at', { ascending: false });
+  const finalQuery = filter !== 'all' ? query.eq('status', filter as Tanda['status']) : query;
 
-  if (filter !== 'all') {
-    query = query.eq('status', filter);
-  }
-
-  const { data: tandas } = await query;
-  const safeTandas = tandas || [];
+  const { data: tandas } = await finalQuery;
+  const safeTandas = (tandas as Tanda[]) || [];
 
   return (
     <div className="space-y-6">

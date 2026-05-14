@@ -1,13 +1,41 @@
 'use client';
 
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { SITE } from '@/lib/constants';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { TrustRing } from '@/components/ui/TrustRing';
+import { LanguageToggle } from '@/components/ui/LanguageToggle';
+import { LocaleProvider, useLocale } from '@/lib/LocaleContext';
 import { motion, Variants } from 'framer-motion';
-import { ShieldCheck, BrainCircuit, RotateCw, ArrowRight, Zap, Coins } from 'lucide-react';
+import { ShieldCheck, BrainCircuit, Zap, ArrowRight, Coins } from 'lucide-react';
+import type { Locale } from '@/lib/i18n';
 
 export default function LandingPage() {
+  const [locale, setLocaleRaw] = useState<Locale>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('tandot-locale');
+      if (saved === 'es' || saved === 'en') return saved;
+    }
+    return 'es';
+  });
+
+  const setLocale = useCallback((l: Locale) => {
+    setLocaleRaw(l);
+    try { localStorage.setItem('tandot-locale', l); } catch (_err) { /* quota */ }
+  }, []);
+
+  return (
+    <LocaleProvider locale={locale} setLocale={setLocale}>
+      <LandingContent />
+    </LocaleProvider>
+  );
+}
+
+function LandingContent() {
+  const { t } = useLocale();
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
@@ -32,14 +60,20 @@ export default function LandingPage() {
            style={{ background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--cyan-500)] to-[var(--emerald-500)] flex items-center justify-center text-white font-bold text-sm font-display">
-              T
-            </div>
+            <Image
+              src="/icon.svg"
+              alt="Tandot logo"
+              width={32}
+              height={32}
+              className="w-8 h-8"
+              priority
+            />
             <span className="font-heading font-bold text-lg tracking-tight">{SITE.name}</span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <LanguageToggle />
             <Link href="/dashboard" className="btn-primary text-sm">
-              Launch App <ArrowRight className="w-4 h-4 ml-1" />
+              {t.nav_launch} <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </div>
         </div>
@@ -58,7 +92,7 @@ export default function LandingPage() {
             {/* Badge */}
             <motion.div variants={itemVariants} className="badge badge-active mb-8 shadow-glow self-center md:self-start">
               <span className="w-2 h-2 rounded-full bg-[var(--emerald-400)] pulse-live inline-block" />
-              <span className="font-mono text-[var(--text-hi)]">ETHEREUM MEXICO 2026</span>
+              <span className="font-mono text-[var(--text-hi)]">{t.hero_badge}</span>
             </motion.div>
 
             {/* Headline */}
@@ -66,7 +100,7 @@ export default function LandingPage() {
               variants={itemVariants}
               className="font-heading font-extrabold text-5xl md:text-7xl text-center md:text-left leading-[1.1] mb-6 tracking-tight text-[var(--text-hi)]"
             >
-              Tandas <br/><span className="bg-gradient-to-r from-[var(--cyan-400)] to-[var(--emerald-400)] bg-clip-text text-transparent">sin confianza</span> ciega
+              {t.hero_headline_prefix}<br/><span className="bg-gradient-to-r from-[var(--cyan-400)] to-[var(--emerald-400)] bg-clip-text text-transparent">{t.hero_headline_highlight}</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -74,15 +108,14 @@ export default function LandingPage() {
               variants={itemVariants}
               className="text-lg md:text-xl text-center md:text-left max-w-2xl mb-4 font-body font-medium text-[var(--text-mid)]"
             >
-              AI-managed, fraud-proof rotating savings circles on MXNB.
+              {t.hero_subtitle}
             </motion.p>
 
             <motion.p 
               variants={itemVariants}
               className="text-sm text-center md:text-left max-w-xl mb-12 text-[var(--text-low)]"
             >
-              ¿Tu organizador de tanda se fue con el dinero? Nunca más.<br />
-              Tandot usa IA + contratos inteligentes para garantizar cada pago.
+              {t.hero_description}
             </motion.p>
 
             {/* CTA Buttons */}
@@ -90,10 +123,10 @@ export default function LandingPage() {
               <Link href="/dashboard" className="btn-primary text-base px-8 py-4 glow-cyan group relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <Coins className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                Crear mi Tanda
+                {t.hero_cta_primary}
               </Link>
               <a href="#how-it-works" className="btn-secondary text-base px-8 py-4">
-                ¿Cómo funciona?
+                {t.hero_cta_secondary}
               </a>
             </motion.div>
           </motion.div>
@@ -117,26 +150,26 @@ export default function LandingPage() {
                   <BrainCircuit className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <div className="font-display font-bold text-[var(--text-hi)]">AI Trust Engine</div>
+                  <div className="font-display font-bold text-[var(--text-hi)]">{t.float_ai_engine}</div>
                   <div className="text-xs text-[var(--emerald-400)] flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--emerald-400)] animate-pulse" />
-                    Analyzing Network
+                    {t.float_ai_analyzing}
                   </div>
                 </div>
               </div>
 
               <div className="space-y-3">
                 <div className="flex justify-between items-center text-sm border-b border-[var(--border-subtle)] pb-2">
-                  <span className="text-[var(--text-mid)]">Escrow Status</span>
-                  <span className="text-[var(--text-hi)] font-mono">10,000 MXNB Locked <ShieldCheck className="w-4 h-4 inline text-[var(--emerald-400)] ml-1" /></span>
+                  <span className="text-[var(--text-mid)]">{t.float_escrow_status}</span>
+                  <span className="text-[var(--text-hi)] font-mono">{t.float_escrow_value} <ShieldCheck className="w-4 h-4 inline text-[var(--emerald-400)] ml-1" /></span>
                 </div>
                 <div className="flex justify-between items-center text-sm border-b border-[var(--border-subtle)] pb-2">
-                  <span className="text-[var(--text-mid)]">Current Round</span>
+                  <span className="text-[var(--text-mid)]">{t.float_current_round}</span>
                   <span className="text-[var(--text-hi)] font-mono">4 / 10</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-[var(--text-mid)]">Next Payout</span>
-                  <span className="text-[var(--text-hi)] font-mono">In 3 days</span>
+                  <span className="text-[var(--text-mid)]">{t.float_next_payout}</span>
+                  <span className="text-[var(--text-hi)] font-mono">{t.float_next_payout_value}</span>
                 </div>
               </div>
             </motion.div>
@@ -147,7 +180,7 @@ export default function LandingPage() {
               transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut', delay: 1 }}
               className="absolute top-[10%] left-[0%] w-48 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-base)]/80 backdrop-blur-lg p-4 shadow-xl z-10"
             >
-              <div className="text-xs text-[var(--text-low)] mb-1">Incoming Transfer</div>
+              <div className="text-xs text-[var(--text-low)] mb-1">{t.float_incoming}</div>
               <div className="text-lg font-mono font-bold text-[var(--text-hi)]">+1,000 MXNB</div>
               <div className="text-[10px] text-[var(--cyan-400)] mt-1 font-mono">From: 0x48...e9A2</div>
             </motion.div>
@@ -158,7 +191,7 @@ export default function LandingPage() {
               transition={{ repeat: Infinity, duration: 7, ease: 'easeInOut', delay: 2 }}
               className="absolute bottom-[10%] right-[0%] w-48 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-base)]/80 backdrop-blur-lg p-4 shadow-xl z-30"
             >
-              <div className="text-xs text-[var(--text-low)] mb-2">Trust Score</div>
+              <div className="text-xs text-[var(--text-low)] mb-2">{t.float_trust_score}</div>
               <div className="flex items-center gap-3">
                 <TrustRing score={96} size={36} strokeWidth={3} />
                 <div className="text-xl font-display font-bold text-[var(--text-hi)]">96/100</div>
@@ -181,11 +214,11 @@ export default function LandingPage() {
           className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl w-full mb-32 relative z-10"
         >
           {[
-            { value: '$2.8M', label: 'Volumen Protegido', suffix: 'MXN' },
-            { value: '156', label: 'Participantes Activos', suffix: '' },
-            { value: '234', label: 'Pagos Exitosos', suffix: '' },
-            { value: '82', label: 'Trust Score Promedio', suffix: '/100', isRing: true },
-          ].map((stat, i) => (
+            { value: '$2.8M', label: t.stat_volume, suffix: 'MXN' },
+            { value: '156', label: t.stat_participants, suffix: '' },
+            { value: '234', label: t.stat_payouts, suffix: '' },
+            { value: '82', label: t.stat_trust, suffix: '/100', isRing: true },
+          ].map((stat) => (
             <GlassCard key={stat.label} className="p-6 text-center flex flex-col items-center justify-center relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-b from-[var(--border-subtle)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               {stat.isRing ? (
@@ -209,10 +242,10 @@ export default function LandingPage() {
         <section id="how-it-works" className="max-w-5xl w-full scroll-mt-32 relative z-10">
           <div className="text-center mb-16">
             <h2 className="font-heading font-bold text-3xl md:text-4xl text-[var(--text-hi)] mb-4">
-              Arquitectura Trustless
+              {t.how_title}
             </h2>
             <p className="text-[var(--text-mid)] max-w-2xl mx-auto">
-              Reemplazamos al organizador humano con un agente de IA y un contrato de escrow en Arbitrum.
+              {t.how_subtitle}
             </p>
           </div>
 
@@ -221,22 +254,22 @@ export default function LandingPage() {
               {
                 step: '01',
                 icon: <BrainCircuit className="w-8 h-8 text-[var(--cyan-400)]" />,
-                title: 'AI Trust Matching',
-                desc: 'La IA evalúa perfiles, analiza historiales financieros y agrupa participantes con scores de confianza compatibles para minimizar el riesgo de impago.',
+                title: t.how_step1_title,
+                desc: t.how_step1_desc,
               },
               {
                 step: '02',
                 icon: <Zap className="w-8 h-8 text-[var(--amber-500)]" />,
-                title: 'MXNB Contributions',
-                desc: 'Cada periodo aportas tu cuota en MXNB a través de Bitso. El capital se bloquea criptográficamente en nuestro contrato inteligente de Arbitrum.',
+                title: t.how_step2_title,
+                desc: t.how_step2_desc,
               },
               {
                 step: '03',
                 icon: <ShieldCheck className="w-8 h-8 text-[var(--emerald-400)]" />,
-                title: 'Automated Escrow',
-                desc: 'Cuando es tu turno, el contrato inteligente verifica las aportaciones y libera automáticamente el pozo completo a tu wallet. Sin intermediarios.',
+                title: t.how_step3_title,
+                desc: t.how_step3_desc,
               },
-            ].map((item, i) => (
+            ].map((item) => (
               <GlassCard key={item.step} className="p-8 relative group">
                 <div className="absolute top-6 right-6 font-display font-bold text-xl text-[var(--border-default)] group-hover:text-[var(--cyan-500)] transition-colors">
                   {item.step}
@@ -256,7 +289,7 @@ export default function LandingPage() {
         {/* ── Sponsor Stack ─────────────────────────────────── */}
         <section className="max-w-4xl w-full mt-32 border-t border-[var(--border-subtle)] pt-12">
           <p className="text-xs text-center uppercase tracking-widest mb-8 text-[var(--text-low)] font-semibold">
-            Powered by Web3 & AI Infrastructure
+            {t.sponsor_label}
           </p>
           <div className="flex flex-wrap justify-center gap-x-12 gap-y-8 items-center opacity-70">
             {['Bitso Business API', 'MXNB Stablecoin', 'Arbitrum Escrow', 'Rare Protocol', 'Supabase', 'OpenAI GPT-4'].map((sponsor) => (
@@ -272,17 +305,21 @@ export default function LandingPage() {
       <footer className="border-t border-[var(--border-subtle)] bg-[var(--bg-base)]/80 backdrop-blur-md py-8 px-6 mt-20">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[var(--cyan-500)] to-[var(--emerald-500)] flex items-center justify-center text-white text-xs font-bold font-display">
-              T
-            </div>
+            <Image
+              src="/icon.svg"
+              alt="Tandot logo"
+              width={24}
+              height={24}
+              className="w-6 h-6"
+            />
             <span className="text-sm font-medium text-[var(--text-mid)]">
-              Tandot · Ethereum Mexico 2026
+              {t.footer_brand}
             </span>
           </div>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-sm text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors">GitHub</a>
-            <a href="#" className="text-sm text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors">Contratos</a>
-            <a href="#" className="text-sm text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors">Documentación</a>
+            <a href="#" className="text-sm text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors">{t.footer_github}</a>
+            <a href="#" className="text-sm text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors">{t.footer_contracts}</a>
+            <a href="#" className="text-sm text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors">{t.footer_docs}</a>
           </div>
         </div>
       </footer>

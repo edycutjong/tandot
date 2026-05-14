@@ -1,19 +1,45 @@
-'use client';
-
-import { useState } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { MOCK_TANDAS, MOCK_MEMBERS, MOCK_CONTRIBUTIONS, MOCK_PAYOUTS } from '@/lib/mock-data';
+import { notFound } from 'next/navigation';
+import { createClient } from '@/lib/supabase/server';
 import { formatMXN, formatMXNB, trustLabel, FREQUENCY_LABELS, STATUS_LABELS, timeAgo } from '@/lib/constants';
 
-export default function TandaDetailPage() {
-  const params = useParams();
-  const tandaId = params.id as string;
+import { Database } from '@/lib/supabase/database.types';
 
-  const [tanda] = useState(() => MOCK_TANDAS.find((t) => t.id === tandaId) ?? MOCK_TANDAS[0]);
-  const [members] = useState(() => MOCK_MEMBERS.filter((m) => m.tanda_id === tanda.id));
-  const [contributions] = useState(() => MOCK_CONTRIBUTIONS.filter((c) => c.tanda_id === tanda.id));
-  const [payouts] = useState(() => MOCK_PAYOUTS.filter((p) => p.tanda_id === tanda.id));
+type Tanda = Database['public']['Tables']['tandas']['Row'];
+type TandaMember = Database['public']['Tables']['tanda_members']['Row'];
+type Contribution = Database['public']['Tables']['contributions']['Row'];
+type Payout = Database['public']['Tables']['payouts']['Row'];
+
+export default async function TandaDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const supabase = await createClient();
+
+  // Fetch tanda
+  const { data: tandaData } = await supabase.from('tandas').select('*').eq('id', id).single();
+  const tanda = tandaData as Tanda | null;
+
+  if (!tanda) {
+    notFound();
+  }
+
+  // Fetch related data in parallel
+  const [
+    { data: members },
+    { data: contributions },
+    { data: payouts }
+  ] = await Promise.all([
+    supabase.from('tanda_members').select('*').eq('tanda_id', id).order('payout_position', { ascending: true }),
+    supabase.from('contributions').select('*').eq('tanda_id', id).order('created_at', { ascending: false }),
+    supabase.from('payouts').select('*').eq('tanda_id', id).order('created_at', { ascending: false })
+  ]);
+
+  const safeMembers = (members as TandaMember[]) || [];
+  const safeContributions = (contributions as Contribution[]) || [];
+  const safePayouts = (payouts as Payout[]) || [];
 
   const trust = trustLabel(tanda.ai_trust_score);
   const progress = tanda.total_rounds > 0 ? (tanda.current_round / tanda.total_rounds) * 100 : 0;
@@ -34,7 +60,7 @@ export default function TandaDetailPage() {
           <div>
             <div className="flex items-center gap-3 mb-2">
               <h1 className="font-heading font-bold text-2xl">{tanda.name}</h1>
-              <span className={`badge badge-${tanda.status}`}>{STATUS_LABELS[tanda.status]}</span>
+              <span className={`badge badge-${tanda.status}`}>{STATUS_LABELS[tanda.status] || tanda.status}</span>
             </div>
             <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{tanda.description}</p>
           </div>
@@ -57,7 +83,7 @@ export default function TandaDetailPage() {
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         <MiniStat label="Cuota" value={formatMXN(tanda.contribution_amount)} />
         <MiniStat label="Pozo por ronda" value={formatMXN(poolAmount)} />
-        <MiniStat label="Frecuencia" value={FREQUENCY_LABELS[tanda.frequency]} />
+        <MiniStat label="Frecuencia" value={FREQUENCY_LABELS[tanda.frequency] || tanda.frequency} />
         <MiniStat label="Progreso" value={`${tanda.current_round} / ${tanda.total_rounds}`} />
         <MiniStat label="Trust Score" value={`${tanda.ai_trust_score} — ${trust.text}`} />
       </div>
@@ -100,10 +126,10 @@ export default function TandaDetailPage() {
         {/* Members */}
         <div>
           <h2 className="font-heading font-semibold text-lg mb-4">
-            Miembros ({members.length}/{tanda.max_members})
+            Miembros ({safeMembers.length}/{tanda.max_members})
           </h2>
           <div className="space-y-2">
-            {members.map((member) => {
+            {safeMembers.map((member) => {
               const memberTrust = trustLabel(member.trust_score);
               return (
                 <div key={member.id} className="glass-card p-4 flex items-center justify-between">
@@ -145,7 +171,7 @@ export default function TandaDetailPage() {
           <div>
             <h2 className="font-heading font-semibold text-lg mb-4">Contribuciones Ronda {tanda.current_round}</h2>
             <div className="space-y-2">
-              {contributions
+              {safeContributions
                 .filter((c) => c.round === tanda.current_round)
                 .map((contrib) => (
                   <div key={contrib.id} className="glass-card p-3 flex items-center justify-between">
@@ -178,7 +204,7 @@ export default function TandaDetailPage() {
           <div>
             <h2 className="font-heading font-semibold text-lg mb-4">Historial de Pagos</h2>
             <div className="space-y-2">
-              {payouts.map((payout) => (
+              {safePayouts.map((payout) => (
                 <div key={payout.id} className="glass-card p-3 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span className={`badge ${payout.status === 'completed' ? 'badge-confirmed' : 'badge-pending'}`}>
@@ -241,3 +267,4 @@ function MiniStat({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+

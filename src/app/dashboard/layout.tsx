@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { SITE } from '@/lib/constants';
 
 export default function DashboardLayout({
@@ -15,9 +16,13 @@ export default function DashboardLayout({
       >
         {/* Logo */}
         <div className="h-16 px-5 flex items-center gap-3 border-b border-[var(--border)]">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-emerald-500 flex items-center justify-center text-white font-bold text-sm font-heading">
-            T
-          </div>
+          <Image
+            src="/icon.svg"
+            alt="Tandot logo"
+            width={32}
+            height={32}
+            className="w-8 h-8"
+          />
           <span className="font-heading font-bold text-lg tracking-tight">{SITE.name}</span>
         </div>
 
