@@ -23,7 +23,7 @@ export default function LandingPage() {
 
   const setLocale = useCallback((l: Locale) => {
     setLocaleRaw(l);
-    try { localStorage.setItem('tandot-locale', l); } catch (_err) { /* quota */ }
+    try { localStorage.setItem('tandot-locale', l); } catch { /* quota */ }
   }, []);
 
   return (
@@ -56,7 +56,7 @@ function LandingContent() {
       <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] pointer-events-none -z-10 mix-blend-overlay" />
 
       {/* ── Navigation ──────────────────────────────────────── */}
-      <nav className="fixed top-0 inset-x-0 z-50 border-b border-[var(--border)]"
+      <nav className="fixed top-0 inset-x-0 z-50 border-b border-(--border)"
            style={{ background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -91,29 +91,29 @@ function LandingContent() {
           >
             {/* Badge */}
             <motion.div variants={itemVariants} className="badge badge-active mb-8 shadow-glow self-center md:self-start">
-              <span className="w-2 h-2 rounded-full bg-[var(--emerald-400)] pulse-live inline-block" />
-              <span className="font-mono text-[var(--text-hi)]">{t.hero_badge}</span>
+              <span className="w-2 h-2 rounded-full bg-(--emerald-400) pulse-live inline-block" />
+              <span className="font-mono text-(--text-hi)">{t.hero_badge}</span>
             </motion.div>
 
             {/* Headline */}
             <motion.h1 
               variants={itemVariants}
-              className="font-heading font-extrabold text-5xl md:text-7xl text-center md:text-left leading-[1.1] mb-6 tracking-tight text-[var(--text-hi)]"
+              className="font-heading font-extrabold text-5xl md:text-7xl text-center md:text-left leading-[1.1] mb-6 tracking-tight text-(--text-hi)"
             >
-              {t.hero_headline_prefix}<br/><span className="bg-gradient-to-r from-[var(--cyan-400)] to-[var(--emerald-400)] bg-clip-text text-transparent">{t.hero_headline_highlight}</span>
+              {t.hero_headline_prefix}<br/><span className="bg-gradient-to-r from-(--cyan-400) to-(--emerald-400) bg-clip-text text-transparent">{t.hero_headline_highlight}</span>
             </motion.h1>
 
             {/* Subtitle */}
             <motion.p 
               variants={itemVariants}
-              className="text-lg md:text-xl text-center md:text-left max-w-2xl mb-4 font-body font-medium text-[var(--text-mid)]"
+              className="text-lg md:text-xl text-center md:text-left max-w-2xl mb-4 font-body font-medium text-(--text-mid)"
             >
               {t.hero_subtitle}
             </motion.p>
 
             <motion.p 
               variants={itemVariants}
-              className="text-sm text-center md:text-left max-w-xl mb-12 text-[var(--text-low)]"
+              className="text-sm text-center md:text-left max-w-xl mb-12 text-(--text-low)"
             >
               {t.hero_description}
             </motion.p>
@@ -143,33 +143,33 @@ function LandingContent() {
             <motion.div 
               animate={{ y: [-10, 10, -10], rotateZ: [-1, 1, -1] }}
               transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 rounded-2xl border border-[var(--cyan-500)]/40 bg-[var(--bg-elevated)]/80 backdrop-blur-xl p-6 shadow-[0_0_60px_rgba(6,182,212,0.25)] z-20"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 rounded-2xl border border-(--cyan-500)/40 bg-(--bg-elevated)/80 backdrop-blur-xl p-6 shadow-[0_0_60px_rgba(6,182,212,0.25)] z-20"
             >
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--cyan-400)] to-[var(--emerald-400)] flex items-center justify-center shadow-glow">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-(--cyan-400) to-(--emerald-400) flex items-center justify-center shadow-glow">
                   <BrainCircuit className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <div className="font-display font-bold text-[var(--text-hi)]">{t.float_ai_engine}</div>
-                  <div className="text-xs text-[var(--emerald-400)] flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--emerald-400)] animate-pulse" />
+                  <div className="font-display font-bold text-(--text-hi)">{t.float_ai_engine}</div>
+                  <div className="text-xs text-(--emerald-400) flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-(--emerald-400) animate-pulse" />
                     {t.float_ai_analyzing}
                   </div>
                 </div>
               </div>
 
               <div className="space-y-3">
-                <div className="flex justify-between items-center text-sm border-b border-[var(--border-subtle)] pb-2">
-                  <span className="text-[var(--text-mid)]">{t.float_escrow_status}</span>
-                  <span className="text-[var(--text-hi)] font-mono">{t.float_escrow_value} <ShieldCheck className="w-4 h-4 inline text-[var(--emerald-400)] ml-1" /></span>
+                <div className="flex justify-between items-center text-sm border-b border-(--border-subtle) pb-2">
+                  <span className="text-(--text-mid)">{t.float_escrow_status}</span>
+                  <span className="text-(--text-hi) font-mono">{t.float_escrow_value} <ShieldCheck className="w-4 h-4 inline text-(--emerald-400) ml-1" /></span>
                 </div>
-                <div className="flex justify-between items-center text-sm border-b border-[var(--border-subtle)] pb-2">
-                  <span className="text-[var(--text-mid)]">{t.float_current_round}</span>
-                  <span className="text-[var(--text-hi)] font-mono">4 / 10</span>
+                <div className="flex justify-between items-center text-sm border-b border-(--border-subtle) pb-2">
+                  <span className="text-(--text-mid)">{t.float_current_round}</span>
+                  <span className="text-(--text-hi) font-mono">4 / 10</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-[var(--text-mid)]">{t.float_next_payout}</span>
-                  <span className="text-[var(--text-hi)] font-mono">{t.float_next_payout_value}</span>
+                  <span className="text-(--text-mid)">{t.float_next_payout}</span>
+                  <span className="text-(--text-hi) font-mono">{t.float_next_payout_value}</span>
                 </div>
               </div>
             </motion.div>
@@ -178,30 +178,30 @@ function LandingContent() {
             <motion.div 
               animate={{ y: [0, 15, 0], x: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut', delay: 1 }}
-              className="absolute top-[10%] left-[0%] w-48 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-base)]/80 backdrop-blur-lg p-4 shadow-xl z-10"
+              className="absolute top-[10%] left-[0%] w-48 rounded-xl border border-(--border-subtle) bg-(--bg-base)/80 backdrop-blur-lg p-4 shadow-xl z-10"
             >
-              <div className="text-xs text-[var(--text-low)] mb-1">{t.float_incoming}</div>
-              <div className="text-lg font-mono font-bold text-[var(--text-hi)]">+1,000 MXNB</div>
-              <div className="text-[10px] text-[var(--cyan-400)] mt-1 font-mono">From: 0x48...e9A2</div>
+              <div className="text-xs text-(--text-low) mb-1">{t.float_incoming}</div>
+              <div className="text-lg font-mono font-bold text-(--text-hi)">+1,000 MXNB</div>
+              <div className="text-[10px] text-(--cyan-400) mt-1 font-mono">From: 0x48...e9A2</div>
             </motion.div>
 
             {/* Floating Member Card 2 */}
             <motion.div 
               animate={{ y: [0, -15, 0], x: [0, -5, 0] }}
               transition={{ repeat: Infinity, duration: 7, ease: 'easeInOut', delay: 2 }}
-              className="absolute bottom-[10%] right-[0%] w-48 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-base)]/80 backdrop-blur-lg p-4 shadow-xl z-30"
+              className="absolute bottom-[10%] right-[0%] w-48 rounded-xl border border-(--border-subtle) bg-(--bg-base)/80 backdrop-blur-lg p-4 shadow-xl z-30"
             >
-              <div className="text-xs text-[var(--text-low)] mb-2">{t.float_trust_score}</div>
+              <div className="text-xs text-(--text-low) mb-2">{t.float_trust_score}</div>
               <div className="flex items-center gap-3">
                 <TrustRing score={96} size={36} strokeWidth={3} />
-                <div className="text-xl font-display font-bold text-[var(--text-hi)]">96/100</div>
+                <div className="text-xl font-display font-bold text-(--text-hi)">96/100</div>
               </div>
             </motion.div>
             
             {/* Background Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[var(--cyan-500)]/30 blur-[100px] rounded-full z-0 pointer-events-none" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 bg-[var(--emerald-500)]/25 blur-[80px] rounded-full z-0 pointer-events-none" />
-            <div className="absolute top-[80%] left-[20%] -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[var(--accent)]/20 blur-[80px] rounded-full z-0 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-(--cyan-500)/30 blur-[100px] rounded-full z-0 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 bg-(--emerald-500)/25 blur-[80px] rounded-full z-0 pointer-events-none" />
+            <div className="absolute top-[80%] left-[20%] -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-(--accent)/20 blur-[80px] rounded-full z-0 pointer-events-none" />
 
           </motion.div>
         </div>
@@ -220,7 +220,7 @@ function LandingContent() {
             { value: '82', label: t.stat_trust, suffix: '/100', isRing: true },
           ].map((stat) => (
             <GlassCard key={stat.label} className="p-6 text-center flex flex-col items-center justify-center relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-b from-[var(--border-subtle)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-b from-(--border-subtle) to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               {stat.isRing ? (
                 <div className="mb-2">
                   <TrustRing score={82} size={64} strokeWidth={5} />
@@ -228,10 +228,10 @@ function LandingContent() {
               ) : (
                 <div className="stat-value text-3xl md:text-4xl mb-2 font-display">
                   {stat.value}
-                  <span className="text-sm opacity-60 ml-1 text-[var(--text-mid)]">{stat.suffix}</span>
+                  <span className="text-sm opacity-60 ml-1 text-(--text-mid)">{stat.suffix}</span>
                 </div>
               )}
-              <div className="text-xs font-medium uppercase tracking-wider text-[var(--text-low)] mt-auto">
+              <div className="text-xs font-medium uppercase tracking-wider text-(--text-low) mt-auto">
                 {stat.label}
               </div>
             </GlassCard>
@@ -241,10 +241,10 @@ function LandingContent() {
         {/* ── How It Works ──────────────────────────────────── */}
         <section id="how-it-works" className="max-w-5xl w-full scroll-mt-32 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="font-heading font-bold text-3xl md:text-4xl text-[var(--text-hi)] mb-4">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl text-(--text-hi) mb-4">
               {t.how_title}
             </h2>
-            <p className="text-[var(--text-mid)] max-w-2xl mx-auto">
+            <p className="text-(--text-mid) max-w-2xl mx-auto">
               {t.how_subtitle}
             </p>
           </div>
@@ -253,32 +253,32 @@ function LandingContent() {
             {[
               {
                 step: '01',
-                icon: <BrainCircuit className="w-8 h-8 text-[var(--cyan-400)]" />,
+                icon: <BrainCircuit className="w-8 h-8 text-(--cyan-400)" />,
                 title: t.how_step1_title,
                 desc: t.how_step1_desc,
               },
               {
                 step: '02',
-                icon: <Zap className="w-8 h-8 text-[var(--amber-500)]" />,
+                icon: <Zap className="w-8 h-8 text-(--amber-500)" />,
                 title: t.how_step2_title,
                 desc: t.how_step2_desc,
               },
               {
                 step: '03',
-                icon: <ShieldCheck className="w-8 h-8 text-[var(--emerald-400)]" />,
+                icon: <ShieldCheck className="w-8 h-8 text-(--emerald-400)" />,
                 title: t.how_step3_title,
                 desc: t.how_step3_desc,
               },
             ].map((item) => (
               <GlassCard key={item.step} className="p-8 relative group">
-                <div className="absolute top-6 right-6 font-display font-bold text-xl text-[var(--border-default)] group-hover:text-[var(--cyan-500)] transition-colors">
+                <div className="absolute top-6 right-6 font-display font-bold text-xl text-(--border-default) group-hover:text-(--cyan-500) transition-colors">
                   {item.step}
                 </div>
-                <div className="mb-6 p-4 rounded-2xl bg-[var(--bg-elevated)] inline-block border border-[var(--border-subtle)] group-hover:border-[var(--cyan-500)]/30 transition-colors">
+                <div className="mb-6 p-4 rounded-2xl bg-(--bg-elevated) inline-block border border-(--border-subtle) group-hover:border-(--cyan-500)/30 transition-colors">
                   {item.icon}
                 </div>
-                <h3 className="font-heading font-semibold text-xl text-[var(--text-hi)] mb-3">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-[var(--text-mid)]">
+                <h3 className="font-heading font-semibold text-xl text-(--text-hi) mb-3">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-(--text-mid)">
                   {item.desc}
                 </p>
               </GlassCard>
@@ -287,22 +287,75 @@ function LandingContent() {
         </section>
 
         {/* ── Sponsor Stack ─────────────────────────────────── */}
-        <section className="max-w-4xl w-full mt-32 border-t border-[var(--border-subtle)] pt-12">
-          <p className="text-xs text-center uppercase tracking-widest mb-8 text-[var(--text-low)] font-semibold">
+        <section className="max-w-4xl w-full mt-32 border-t border-(--border-subtle) pt-12">
+          <p className="text-xs text-center uppercase tracking-widest mb-8 text-(--text-low) font-semibold">
             {t.sponsor_label}
           </p>
-          <div className="flex flex-wrap justify-center gap-x-12 gap-y-8 items-center opacity-70">
-            {['Bitso Business API', 'MXNB Stablecoin', 'Arbitrum Escrow', 'Supabase', 'OpenAI GPT-4'].map((sponsor) => (
-              <div key={sponsor} className="font-display text-sm font-medium tracking-wide text-[var(--text-mid)] hover:text-[var(--text-hi)] transition-colors cursor-default">
-                {sponsor}
-              </div>
+          <div className="flex flex-wrap justify-center gap-x-16 gap-y-8 items-center">
+            {[
+              {
+                name: 'Bitso',
+                href: 'https://bitso.com',
+                logo: (
+                  <svg viewBox="0 0 100 26" className="h-7 fill-current">
+                    <text x="0" y="20" fontFamily="system-ui, sans-serif" fontWeight="700" fontSize="22" letterSpacing="-0.5">bitso</text>
+                  </svg>
+                ),
+              },
+              {
+                name: 'Arbitrum',
+                href: 'https://arbitrum.io',
+                logo: (
+                  <svg viewBox="0 0 130 26" className="h-7 fill-current">
+                    <text x="0" y="20" fontFamily="system-ui, sans-serif" fontWeight="700" fontSize="20" letterSpacing="-0.5">◆ Arbitrum</text>
+                  </svg>
+                ),
+              },
+              {
+                name: 'Ethereum Mexico',
+                href: 'https://dorahacks.io/hackathon/ethmexico2026bitso/detail',
+                logo: (
+                  <svg viewBox="0 0 170 26" className="h-7 fill-current">
+                    <text x="0" y="20" fontFamily="system-ui, sans-serif" fontWeight="700" fontSize="18" letterSpacing="-0.3">⟠ Ethereum Mexico</text>
+                  </svg>
+                ),
+              },
+              {
+                name: 'Supabase',
+                href: 'https://supabase.com',
+                logo: (
+                  <svg viewBox="0 0 120 26" className="h-6 fill-current">
+                    <text x="0" y="20" fontFamily="system-ui, sans-serif" fontWeight="600" fontSize="18">⚡ Supabase</text>
+                  </svg>
+                ),
+              },
+              {
+                name: 'OpenAI',
+                href: 'https://openai.com',
+                logo: (
+                  <svg viewBox="0 0 100 26" className="h-6 fill-current">
+                    <text x="0" y="20" fontFamily="system-ui, sans-serif" fontWeight="600" fontSize="18">◎ OpenAI</text>
+                  </svg>
+                ),
+              },
+            ].map((sponsor) => (
+              <a
+                key={sponsor.name}
+                href={sponsor.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-(--text-low) hover:text-(--text-hi) transition-all duration-300 hover:scale-105"
+                title={sponsor.name}
+              >
+                {sponsor.logo}
+              </a>
             ))}
           </div>
         </section>
       </main>
 
       {/* ── Footer ──────────────────────────────────────────── */}
-      <footer className="border-t border-[var(--border-subtle)] bg-[var(--bg-base)]/80 backdrop-blur-md py-8 px-6 mt-20">
+      <footer className="border-t border-(--border-subtle) bg-(--bg-base)/80 backdrop-blur-md py-8 px-6 mt-20">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Image
@@ -312,14 +365,14 @@ function LandingContent() {
               height={24}
               className="w-6 h-6"
             />
-            <span className="text-sm font-medium text-[var(--text-mid)]">
+            <span className="text-sm font-medium text-(--text-mid)">
               {t.footer_brand}
             </span>
           </div>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-sm text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors">{t.footer_github}</a>
-            <a href="#" className="text-sm text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors">{t.footer_contracts}</a>
-            <a href="#" className="text-sm text-[var(--text-low)] hover:text-[var(--text-hi)] transition-colors">{t.footer_docs}</a>
+            <a href="https://github.com/edycutjong/Tandot" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_github}</a>
+            <a href="https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_contracts}</a>
+            <a href="https://github.com/edycutjong/Tandot#readme" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_docs}</a>
           </div>
         </div>
       </footer>

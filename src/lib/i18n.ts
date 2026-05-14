@@ -56,6 +56,17 @@ export interface Dictionary {
 
   // Language toggle
   lang_toggle: string;
+
+  // Dashboard sidebar
+  dash_summary: string;
+  dash_my_tandas: string;
+  dash_new_tanda: string;
+  dash_history: string;
+  dash_tools: string;
+  dash_ai_trust: string;
+  dash_explorer: string;
+  dash_network_status: string;
+  dash_connected: string;
 }
 
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -115,6 +126,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
 
     // Language toggle
     lang_toggle: 'EN',
+
+    // Dashboard sidebar
+    dash_summary: 'Resumen',
+    dash_my_tandas: 'Mis Tandas',
+    dash_new_tanda: 'Nueva Tanda',
+    dash_history: 'Historial',
+    dash_tools: 'Herramientas',
+    dash_ai_trust: 'IA Trust Score',
+    dash_explorer: 'Explorador',
+    dash_network_status: 'Arbitrum Sepolia',
+    dash_connected: 'MXNB · Conectado',
   },
 
   en: {
@@ -173,5 +195,16 @@ export const dictionaries: Record<Locale, Dictionary> = {
 
     // Language toggle
     lang_toggle: 'ES',
+
+    // Dashboard sidebar
+    dash_summary: 'Summary',
+    dash_my_tandas: 'My Tandas',
+    dash_new_tanda: 'New Tanda',
+    dash_history: 'History',
+    dash_tools: 'Tools',
+    dash_ai_trust: 'AI Trust Score',
+    dash_explorer: 'Explorer',
+    dash_network_status: 'Arbitrum Sepolia',
+    dash_connected: 'MXNB · Connected',
   },
 };

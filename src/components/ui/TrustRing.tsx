@@ -13,9 +13,9 @@ export function TrustRing({ score, size = 56, strokeWidth = 4 }: TrustRingProps)
   const circumference = radius * 2 * Math.PI;
   const strokeDashoffset = circumference - (score / 100) * circumference;
 
-  let colorClass = 'stroke-[var(--emerald-400)]';
-  if (score < 50) colorClass = 'stroke-[var(--red-500)]';
-  else if (score < 80) colorClass = 'stroke-[var(--amber-500)]';
+  let colorClass = 'stroke-(--emerald-400)';
+  if (score < 50) colorClass = 'stroke-(--red-500)';
+  else if (score < 80) colorClass = 'stroke-(--amber-500)';
 
   return (
     <div className="trust-ring" style={{ width: size, height: size }}>
@@ -24,7 +24,7 @@ export function TrustRing({ score, size = 56, strokeWidth = 4 }: TrustRingProps)
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          className="stroke-[var(--border)] fill-none"
+          className="stroke-(--border) fill-none"
           strokeWidth={strokeWidth}
         />
         <motion.circle

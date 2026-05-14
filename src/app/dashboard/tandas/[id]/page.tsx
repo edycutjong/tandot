@@ -186,7 +186,7 @@ export default async function TandaDetailPage({
                     </div>
                     {contrib.arbitrum_tx_hash && (
                       <a
-                        href={`https://arbiscan.io/tx/${contrib.arbitrum_tx_hash}`}
+                        href={`https://sepolia.arbiscan.io/tx/${contrib.arbitrum_tx_hash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-mono text-xs"
@@ -219,7 +219,7 @@ export default async function TandaDetailPage({
                   </div>
                   {payout.arbitrum_tx_hash && (
                     <a
-                      href={`https://arbiscan.io/tx/${payout.arbitrum_tx_hash}`}
+                      href={`https://sepolia.arbiscan.io/tx/${payout.arbitrum_tx_hash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-mono text-xs"
@@ -243,7 +243,7 @@ export default async function TandaDetailPage({
                 </span>
               </div>
               <a
-                href={`https://arbiscan.io/address/${tanda.escrow_address}`}
+                href={`https://sepolia.arbiscan.io/address/${tanda.escrow_address}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs mt-2 inline-block"

@@ -67,29 +67,33 @@ export default async function DashboardPage() {
           label="Tandas Activas"
           value={stats.active_tandas.toString()}
           suffix={`/ ${stats.total_tandas}`}
-          icon="🎰"
+          icon="◎"
           trend="+3 este mes"
+          color="var(--cyan-400)"
         />
         <StatCard
           label="Volumen Protegido"
           value={formatMXN(stats.total_volume_mxn)}
           suffix=""
-          icon="🛡️"
+          icon="◆"
           trend="+$125K esta semana"
+          color="var(--emerald-400, #34d399)"
         />
         <StatCard
           label="Pagos Exitosos"
           value={stats.successful_payouts.toString()}
           suffix=""
-          icon="✅"
+          icon="✓"
           trend="100% on-time"
+          color="var(--emerald-400, #34d399)"
         />
         <StatCard
           label="Fraudes Prevenidos"
           value={stats.fraud_prevented.toString()}
           suffix=""
-          icon="🚫"
+          icon="⊘"
           trend="$45K protegidos"
+          color="var(--red-500, #ef4444)"
         />
       </div>
 
@@ -164,7 +168,7 @@ export default async function DashboardPage() {
                           contrib.status === 'confirmed' ? 'badge-confirmed' : 'badge-pending'
                         }`}
                       >
-                        {contrib.status === 'confirmed' ? '✓' : '⏳'}
+                        {contrib.status === 'confirmed' ? '✓' : '○'}
                       </span>
                       <div>
                         <p className="text-sm font-medium">
@@ -241,17 +245,19 @@ function StatCard({
   suffix,
   icon,
   trend,
+  color,
 }: {
   label: string;
   value: string;
   suffix: string;
   icon: string;
   trend: string;
+  color: string;
 }) {
   return (
     <div className="glass-card p-5">
       <div className="flex items-start justify-between mb-3">
-        <span className="text-2xl">{icon}</span>
+        <span className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold" style={{ background: `color-mix(in srgb, ${color} 15%, transparent)`, color }}>{icon}</span>
         <span className="text-xs font-medium" style={{ color: 'var(--emerald-400, #34d399)' }}>
           {trend}
         </span>

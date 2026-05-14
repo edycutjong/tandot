@@ -30,7 +30,7 @@ export default async function TandasPage({
           </p>
         </div>
         <Link href="/dashboard/create" className="btn-primary">
-          ➕ Nueva Tanda
+          + Nueva Tanda
         </Link>
       </div>
 

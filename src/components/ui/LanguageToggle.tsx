@@ -15,7 +15,7 @@ export function LanguageToggle() {
     <button
       id="language-toggle"
       onClick={() => setLocale(locale === 'es' ? 'en' : 'es')}
-      className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)]/60 backdrop-blur-sm text-sm font-mono font-medium text-[var(--text-mid)] hover:text-[var(--text-hi)] hover:border-[var(--cyan-500)]/40 transition-all duration-200 cursor-pointer"
+      className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-(--border-subtle) bg-(--bg-elevated)/60 backdrop-blur-sm text-sm font-mono font-medium text-(--text-mid) hover:text-(--text-hi) hover:border-(--cyan-500)/40 transition-all duration-200 cursor-pointer"
       aria-label={`Switch to ${locale === 'es' ? 'English' : 'Spanish'}`}
     >
       <Globe className="w-3.5 h-3.5" />
