@@ -30,7 +30,7 @@
 ## 📸 See it in Action
 
 <div align="center">
-  <img src="docs/readme.png" alt="Tandot App Demo" width="100%">
+  <img src="public/og-image.png" alt="Tandot App Demo" width="100%">
 </div>
 
 > **Three steps, zero trust required.** Únete → Contribuye en MXNB → Cobra tu turno.
