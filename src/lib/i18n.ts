@@ -58,6 +58,7 @@ export interface Dictionary {
   lang_toggle: string;
 
   // Dashboard sidebar
+  dash_tagline: string;
   dash_summary: string;
   dash_my_tandas: string;
   dash_new_tanda: string;
@@ -67,6 +68,42 @@ export interface Dictionary {
   dash_explorer: string;
   dash_network_status: string;
   dash_connected: string;
+
+  // Dashboard Page
+  dash_summary_desc: string;
+  dash_active_tandas: string;
+  dash_fraud_prevented: string;
+  dash_view_all: string;
+  dash_no_active_tandas: string;
+  dash_scheduled: string;
+  dash_no_scheduled_payouts: string;
+  dash_round: string;
+  dash_recipient: string;
+  dash_recent_contributions: string;
+  dash_no_recent_contributions: string;
+  dash_completed_payouts: string;
+  dash_no_completed_payouts: string;
+  dash_verify: string;
+  dash_this_month: string;
+  dash_this_week: string;
+  dash_on_time: string;
+  dash_protected: string;
+  dash_members: string;
+
+  // My Tandas Page
+  dash_my_tandas_desc: string;
+  dash_new_tanda_btn: string;
+  dash_all: string;
+  dash_no_tandas_filter: string;
+
+  // Status & Freq
+  status_active: string;
+  status_forming: string;
+  status_completed: string;
+  status_disputed: string;
+  freq_weekly: string;
+  freq_biweekly: string;
+  freq_monthly: string;
 }
 
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -128,6 +165,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     lang_toggle: 'EN',
 
     // Dashboard sidebar
+    dash_tagline: 'Tandas sin confianza ciega',
     dash_summary: 'Resumen',
     dash_my_tandas: 'Mis Tandas',
     dash_new_tanda: 'Nueva Tanda',
@@ -137,6 +175,42 @@ export const dictionaries: Record<Locale, Dictionary> = {
     dash_explorer: 'Explorador',
     dash_network_status: 'Arbitrum Sepolia',
     dash_connected: 'MXNB · Conectado',
+
+    // Dashboard Page
+    dash_summary_desc: 'Vista general de tus tandas y actividad reciente',
+    dash_active_tandas: 'Tandas Activas',
+    dash_fraud_prevented: 'Fraudes Prevenidos',
+    dash_view_all: 'Ver todas →',
+    dash_no_active_tandas: 'No hay tandas activas.',
+    dash_scheduled: 'Programado',
+    dash_no_scheduled_payouts: 'No hay pagos programados.',
+    dash_round: 'Ronda',
+    dash_recipient: 'Destinatario:',
+    dash_recent_contributions: 'Contribuciones Recientes',
+    dash_no_recent_contributions: 'No hay contribuciones recientes.',
+    dash_completed_payouts: 'Pagos Completados',
+    dash_no_completed_payouts: 'No hay pagos completados.',
+    dash_verify: 'Verificar ↗',
+    dash_this_month: 'este mes',
+    dash_this_week: 'esta semana',
+    dash_on_time: 'on-time',
+    dash_protected: 'protegidos',
+    dash_members: 'miembros',
+
+    // My Tandas Page
+    dash_my_tandas_desc: 'Administra tus tandas activas y explora nuevas',
+    dash_new_tanda_btn: '+ Nueva Tanda',
+    dash_all: 'Todas',
+    dash_no_tandas_filter: 'No se encontraron tandas con este filtro.',
+
+    // Status & Freq
+    status_active: 'Activa',
+    status_forming: 'Formándose',
+    status_completed: 'Completada',
+    status_disputed: 'En disputa',
+    freq_weekly: 'Semanal',
+    freq_biweekly: 'Quincenal',
+    freq_monthly: 'Mensual',
   },
 
   en: {
@@ -197,6 +271,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     lang_toggle: 'ES',
 
     // Dashboard sidebar
+    dash_tagline: 'Trustless Rotating Savings',
     dash_summary: 'Summary',
     dash_my_tandas: 'My Tandas',
     dash_new_tanda: 'New Tanda',
@@ -206,5 +281,41 @@ export const dictionaries: Record<Locale, Dictionary> = {
     dash_explorer: 'Explorer',
     dash_network_status: 'Arbitrum Sepolia',
     dash_connected: 'MXNB · Connected',
+
+    // Dashboard Page
+    dash_summary_desc: 'Overview of your tandas and recent activity',
+    dash_active_tandas: 'Active Tandas',
+    dash_fraud_prevented: 'Fraud Prevented',
+    dash_view_all: 'View all →',
+    dash_no_active_tandas: 'No active tandas.',
+    dash_scheduled: 'Scheduled',
+    dash_no_scheduled_payouts: 'No scheduled payouts.',
+    dash_round: 'Round',
+    dash_recipient: 'Recipient:',
+    dash_recent_contributions: 'Recent Contributions',
+    dash_no_recent_contributions: 'No recent contributions.',
+    dash_completed_payouts: 'Completed Payouts',
+    dash_no_completed_payouts: 'No completed payouts.',
+    dash_verify: 'Verify ↗',
+    dash_this_month: 'this month',
+    dash_this_week: 'this week',
+    dash_on_time: 'on-time',
+    dash_protected: 'protected',
+    dash_members: 'members',
+
+    // My Tandas Page
+    dash_my_tandas_desc: 'Manage your active tandas and explore new ones',
+    dash_new_tanda_btn: '+ New Tanda',
+    dash_all: 'All',
+    dash_no_tandas_filter: 'No tandas found with this filter.',
+
+    // Status & Freq
+    status_active: 'Active',
+    status_forming: 'Forming',
+    status_completed: 'Completed',
+    status_disputed: 'Disputed',
+    freq_weekly: 'Weekly',
+    freq_biweekly: 'Biweekly',
+    freq_monthly: 'Monthly',
   },
 };

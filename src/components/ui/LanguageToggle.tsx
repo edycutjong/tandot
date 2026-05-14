@@ -9,28 +9,43 @@ import { Globe } from 'lucide-react';
  * Displays a globe icon with the target language label.
  */
 export function LanguageToggle() {
-  const { locale, setLocale, t } = useLocale();
+  const { locale, setLocale } = useLocale();
 
   return (
-    <button
-      id="language-toggle"
-      onClick={() => setLocale(locale === 'es' ? 'en' : 'es')}
-      className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-(--border-subtle) bg-(--bg-elevated)/60 backdrop-blur-sm text-sm font-mono font-medium text-(--text-mid) hover:text-(--text-hi) hover:border-(--cyan-500)/40 transition-all duration-200 cursor-pointer"
-      aria-label={`Switch to ${locale === 'es' ? 'English' : 'Spanish'}`}
-    >
-      <Globe className="w-3.5 h-3.5" />
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={locale}
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 8 }}
-          transition={{ duration: 0.15 }}
-          className="inline-block w-5 text-center"
-        >
-          {t.lang_toggle}
-        </motion.span>
-      </AnimatePresence>
-    </button>
+    <div className="flex items-center gap-2 bg-(--bg-elevated)/40 backdrop-blur-sm p-1 rounded-full border border-(--border-subtle)">
+      <Globe className="w-4 h-4 text-(--text-muted) ml-2" />
+      <button
+        id="language-toggle"
+        onClick={() => setLocale(locale === 'es' ? 'en' : 'es')}
+        className="relative flex items-center p-0.5 rounded-full cursor-pointer transition-all"
+        aria-label={`Switch to ${locale === 'es' ? 'English' : 'Spanish'}`}
+      >
+        <div className="relative flex items-center">
+          {/* Sliding background for active state */}
+          <motion.div
+            layout
+            className="absolute inset-y-0 w-8 bg-(--cyan-500)/20 border border-(--cyan-500)/40 rounded-full"
+            initial={false}
+            animate={{ x: locale === 'es' ? 0 : 32 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+          />
+          
+          <span
+            className={`relative z-10 w-8 text-center text-xs font-mono font-bold py-1 transition-colors ${
+              locale === 'es' ? 'text-(--cyan-400)' : 'text-(--text-muted)'
+            }`}
+          >
+            ES
+          </span>
+          <span
+            className={`relative z-10 w-8 text-center text-xs font-mono font-bold py-1 transition-colors ${
+              locale === 'en' ? 'text-(--cyan-400)' : 'text-(--text-muted)'
+            }`}
+          >
+            EN
+          </span>
+        </div>
+      </button>
+    </div>
   );
 }

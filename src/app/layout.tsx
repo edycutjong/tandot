@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tandot.vercel.app'),
+  metadataBase: new URL('https://tandot.edycu.dev'),
   title: 'Tandot — Tandas sin confianza ciega',
   description:
     'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on Arbitrum. Elimina el riesgo de las tandas tradicionales.',
@@ -19,13 +19,14 @@ export const metadata: Metadata = {
     'blockchain',
   ],
   icons: {
-    icon: '/icon.png',
+    icon: '/icon.svg',
+    apple: '/icon.svg',
   },
   openGraph: {
     title: 'Tandot — Tandas sin confianza ciega',
     description:
       'Tandas inteligentes protegidas por IA y contratos inteligentes en Arbitrum.',
-    url: 'https://tandot.vercel.app',
+    url: 'https://tandot.edycu.dev',
     siteName: 'Tandot',
     images: [
       {
