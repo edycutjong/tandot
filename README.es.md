@@ -7,7 +7,7 @@
 
   [![Demo en Vivo](https://img.shields.io/badge/🚀_Demo-En_Vivo-06b6d4?style=for-the-badge)](https://tandot.edycu.dev)
   [![Presentación](https://img.shields.io/badge/📊_Presentación-f59e0b?style=for-the-badge)](https://tandot.edycu.dev/pitch)
-  [![Video de Pitch](https://img.shields.io/badge/🎬_Video-Pitch-ef4444?style=for-the-badge)](https://youtu.be/tu-video)
+  [![Video de Pitch](https://img.shields.io/badge/🎬_Video-Pitch-ef4444?style=for-the-badge)](https://youtu.be/gQ0IduJwbo0)
   [![Arbiscan](https://img.shields.io/badge/📜_Arbiscan-Contratos-28A0F0?style=for-the-badge)](https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c)
   [![Construido para ETH México](https://img.shields.io/badge/DoraHacks-ETH_México_2026-8b5cf6?style=for-the-badge)](https://dorahacks.io/hackathon/ethmexico2026bitso/detail)
 
