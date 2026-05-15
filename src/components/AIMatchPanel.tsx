@@ -102,7 +102,7 @@ export function AIMatchPanel({ memberId, score }: AIMatchPanelProps) {
   );
 }
 
-function FactorBar({ icon: Icon, label, value, inverse = false }: { icon: React.ElementType, label: string, value: number, inverse?: boolean }) {
+export function FactorBar({ icon: Icon, label, value, inverse = false }: { icon: React.ElementType, label: string, value: number, inverse?: boolean }) {
   const colorClass = inverse 
     ? (value > 40 ? 'bg-red-500' : 'bg-emerald-500')
     : (value > 80 ? 'bg-emerald-500' : value > 60 ? 'bg-cyan-500' : 'bg-amber-500');

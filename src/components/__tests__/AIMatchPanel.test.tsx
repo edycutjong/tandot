@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, act } from '@testing-library/react';
-import { AIMatchPanel } from '../AIMatchPanel';
+import { AIMatchPanel, FactorBar } from '../AIMatchPanel';
+import { TrendingUp } from 'lucide-react';
 
 describe('AIMatchPanel', () => {
   beforeEach(() => {
@@ -8,7 +9,9 @@ describe('AIMatchPanel', () => {
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
     jest.useRealTimers();
   });
 
@@ -51,5 +54,28 @@ describe('AIMatchPanel', () => {
     });
     
     expect(screen.getByText('Analizando billetera: 0x...')).toBeInTheDocument();
+  });
+
+  describe('FactorBar', () => {
+    it('renders correctly with different values and inverse flag', () => {
+      const { rerender } = render(<FactorBar icon={TrendingUp} label="Test" value={90} />);
+      expect(screen.getByText('90%')).toBeInTheDocument();
+      
+      // Test value > 60 <= 80 (cyan-500)
+      rerender(<FactorBar icon={TrendingUp} label="Test" value={70} />);
+      expect(screen.getByText('70%')).toBeInTheDocument();
+
+      // Test value <= 60 (amber-500)
+      rerender(<FactorBar icon={TrendingUp} label="Test" value={50} />);
+      expect(screen.getByText('50%')).toBeInTheDocument();
+
+      // Test inverse value > 40 (red-500)
+      rerender(<FactorBar icon={TrendingUp} label="Test" value={50} inverse />);
+      expect(screen.getByText('50%')).toBeInTheDocument();
+
+      // Test inverse value <= 40 (emerald-500)
+      rerender(<FactorBar icon={TrendingUp} label="Test" value={30} inverse />);
+      expect(screen.getByText('30%')).toBeInTheDocument();
+    });
   });
 });
