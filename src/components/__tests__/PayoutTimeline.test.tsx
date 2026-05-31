@@ -45,7 +45,7 @@ describe('PayoutTimeline', () => {
     expect(screen.getByText('payout_pending')).toBeInTheDocument();
     
     // Check if TX link is rendered for completed payout
-    expect(screen.getByRole('link', { name: 'TX' })).toHaveAttribute('href', 'https://sepolia.arbiscan.io/tx/0xabc');
+    expect(screen.getByRole('link', { name: 'TX' })).toHaveAttribute('href', 'https://scan.bohr.life/tx/0xabc');
   });
 
   it('renders empty state when no payouts', () => {

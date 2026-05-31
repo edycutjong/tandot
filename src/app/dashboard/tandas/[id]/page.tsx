@@ -245,7 +245,7 @@ export default async function TandaDetailPage({
 
               <div className="mt-6 pt-4 border-t border-white/5">
                 <a
-                  href={`https://sepolia.arbiscan.io/address/${tanda.escrow_address || '0x742d35Cc6634C0532925a3b844Bc454e4438f44e'}`}
+                  href={`https://scan.bohr.life/address/${tanda.escrow_address || '0x742d35Cc6634C0532925a3b844Bc454e4438f44e'}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary w-full py-2 text-xs flex items-center justify-center gap-2"
@@ -303,7 +303,7 @@ export default async function TandaDetailPage({
                         <td className="py-3" style={{ color: 'var(--text-muted)' }}>{timeAgo(contrib.created_at)}</td>
                         <td className="py-3">
                           <a 
-                            href={`https://sepolia.arbiscan.io/tx/${contrib.arbitrum_tx_hash}`}
+                            href={`https://scan.bohr.life/tx/${contrib.arbitrum_tx_hash}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-mono text-cyan-500 hover:underline"

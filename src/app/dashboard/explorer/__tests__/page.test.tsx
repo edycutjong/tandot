@@ -53,7 +53,7 @@ describe('ExplorerPage', () => {
     // Check that Arbiscan links are present
     const arbiscanLinks = screen.getAllByRole('link', { name: /Arbiscan/i });
     expect(arbiscanLinks).toHaveLength(2);
-    expect(arbiscanLinks[0].closest('a')).toHaveAttribute('href', expect.stringContaining('https://sepolia.arbiscan.io/address/'));
+    expect(arbiscanLinks[0].closest('a')).toHaveAttribute('href', expect.stringContaining('https://scan.bohr.life/address/'));
   });
 
   it('updates search query on input change', () => {

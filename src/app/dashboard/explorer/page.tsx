@@ -73,7 +73,7 @@ export default function ExplorerPage() {
               </div>
             </div>
             <a
-              href={`https://sepolia.arbiscan.io/address/${contract.address}`}
+              href={`https://scan.bohr.life/address/${contract.address}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary text-xs flex items-center gap-1.5"

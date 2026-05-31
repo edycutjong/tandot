@@ -81,7 +81,7 @@ export function PayoutTimeline({ payouts, currentRound }: PayoutTimelineProps) {
                   </div>
                   {payout.arbitrum_tx_hash && (
                     <a 
-                      href={`https://sepolia.arbiscan.io/tx/${payout.arbitrum_tx_hash}`}
+                      href={`https://scan.bohr.life/tx/${payout.arbitrum_tx_hash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[10px] hover:text-cyan-400 transition-colors underline decoration-cyan-500/30"

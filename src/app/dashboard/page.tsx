@@ -185,7 +185,7 @@ export default async function DashboardPage() {
                     </div>
                     {contrib.arbitrum_tx_hash && (
                       <a
-                        href={`https://arbiscan.io/tx/${contrib.arbitrum_tx_hash}`}
+                        href={`https://scan.bohr.life/tx/${contrib.arbitrum_tx_hash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-mono text-xs"
@@ -222,7 +222,7 @@ export default async function DashboardPage() {
                       </div>
                       {payout.arbitrum_tx_hash && (
                         <a
-                          href={`https://arbiscan.io/tx/${payout.arbitrum_tx_hash}`}
+                          href={`https://scan.bohr.life/tx/${payout.arbitrum_tx_hash}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-mono text-xs"

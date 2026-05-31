@@ -377,7 +377,7 @@ function LandingContent() {
           </div>
           <div className="flex items-center gap-6">
             <a href="https://github.com/edycutjong/Tandot" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_github}</a>
-            <a href="https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_contracts}</a>
+            <a href="https://scan.bohr.life/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_contracts}</a>
             <a href="https://github.com/edycutjong/Tandot#readme" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_docs}</a>
           </div>
         </div>
