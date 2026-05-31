@@ -147,14 +147,40 @@ Luego actualiza `NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS` y `NEXT_PUBLIC_MXNB_TOKEN_
 
 ## 🧪 Pruebas y CI
 
+**Pipeline de 6 etapas:** Calidad (lint/typecheck/jest en frontend + tests de hardhat en contratos) → Seguridad (TruffleHog + npm audit) → Verificación de Compilación y presupuesto de bundles → Playwright E2E → Rendimiento (Lighthouse CI) → Puerta de Despliegue (Deploy Gate)
+
 ```bash
-npm run lint          # ESLint (next lint)
+# ── Calidad de Código y Pruebas Unitarias ──
+npm run lint          # ESLint
 npm run lint:fix      # Auto-corregir problemas de lint
 npm run typecheck     # Verificación estricta de TypeScript
 npm run test          # Ejecutar pruebas Jest
-npm run test:coverage # Reporte de cobertura
-npm run ci            # Pipeline completo de CI (lint + typecheck + test)
+npm run test:coverage # Reporte de cobertura de Jest
+npm run ci            # Pipeline de calidad completo (lint + typecheck + test:coverage)
+
+# ── Calidad de Contratos Inteligentes ───────
+cd contracts
+npx hardhat compile   # Compilación de Hardhat
+npx hardhat test      # Pruebas unitarias de contratos en Hardhat
+
+# ── Pruebas E2E y Rendimiento Avanzadas ─────
+npm run e2e           # Pruebas E2E de Playwright (modo demo)
+npm run e2e:ui        # Interfaz interactiva de Playwright E2E
+npm run lighthouse    # Auditoría de cumplimiento de Lighthouse CI
 ```
+
+### Resumen del Harness de Ingeniería
+
+| Capa | Herramienta | Estado | Detalles |
+|---|---|---|---|
+| **Calidad de Código** | ESLint + TypeScript | ✅ | Modo estricto, cero errores o advertencias |
+| **Pruebas Unitarias** | Jest | ✅ | 29 suites, 100 pruebas, 100% de cobertura en líneas/ramas/funciones/declaraciones |
+| **Pruebas de Contrato** | Hardhat + Chai | ✅ | 28 pruebas de contratos inteligentes exitosas (depósitos, contabilidad aislada, pagos automáticos) |
+| **Pruebas E2E** | Playwright | ✅ | 3 suites: pruebas de humo, responsividad móvil/tablet/desktop, flujo de creación de Tanda |
+| **Seguridad (SAST)** | CodeQL | ✅ | Análisis de código estático automatizado en GitHub Actions |
+| **Seguridad (SCA)** | Dependabot + Audit | ✅ | Escaneo de dependencias semanal y actualizaciones automatizadas |
+| **Escaneo de Secretos** | TruffleHog | ✅ | Escaneo de secretos en el historial de commits en cada PR y push |
+| **Rendimiento** | Lighthouse CI | ✅ | Configuración de presupuestos locales con ejecución de servidor automático |
 
 ## 📁 Estructura del Proyecto
 

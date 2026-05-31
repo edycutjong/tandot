@@ -1,414 +1,433 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="h-full">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tandot 🎰 Pitch Deck</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tandot Pitch Deck</title>
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Outfit:wght@400;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            cyan: { 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2' },
+            emerald: { 400: '#34d399', 500: '#10b981' },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .slide { display: none; }
+    .slide.active { display: flex; }
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/icon.svg">
-    <link rel="apple-touch-icon" href="/icon.svg">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
-
-    <!-- Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap"
-        rel="stylesheet">
-
-    <style>
-        /* Tandot Design System Tokens */
-        :root {
-            --cyan-500: #06b6d4;
-            --cyan-400: #22d3ee;
-            --emerald-500: #10b981;
-            --emerald-400: #34d399;
-            --amber-500: #f59e0b;
-            --red-500: #ef4444;
-
-            --slate-50: #f8fafc;
-            --slate-400: #94a3b8;
-            --slate-800: #1e293b;
-            --slate-900: #0f172a;
-            --slate-950: #020617;
-
-            --bg-primary: var(--slate-950);
-            --glass-bg: rgba(15, 23, 42, 0.6);
-            --glass-border: rgba(148, 163, 184, 0.08);
-            --border-hover: rgba(148, 163, 184, 0.2);
-
-            --r-main-font: 'Inter', sans-serif;
-            --r-heading-font: 'Outfit', sans-serif;
-            --r-heading-color: var(--cyan-500);
-            --r-link-color: var(--emerald-500);
-            --r-link-color-hover: var(--emerald-400);
-            --r-selection-background-color: var(--cyan-500);
-            --r-heading-text-transform: none;
-            --r-background-color: var(--bg-primary);
-        }
-
-        body {
-            background: radial-gradient(circle at 20% 30%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
-                radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 60%),
-                var(--bg-primary);
-        }
-
-        .reveal .progress span {
-            background-color: var(--emerald-500);
-        }
-
-        .reveal .controls {
-            color: var(--cyan-500);
-        }
-
-        .reveal h1,
-        .reveal h2,
-        .reveal h3 {
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .reveal h1 {
-            font-size: 3.5em;
-            background: linear-gradient(135deg, var(--cyan-400), var(--emerald-500));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            margin-bottom: 0.5em;
-        }
-
-        .reveal table {
-            font-size: 0.8em;
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .reveal table th {
-            background: rgba(15, 23, 42, 0.8);
-            border-bottom: 1px solid var(--glass-border);
-            color: var(--cyan-500);
-        }
-
-        .reveal table td {
-            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-        }
-
-        .reveal ul {
-            margin-left: 0;
-            display: inline-block;
-            text-align: center;
-            list-style-position: inside;
-        }
-
-        .reveal li {
-            margin-bottom: 0.8em;
-            color: var(--slate-50);
-        }
-
-        /* Tandot aesthetic classes */
-        .text-cyan {
-            color: var(--cyan-500);
-        }
-
-        .text-emerald {
-            color: var(--emerald-500);
-        }
-
-        .text-muted {
-            color: var(--slate-400);
-        }
-
-        .font-mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* WOW Factor Classes */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-card:hover {
-            border-color: var(--border-hover);
-            box-shadow: 0 0 30px rgba(6, 182, 212, 0.08);
-        }
-
-        .wow-card {
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-        }
-
-        .wow-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.2);
-            z-index: 10;
-        }
-
-        @keyframes shine {
-            0% {
-                left: -100%;
-                opacity: 0;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-
-            100% {
-                left: 100%;
-                opacity: 0;
-            }
-        }
-
-        .wow-shine {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wow-shine::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: skewX(-20deg);
-            animation: shine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-
-        @keyframes fade-in-up {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-    </style>
+    /* Subtle animations */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .slide.active { animation: fadeIn 0.4s ease-out forwards; }
+  </style>
 </head>
-
-<body>
-    <div class="reveal">
-        <!-- prettier-ignore -->
-        <div class="slides">
-            <section data-markdown data-separator="^\s*---\s*$" data-separator-vertical="^\s*--\s*$" data-separator-notes="^\s*Note:">
-                <textarea data-template>
-<!-- .slide: class="center" style="text-align: center; padding-top: 10%;" -->
-# Tandot 🎰
-### Trustless, AI-Managed Savings Circles for LATAM
-<br />
-<div class="text-cyan wow-shine">A dynamic, glowing network of members connected by an AI core,<br />with MXNB flowing securely between them.</div>
-
-Note:
-Start with a high-energy hook. "In Mexico, everyone knows someone who lost money in a tanda. Today, we end that."
-
----
-
-## 🎬 Pitch Video
-
-<div class="glass-card wow-card" style="padding: 1em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto; max-width: 800px; aspect-ratio: 16/9;">
-    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/gQ0IduJwbo0" title="Tandot Pitch Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius: 8px;"></iframe>
-</div>
-
-Note:
-Here is our pitch video demonstrating the AI and smart contract integration.
-
----
-
-## The $40B Trust Problem
-
-<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
-
-- **Tandas** (rotating savings circles) are a cultural staple in LATAM.
-- **1 in 3** tandas fail because the organizer disappears with the funds.
-- Zero recourse, zero insurance, zero proof.
-
-<br />
-<div class="text-muted">It's not just lost money; it's broken community trust.</div>
-</div>
-
-Note:
-Emphasize the emotional pain point. It's not just lost money; it's broken community trust.
-
----
-
-## The Solution
-### Tandot: AI Organizer + Smart Contract Escrow
-
-<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
-
-- We replace the human organizer with an **unbiased AI agent**.
-- Funds are secured in an Arbitrum smart contract using **MXNB** (Mexican Peso stablecoin).
-- Guaranteed payouts, every round, every time.
-</div>
-
-Note:
-Introduce the "silver bullet". AI brings the intelligence, blockchain brings the guarantee.
-
----
-
-## Three Steps. Zero Trust Required.
-
-<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
-
-1. **Join:** AI evaluates your trust score to match you with a safe group.
-2. **Contribute:** Pay-in with MXNB via Bitso.
-3. **Get Paid:** Smart contracts auto-disburse your payout on your turn.
-
-<br />
-<div class="text-emerald animate-fade-in-up" style="text-align: center; margin-top: 1em;">Fully automated, end-to-end on-chain execution.</div>
-</div>
-
-Note:
-Walk through the seamless user experience. Highlight the premium fintech aesthetic.
-
----
-
-## Built for Speed, Security, and Scale
-
-<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
-
-- **AI Core:** GPT-4 for Trust Scoring & Fraud Detection.
-- **On-Chain Escrow:** Solidity contracts on Arbitrum Sepolia.
-- **Payments:** Bitso Business API for MXNB fiat on/off ramps.
-- **Frontend:** Next.js 16, React 19, Tailwind v4.
-</div>
-
-Note:
-Highlight the complexity. It's a full-stack Web3 + AI + Fintech product.
-
----
-
-## A Massive Untapped Financial Market
-
-<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
-
-- **TAM:** $40B informal savings market in LATAM.
-- **SAM:** $10B digital-first unbanked/underbanked population.
-- **SOM:** $100M transaction volume captured in year 1.
-</div>
-
-Note:
-This isn't a niche tool; it's a structural upgrade to an existing multi-billion dollar cultural institution.
-
----
-
-## Sustainable Monetization
-
-<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
-
-- **Free for users:** No fees to join or withdraw.
-- **Yield Generation:** Idle MXNB in escrow earns DeFi yield during the cycle.
-- **Premium Features:** AI credit-building reports for traditional banking access.
-</div>
-
-Note:
-Explain how the platform makes money without taxing the users, using standard DeFi yield models.
-
----
-
-## Why Tandot Wins
-
-<div class="glass-card wow-card" style="padding: 1em; margin-top: 1em;">
-
-| Feature | Traditional Tandas | Web2 Apps | Tandot |
-|---|---|---|---|
-| Trust | High Risk | Medium | **Trustless** |
-| Friction | High | High (Bank Req) | **Low (Crypto)** |
-| Intelligence | None | Basic | **AI Scoring** |
-</div>
-
-Note:
-Contrast against existing alternatives to show the clear technological moat.
-
----
-
-## Ready for Production
-
-<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: center; margin-left: auto; margin-right: auto;">
-
-- ✅ Escrow contracts deployed and audited on Arbitrum Sepolia.
-- ✅ Bitso API integration complete for seamless MXNB bridging.
-- ✅ Fully functional staging environment.
-</div>
-
-Note:
-We didn't just build a mockup; we built a working protocol.
-
----
-
-## What's Next (30/60/90 Days)
-
-<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: left;">
-
-- **30 Days:** Mainnet launch on Arbitrum + Bitso production keys.
-- **60 Days:** WhatsApp bot integration for older demographics.
-- **90 Days:** Cross-border remittances feeding directly into savings circles.
-</div>
-
-Note:
-Show that the project has legs beyond the hackathon weekend.
-
----
-
-## The Right Builders
-
-<div class="glass-card wow-card" style="padding: 2em; margin-top: 1em; text-align: left;">
-
-- Full-stack Web3 & AI Engineers.
-- Deep understanding of LATAM fintech culture.
-</div>
-
-Note:
-Briefly highlight the team's technical chops and cultural alignment with the problem.
-
----
-
-<!-- .slide: class="center" style="text-align: center; padding-top: 15%;" -->
-# Trust, Automated.
-
-Support our mission to secure the savings of millions.<br />
-<span class="text-emerald wow-shine" style="display:inline-block;">Let's make financial loss in tandas a thing of the past.</span>
-
-Note:
-End with a strong, memorable statement.
-                </textarea>
-            </section>
-        </div>
+<body class="bg-slate-950 text-slate-100 h-full overflow-hidden flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
+  
+  <div class="flex-1 flex items-center justify-center p-6 md:p-12 relative overflow-y-auto">
+    
+    <!-- Slide 1: Title & Hook -->
+    <div class="slide active max-w-5xl w-full flex-col md:flex-row items-center justify-between gap-12">
+      <div class="flex-1 flex flex-col items-start text-left">
+        <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 01 // Project</span>
+        <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-6 font-display">
+          Tandot <span class="text-cyan-500">🎰</span>
+        </h1>
+        <p class="text-slate-400 text-xl md:text-2xl max-w-lg mb-8">
+          Did your tanda organizer run off with the money? <strong class="text-slate-200">Never again.</strong>
+        </p>
+        <p class="text-slate-500 text-sm max-w-md leading-relaxed">
+          Trustless, AI-managed savings circles guaranteeing every payout via Arbitrum smart contracts and Bitso MXNB.
+        </p>
+      </div>
+      <div class="flex-1 w-full relative group">
+        <div class="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full mix-blend-screen opacity-50 group-hover:opacity-100 transition-opacity duration-1000"></div>
+        <img src="/og-image.png" alt="Tandot Dashboard" class="w-full h-auto rounded-2xl border border-slate-800 shadow-2xl relative z-10">
+      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.js"></script>
-    <script>
-        Reveal.initialize({
-            hash: true,
-            center: true,
-            margin: 0.15,
-            transition: 'fade',
-            backgroundTransition: 'fade',
-            plugins: [RevealMarkdown, RevealNotes]
-        });
-    </script>
-</body>
+    <!-- Slide 2: The Problem -->
+    <div class="slide max-w-5xl w-full flex-col md:flex-row items-center justify-between gap-12">
+      <div class="flex-1 flex flex-col text-left">
+        <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 02 // The Crisis</span>
+        <h2 class="text-5xl font-bold tracking-tight mb-8 font-display">The $40B Trust Problem</h2>
+        <p class="text-slate-400 text-lg max-w-2xl leading-relaxed mb-6">
+          In Mexico, rotating savings circles (tandas) are the backbone of informal finance. But they rely entirely on the honesty of a human organizer.
+        </p>
+        <div class="bg-red-950/30 border border-red-900/50 rounded-xl p-4 mb-6 inline-block">
+          <p class="text-red-400 font-mono text-sm md:text-base">ERROR: 1 in 3 tandas fail.</p>
+        </div>
+        <p class="text-slate-400 max-w-2xl leading-relaxed">
+          The organizer vanishes with the pooled funds. Zero recourse. Zero insurance. Communities lose money and trust.
+        </p>
+      </div>
+    </div>
 
+    <!-- Slide 3: The Solution -->
+    <div class="slide max-w-5xl w-full flex-col text-left">
+      <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 03 // The Cure</span>
+      <h2 class="text-5xl font-bold tracking-tight mb-8 font-display">Math <span class="text-slate-600">&</span> Machine Intelligence</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mt-4">
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl relative overflow-hidden group">
+          <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="text-2xl font-bold mb-4 font-display text-cyan-400 relative z-10">1. GPT-4 Trust Scoring</h3>
+          <p class="text-slate-400 leading-relaxed relative z-10">
+            We replace the human organizer with an unbiased AI agent. It analyzes behavior, financial history, and referral networks to dynamically score and match members safely.
+          </p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl relative overflow-hidden group">
+          <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="text-2xl font-bold mb-4 font-display text-emerald-400 relative z-10">2. Arbitrum Escrow</h3>
+          <p class="text-slate-400 leading-relaxed relative z-10">
+            Funds are locked in a decentralized vault using MXNB (Peso stablecoin). No single person controls the pool. Payouts are executed by code, guaranteeing delivery.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Core Product Flow -->
+    <div class="slide max-w-5xl w-full flex-col text-left">
+      <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 04 // UX Flow</span>
+      <h2 class="text-5xl font-bold tracking-tight mb-12 font-display">Three Steps. Zero Trust.</h2>
+      <div class="flex flex-col md:flex-row gap-6 justify-between w-full">
+        <!-- Step 1 -->
+        <div class="flex-1 flex flex-col items-center text-center p-8 bg-slate-900/50 border border-slate-800 rounded-2xl">
+          <div class="w-12 h-12 bg-slate-800 text-cyan-400 rounded-full flex items-center justify-center font-mono font-bold text-xl mb-6">1</div>
+          <h3 class="text-xl font-bold mb-3 font-display text-slate-200">Join</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">AI evaluates your trust score (0-100) and matches you with a verified, low-risk group.</p>
+        </div>
+        <!-- Arrow -->
+        <div class="hidden md:flex items-center text-slate-700">→</div>
+        <!-- Step 2 -->
+        <div class="flex-1 flex flex-col items-center text-center p-8 bg-slate-900/50 border border-slate-800 rounded-2xl">
+          <div class="w-12 h-12 bg-slate-800 text-cyan-400 rounded-full flex items-center justify-center font-mono font-bold text-xl mb-6">2</div>
+          <h3 class="text-xl font-bold mb-3 font-display text-slate-200">Contribute</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Pay seamlessly in local currency via Bitso SPEI. Converted instantly to MXNB on Arbitrum.</p>
+        </div>
+        <!-- Arrow -->
+        <div class="hidden md:flex items-center text-slate-700">→</div>
+        <!-- Step 3 -->
+        <div class="flex-1 flex flex-col items-center text-center p-8 bg-slate-900/50 border border-emerald-900/50 rounded-2xl shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+          <div class="w-12 h-12 bg-emerald-900/50 text-emerald-400 rounded-full flex items-center justify-center font-mono font-bold text-xl mb-6">3</div>
+          <h3 class="text-xl font-bold mb-3 font-display text-emerald-400">Get Paid</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Smart contract automatically disburses the pooled MXNB directly to your wallet on your turn.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Architecture -->
+    <div class="slide max-w-5xl w-full flex-col text-left">
+      <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 05 // Tech Stack</span>
+      <h2 class="text-5xl font-bold tracking-tight mb-8 font-display">Engineered for Scale</h2>
+      <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 md:p-12 font-mono text-sm overflow-x-auto">
+        <div class="flex flex-col space-y-6 min-w-[600px]">
+          <div class="flex items-center gap-6">
+            <span class="w-32 text-slate-500 uppercase tracking-wider text-xs">Frontend</span>
+            <span class="px-4 py-1.5 bg-slate-800 rounded text-slate-200">Next.js 16</span>
+            <span class="px-4 py-1.5 bg-slate-800 rounded text-slate-200">React 19</span>
+            <span class="px-4 py-1.5 bg-slate-800 rounded text-slate-200">Tailwind v4</span>
+          </div>
+          <div class="flex items-center gap-6">
+            <span class="w-32 text-slate-500 uppercase tracking-wider text-xs">Intelligence</span>
+            <span class="px-4 py-1.5 bg-purple-900/30 text-purple-400 border border-purple-900/50 rounded">OpenAI GPT-4</span>
+            <span class="text-slate-400">Dynamic 5-factor Trust Scoring</span>
+          </div>
+          <div class="flex items-center gap-6">
+            <span class="w-32 text-slate-500 uppercase tracking-wider text-xs">Payments</span>
+            <span class="px-4 py-1.5 bg-cyan-900/30 text-cyan-400 border border-cyan-900/50 rounded">Bitso Business API</span>
+            <span class="text-slate-400">SPEI ↔ MXNB Webhooks</span>
+          </div>
+          <div class="flex items-center gap-6">
+            <span class="w-32 text-slate-500 uppercase tracking-wider text-xs">Escrow</span>
+            <span class="px-4 py-1.5 bg-blue-900/30 text-blue-400 border border-blue-900/50 rounded">Arbitrum Sepolia</span>
+            <span class="text-slate-400">Solidity `TandaEscrow.sol`</span>
+          </div>
+          <div class="flex items-center gap-6">
+            <span class="w-32 text-slate-500 uppercase tracking-wider text-xs">Database</span>
+            <span class="px-4 py-1.5 bg-emerald-900/30 text-emerald-400 border border-emerald-900/50 rounded">Supabase</span>
+            <span class="text-slate-400">PostgreSQL + Realtime Sockets</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Live Demo Highlights -->
+    <div class="slide max-w-5xl w-full flex-col md:flex-row items-center justify-between gap-12">
+      <div class="flex-1 flex flex-col text-left">
+        <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 06 // The Demo</span>
+        <h2 class="text-5xl font-bold tracking-tight mb-8 font-display">Watch It Work</h2>
+        <ul class="space-y-8">
+          <li class="flex items-start gap-4">
+            <span class="text-cyan-500 text-xl mt-1">●</span>
+            <div>
+              <strong class="block text-xl text-slate-200 font-display mb-1">1. AI Match Panel</strong>
+              <span class="text-slate-400 text-sm leading-relaxed">See GPT-4 calculate your Trust Score in real-time based on your profile metadata.</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="text-cyan-500 text-xl mt-1">●</span>
+            <div>
+              <strong class="block text-xl text-slate-200 font-display mb-1">2. Escrow Lock</strong>
+              <span class="text-slate-400 text-sm leading-relaxed">Verify the smart contract isolating group balances on Arbiscan—immune to cross-drain attacks.</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="text-emerald-500 text-xl mt-1">●</span>
+            <div>
+              <strong class="block text-xl text-slate-200 font-display mb-1">3. Auto Payout</strong>
+              <span class="text-slate-400 text-sm leading-relaxed">Observe the Bitso webhook trigger the contract to release MXNB directly to the round winner.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="flex-1 w-full flex items-center justify-center">
+        <div class="w-full aspect-[4/3] bg-slate-900 border border-slate-800 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden group shadow-2xl">
+          <div class="absolute inset-0 bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <svg class="w-16 h-16 text-slate-600 group-hover:text-cyan-400 transition-colors mb-4 relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span class="font-mono text-xs text-slate-500 relative z-10">demo_recording.mp4</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: Sponsor Integration -->
+    <div class="slide max-w-5xl w-full flex-col text-left">
+      <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 07 // Stacked Bounties</span>
+      <h2 class="text-5xl font-bold tracking-tight mb-12 font-display">Deep Ecosystem Integration</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl flex flex-col hover:border-cyan-500/50 transition-colors">
+          <h3 class="text-2xl font-bold mb-3 font-display text-cyan-400">Bitso Business</h3>
+          <p class="text-slate-400 text-sm mb-6 leading-relaxed">Pay-ins, MXNB transfers, Mass Payouts, Webhooks.</p>
+          <div class="mt-auto pt-4 border-t border-slate-800">
+            <span class="text-xs font-mono text-slate-500 uppercase">Startup Track Bounty</span>
+            <p class="text-xl font-mono text-slate-200 mt-1">$3,900</p>
+          </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl flex flex-col hover:border-blue-500/50 transition-colors">
+          <h3 class="text-2xl font-bold mb-3 font-display text-blue-400">Arbitrum</h3>
+          <p class="text-slate-400 text-sm mb-6 leading-relaxed">Escrow deployed to Arbitrum Sepolia for low-fee settlements.</p>
+          <div class="mt-auto pt-4 border-t border-slate-800">
+            <span class="text-xs font-mono text-slate-500 uppercase">Startup Track Bounty</span>
+            <p class="text-xl font-mono text-slate-200 mt-1">$650</p>
+          </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl flex flex-col hover:border-purple-500/50 transition-colors">
+          <h3 class="text-2xl font-bold mb-3 font-display text-purple-400">ETH Mexico</h3>
+          <p class="text-slate-400 text-sm mb-6 leading-relaxed">LATAM financial inclusion through DeFi + AI.</p>
+          <div class="mt-auto pt-4 border-t border-slate-800">
+            <span class="text-xs font-mono text-slate-500 uppercase">Startup Track Bounty</span>
+            <p class="text-xl font-mono text-slate-200 mt-1">$1,500</p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 pt-6 border-t border-slate-800 flex justify-between items-center w-full">
+        <span class="font-mono text-sm text-slate-500 uppercase">Total Target Value Captured</span>
+        <span class="font-mono text-2xl text-emerald-400">$6,050 USDC</span>
+      </div>
+    </div>
+
+    <!-- Slide 8: Market Scale -->
+    <div class="slide max-w-5xl w-full flex-col md:flex-row items-center justify-between gap-12">
+      <div class="flex-1 flex flex-col text-left">
+        <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 08 // The Scale</span>
+        <h2 class="text-5xl font-bold tracking-tight mb-8 font-display">A Massive Untapped Market</h2>
+        <p class="text-slate-400 text-xl leading-relaxed mb-8">
+          This isn't a niche Web3 tool; it's a structural upgrade to a cultural institution relied upon by millions.
+        </p>
+      </div>
+      <div class="flex-1 w-full space-y-6">
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl relative overflow-hidden group">
+          <div class="absolute left-0 top-0 bottom-0 w-2 bg-emerald-500 group-hover:w-full transition-all duration-500 opacity-10 group-hover:opacity-5"></div>
+          <h3 class="text-5xl font-display font-black text-slate-100 mb-2">$40 Billion</h3>
+          <p class="text-slate-400 font-mono text-sm uppercase tracking-wide">TAM: Informal savings market in LATAM.</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl relative overflow-hidden group">
+          <div class="absolute left-0 top-0 bottom-0 w-2 bg-cyan-500 group-hover:w-full transition-all duration-500 opacity-10 group-hover:opacity-5"></div>
+          <h3 class="text-5xl font-display font-black text-slate-100 mb-2">$10 Billion</h3>
+          <p class="text-slate-400 font-mono text-sm uppercase tracking-wide">SAM: Digital-first underbanked population.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 9: Competitive Edge -->
+    <div class="slide max-w-5xl w-full flex-col text-left">
+      <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 09 // The Moat</span>
+      <h2 class="text-5xl font-bold tracking-tight mb-12 font-display">Why Tandot Wins</h2>
+      <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+        <table class="w-full text-left text-sm md:text-base">
+          <thead class="bg-slate-950/80 font-mono text-xs uppercase tracking-wider text-slate-500 border-b border-slate-800">
+            <tr>
+              <th class="p-6 md:p-8">Feature</th>
+              <th class="p-6 md:p-8">Traditional Tandas</th>
+              <th class="p-6 md:p-8">Web2 Bank Apps</th>
+              <th class="p-6 md:p-8 text-cyan-400 bg-cyan-950/20">Tandot</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800">
+            <tr>
+              <td class="p-6 md:p-8 font-medium text-slate-300">Trust Model</td>
+              <td class="p-6 md:p-8 text-red-400">High Risk (Human)</td>
+              <td class="p-6 md:p-8 text-amber-400">Medium (Corporate)</td>
+              <td class="p-6 md:p-8 text-emerald-400 font-bold bg-cyan-950/10">Trustless (Escrow)</td>
+            </tr>
+            <tr>
+              <td class="p-6 md:p-8 font-medium text-slate-300">Friction</td>
+              <td class="p-6 md:p-8 text-amber-400">High (Cash Logistics)</td>
+              <td class="p-6 md:p-8 text-red-400">High (Bank Bureaucracy)</td>
+              <td class="p-6 md:p-8 text-emerald-400 font-bold bg-cyan-950/10">Low (Crypto Rails)</td>
+            </tr>
+            <tr>
+              <td class="p-6 md:p-8 font-medium text-slate-300">Intelligence</td>
+              <td class="p-6 md:p-8 text-slate-600">None</td>
+              <td class="p-6 md:p-8 text-amber-400">Basic Credit Bureau</td>
+              <td class="p-6 md:p-8 text-cyan-400 font-bold bg-cyan-950/10">GPT-4 Dynamic Scoring</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Slide 10: Roadmap -->
+    <div class="slide max-w-5xl w-full flex-col text-left">
+      <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 10 // Execution</span>
+      <h2 class="text-5xl font-bold tracking-tight mb-12 font-display">The Next 90 Days</h2>
+      <div class="relative ml-4 md:ml-8 mt-4">
+        <div class="absolute left-0 top-2 bottom-2 w-px bg-slate-800"></div>
+        <div class="space-y-12 pl-12 relative">
+          <div class="relative">
+            <div class="absolute -left-[3.35rem] w-6 h-6 rounded-full bg-cyan-500 ring-8 ring-slate-950 top-1 shadow-[0_0_15px_rgba(6,182,212,0.5)]"></div>
+            <h3 class="text-2xl font-bold font-display text-slate-200 mb-2">30 Days: Mainnet</h3>
+            <p class="text-slate-400 max-w-2xl leading-relaxed">Migrate from Sepolia to Arbitrum Mainnet. Activate Bitso production keys for live SPEI-to-MXNB onramps.</p>
+          </div>
+          <div class="relative">
+            <div class="absolute -left-[3.35rem] w-6 h-6 rounded-full bg-slate-700 ring-8 ring-slate-950 top-1"></div>
+            <h3 class="text-2xl font-bold font-display text-slate-200 mb-2">60 Days: Conversational UI</h3>
+            <p class="text-slate-400 max-w-2xl leading-relaxed">WhatsApp and Telegram Mini-App integration. Allow users to join and pay tandas directly via chat to capture older demographics.</p>
+          </div>
+          <div class="relative">
+            <div class="absolute -left-[3.35rem] w-6 h-6 rounded-full bg-slate-700 ring-8 ring-slate-950 top-1"></div>
+            <h3 class="text-2xl font-bold font-display text-slate-200 mb-2">90 Days: Yield Farming</h3>
+            <p class="text-slate-400 max-w-2xl leading-relaxed">Deploy idle MXNB into low-risk DeFi yield pools (e.g., Aave) during the cycle, returning accrued interest back to the tanda members.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 11: Team -->
+    <div class="slide max-w-5xl w-full flex-col md:flex-row items-center justify-between gap-12">
+      <div class="flex-1 flex flex-col text-left">
+        <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 11 // The Builder</span>
+        <h2 class="text-5xl font-bold tracking-tight mb-8 font-display">Edy Cu</h2>
+        <p class="text-slate-400 text-xl leading-relaxed mb-8">
+          Full-Stack Web3 & AI Engineer specializing in financial tools for LATAM.
+        </p>
+        <ul class="space-y-4 font-mono text-sm text-slate-300">
+          <li class="flex items-center gap-3"><span class="text-cyan-500">→</span> Next.js 16 / React 19 Frontend</li>
+          <li class="flex items-center gap-3"><span class="text-cyan-500">→</span> Solidity Smart Contracts</li>
+          <li class="flex items-center gap-3"><span class="text-cyan-500">→</span> Generative AI Integrations</li>
+          <li class="flex items-center gap-3"><span class="text-cyan-500">→</span> 100% Test Coverage Enforcer</li>
+        </ul>
+      </div>
+      <div class="flex-1 w-full max-w-sm">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 relative overflow-hidden group">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-emerald-500"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="w-24 h-24 bg-slate-950 border border-slate-800 rounded-full mb-8 flex items-center justify-center font-display text-3xl font-bold text-slate-400 shadow-inner relative z-10">EC</div>
+          <p class="text-slate-100 font-display font-bold text-2xl mb-2 relative z-10">Solo Developer</p>
+          <p class="text-slate-500 relative z-10">Building trustless infrastructure.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 12: Ask / Conclusion -->
+    <div class="slide max-w-5xl w-full flex-col items-center justify-center text-center">
+      <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-4">Slide 12 // End</span>
+      <h2 class="text-6xl md:text-8xl font-black tracking-tighter mb-8 font-display text-slate-100">
+        Trust, <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Automated.</span>
+      </h2>
+      <p class="text-slate-400 text-xl md:text-2xl max-w-2xl mb-12 leading-relaxed">
+        Support our mission to secure the savings of millions.<br>Let's make financial loss in tandas a thing of the past.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-6">
+        <a href="/" class="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-medium transition-colors shadow-[0_0_20px_rgba(6,182,212,0.3)]">Launch App</a>
+        <a href="https://github.com/edycutjong/tandot" class="px-8 py-4 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 text-slate-200 rounded-xl font-medium transition-colors">View GitHub</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Navigation Footer -->
+  <footer class="h-16 border-t border-slate-900 bg-slate-950/80 backdrop-blur-lg flex items-center justify-between px-6 md:px-12 z-10 shrink-0">
+    <div class="text-[10px] md:text-xs font-mono text-slate-500 uppercase tracking-wider hidden sm:block">
+      Tandot Pitch Deck · DoraHacks ETH Mexico 2026
+    </div>
+    <div class="flex items-center gap-4 ml-auto sm:ml-0">
+      <button onclick="prevSlide()" class="px-4 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-cyan-400 rounded-lg text-xs font-mono text-slate-400 transition-all select-none focus:outline-none focus:ring-2 focus:ring-cyan-500/50">PREV</button>
+      <span id="slide-num" class="text-xs font-mono text-cyan-400 w-16 text-center">1 / 12</span>
+      <button onclick="nextSlide()" class="px-4 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-cyan-400 rounded-lg text-xs font-mono text-slate-400 transition-all select-none focus:outline-none focus:ring-2 focus:ring-cyan-500/50">NEXT</button>
+    </div>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const slideNum = document.getElementById('slide-num');
+
+    function updateSlides() {
+      slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+      slideNum.textContent = `${currentSlide + 1} / ${slides.length}`;
+      
+      // Update URL hash for sharing specific slides
+      window.location.hash = `slide-${currentSlide + 1}`;
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlides();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlides();
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') nextSlide();
+    });
+
+    // Check hash on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#slide-')) {
+        const targetSlide = parseInt(hash.replace('#slide-', '')) - 1;
+        if (targetSlide >= 0 && targetSlide < slides.length) {
+          currentSlide = targetSlide;
+        }
+      }
+      updateSlides();
+    });
+  </script>
+</body>
 </html>

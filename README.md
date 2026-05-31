@@ -149,14 +149,40 @@ Then update `NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS` and `NEXT_PUBLIC_MXNB_TOKEN_AD
 
 ## 🧪 Testing & CI
 
+**6-stage pipeline:** Quality (frontend lint/typecheck/jest + solidity hardhat tests) → Security (TruffleHog + npm audit) → Build Verification & bundle budget → Playwright E2E → Performance (Lighthouse CI) → Deploy Gate
+
 ```bash
-npm run lint          # ESLint (next lint)
+# ── Code Quality & Unit Tests ───────────────
+npm run lint          # ESLint
 npm run lint:fix      # Auto-fix lint issues
-npm run typecheck     # TypeScript strict check
+npm run typecheck     # TypeScript compiler check
 npm run test          # Run Jest tests
-npm run test:coverage # Coverage report
-npm run ci            # Full CI pipeline (lint + typecheck + test)
+npm run test:coverage # Jest coverage report
+npm run ci            # Full quality gate (lint + typecheck + test:coverage)
+
+# ── Smart Contract Quality ──────────────────
+cd contracts
+npx hardhat compile   # Hardhat compile
+npx hardhat test      # Hardhat smart contract test suite
+
+# ── Advanced E2E & Perf Testing ─────────────
+npm run e2e           # Playwright E2E tests (demo mode)
+npm run e2e:ui        # Playwright interactive E2E UI
+npm run lighthouse    # Lighthouse CI compliance audit
 ```
+
+### Engineering Harness Summary
+
+| Layer | Tool | Status | Details |
+|---|---|---|---|
+| **Code Quality** | ESLint + TypeScript | ✅ | Strict mode, zero lint errors/warnings |
+| **Unit Testing** | Jest | ✅ | 29 suites, 100 tests, 100% statements/branches/functions/lines coverage |
+| **Contract Testing** | Hardhat + Chai | ✅ | 28 contract tests passing (deposits, isolated accounting, payouts) |
+| **E2E Testing** | Playwright | ✅ | 3 suites: smoke tests, responsive layout, create Tanda flow |
+| **Security (SAST)** | CodeQL | ✅ | GitHub Actions static code scanning |
+| **Security (SCA)** | Dependabot + Audit | ✅ | Weekly dependency scanning and automated PRs |
+| **Secret Scanning** | TruffleHog | ✅ | Commit history scan on PR and pushes |
+| **Performance** | Lighthouse CI | ✅ | Desktop presets with automated local server execution |
 
 ## 📁 Project Structure
 
