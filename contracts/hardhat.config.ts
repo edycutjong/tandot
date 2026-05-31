@@ -27,6 +27,11 @@ const config: HardhatUserConfig = {
       url: process.env.BOT_CHAIN_RPC_URL || "https://rpc.botchain.ai",
       accounts: [privateKey],
       chainId: 677
+    },
+    botChainTestnet: {
+      url: process.env.BOT_CHAIN_TESTNET_RPC_URL || "https://rpc.bohr.life",
+      accounts: [privateKey],
+      chainId: 968
     }
   },
   etherscan: {
