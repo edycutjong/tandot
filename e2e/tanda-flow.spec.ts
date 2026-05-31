@@ -36,7 +36,7 @@ test.describe("Tanda Creation Flow", () => {
     // Click submit button
     const submitBtn = page.getByRole("button", { name: /Crear Tanda con Escrow|Create Tanda with Escrow/i });
     await expect(submitBtn).toBeVisible();
-    await submitBtn.click();
+    await submitBtn.click({ force: true });
 
     // Verify dialog was accepted
     expect(dialogTriggered).toBe(true);

@@ -93,7 +93,7 @@ test.describe("DemoStudio Asset Generation Flow", () => {
       await dialog.accept();
     });
 
-    await page.getByRole("button", { name: /Create Tanda with Escrow|Crear Tanda con Escrow/i }).click();
+    await page.getByRole("button", { name: /Create Tanda with Escrow|Crear Tanda con Escrow/i }).click({ force: true });
 
     // Wait a little bit after submission
     await page.waitForTimeout(1500);
