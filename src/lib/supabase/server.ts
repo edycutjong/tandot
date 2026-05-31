@@ -6,7 +6,7 @@ export async function createClient() {
   const cookieStore = await cookies()
 
   return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mock.supabase.co',
+    process.env.NEXT_PUBLIC_SUPABASE_URL || 'http://127.0.0.1:9999',
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'mock-anon-key',
     {
       cookies: {
@@ -33,7 +33,7 @@ export async function createAdminClient() {
   const cookieStore = await cookies()
   
   return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mock.supabase.co',
+    process.env.NEXT_PUBLIC_SUPABASE_URL || 'http://127.0.0.1:9999',
     process.env.SUPABASE_SERVICE_ROLE_KEY || 'mock-service-key',
     {
       cookies: {
