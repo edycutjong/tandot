@@ -15,6 +15,7 @@ const eslintConfig = defineConfig([
     "contracts/**",
     "docs/assets/export.cjs",
     "coverage/**",
+    "__mocks__/**",
   ]),
 ]);
 

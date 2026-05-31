@@ -34,7 +34,16 @@
 ## 📸 See it in Action
 
 <div align="center">
-  <img src="public/og-image.png" alt="Tandot App Demo" width="100%">
+  <h3>1. Trustless Savings Platform</h3>
+  <img width="100%" alt="tandot-landing" src="https://github.com/user-attachments/assets/dfd12f15-b8a6-4933-8800-2cfcffdcdea6" />
+  <br/><br/>
+
+  <h3>2. AI-Powered Dashboard & Analysis</h3>
+  <img width="100%" alt="tandot-dashboard" src="https://github.com/user-attachments/assets/6601bded-11d1-4f47-a69a-72edbcf48d61" />
+  <br/><br/>
+
+  <h3>3. Automated Arbitrum Escrow Flow</h3>
+  <img width="100%" alt="tandot-flow" src="https://github.com/user-attachments/assets/b7ea2d21-a853-450f-a765-78ffd2a56d8e" />
 </div>
 
 > **Three steps, zero trust required.** Únete → Contribuye en MXNB → Cobra tu turno.
