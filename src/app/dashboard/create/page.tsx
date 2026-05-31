@@ -87,7 +87,7 @@ export default function CreateTandaPage() {
         {/* Submit */}
         <button 
           className="btn-primary w-full py-4 text-base font-semibold glow-cyan"
-          onClick={() => alert(isEs ? 'En desarrollo: La creación de contratos escrow en Arbitrum estará disponible próximamente.' : 'Coming soon: Arbitrum escrow contract creation will be available shortly.')}
+          onClick={() => alert(isEs ? 'En desarrollo: La creación de contratos escrow en BOT Chain estará disponible próximamente.' : 'Coming soon: BOT Chain escrow contract creation will be available shortly.')}
         >
           <PlusCircle className="w-5 h-5 mr-2 inline" />
           {isEs ? 'Crear Tanda con Escrow' : 'Create Tanda with Escrow'}
@@ -95,8 +95,8 @@ export default function CreateTandaPage() {
 
         <p className="text-xs text-center text-(--text-low)">
           {isEs
-            ? 'Se desplegará un contrato de escrow en Arbitrum Sepolia automáticamente.'
-            : 'An escrow contract will be deployed to Arbitrum Sepolia automatically.'}
+            ? 'Se desplegará un contrato de escrow en BOT Chain Testnet automáticamente.'
+            : 'An escrow contract will be deployed to BOT Chain Testnet automatically.'}
         </p>
       </GlassCard>
     </div>

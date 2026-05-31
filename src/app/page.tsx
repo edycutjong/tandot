@@ -306,12 +306,11 @@ function LandingContent() {
                 ),
               },
               {
-                name: 'Arbitrum',
-                href: 'https://arbitrum.io',
+                name: 'BOT Chain',
+                href: 'https://bot.chain',
                 logo: (
-                  <div className="flex items-center gap-2">
-                    <Image src="/logos/logo-arbitrum.svg" alt="Arbitrum" width={24} height={24} className="w-6 h-6 object-contain" />
-                    <span className="font-bold text-xl tracking-tight">Arbitrum</span>
+                  <div className="flex items-center gap-3">
+                    <span className="font-bold text-xl tracking-tight">BOT Chain</span>
                   </div>
                 ),
               },

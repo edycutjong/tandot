@@ -17,7 +17,7 @@
   ![React](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
   ![Tailwind](https://img.shields.io/badge/Tailwind_v4-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
   ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-  ![Arbitrum](https://img.shields.io/badge/Arbitrum-28A0F0?style=for-the-badge&logo=arbitrum&logoColor=white)
+  ![BOT Chain](https://img.shields.io/badge/BOT_Chain-28A0F0?style=for-the-badge)
   ![Solidity](https://img.shields.io/badge/Solidity_0.8-363636?style=for-the-badge&logo=solidity&logoColor=white)
   ![OpenAI](https://img.shields.io/badge/GPT--4-412991?style=for-the-badge&logo=openai&logoColor=white)
   ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -41,7 +41,7 @@
   <img width="100%" alt="my-tandas-1" src="https://github.com/user-attachments/assets/1421f154-c56d-493b-9851-b51e2449ac8d" />
   <br/><br/>
 
-  <h3>3. Flujo Automatizado de Escrow en Arbitrum</h3>
+  <h3>3. Flujo Automatizado de Escrow en BOT Chain</h3>
   <img width="100%" alt="tandot-flow" src="https://github.com/user-attachments/assets/b7ea2d21-a853-450f-a765-78ffd2a56d8e" />
 </div>
 
@@ -53,11 +53,11 @@
 
 En México, las **tandas** son la herramienta de ahorro informal más popular, sin embargo, 1 de cada 3 tandas falla porque el organizador desaparece con el dinero. No hay recursos legales, ni seguros, ni pruebas.
 
-**Tandot** elimina al organizador humano por completo. Un agente de IA gestiona la puntuación de confianza, el emparejamiento de grupos y la detección de fraudes, mientras que el MXNB (la stablecoin del peso mexicano) fluye a través de contratos inteligentes de depósito en garantía (escrow) en Arbitrum, garantizando cada pago en cada ronda, siempre.
+**Tandot** elimina al organizador humano por completo. Un agente de IA gestiona la puntuación de confianza, el emparejamiento de grupos y la detección de fraudes, mientras que el MXNB (la stablecoin del peso mexicano) fluye a través de contratos inteligentes de depósito en garantía (escrow) en BOT Chain, garantizando cada pago en cada ronda, siempre.
 
 **Características Clave:**
 - 🤖 **Puntuación de Confianza por IA:** GPT-4 evalúa la fiabilidad de cada miembro (0-100) mediante un análisis de 5 factores: historial de pagos, tasa de puntualidad, diversidad del grupo, antigüedad de la cuenta y calidad de las referencias.
-- 💰 **Escrow de MXNB en Arbitrum:** Todas las contribuciones fluyen hacia un contrato inteligente sin necesidad de confianza; los fondos se bloquean hasta que se cumplen las condiciones de pago automático.
+- 💰 **Escrow de MXNB en BOT Chain:** Todas las contribuciones fluyen hacia un contrato inteligente sin necesidad de confianza; los fondos se bloquean hasta que se cumplen las condiciones de pago automático.
 - 🔒 **Diseño a Prueba de Fraude:** Ninguna persona individual controla el pozo común. El contrato impone el orden de rotación y la IA marca a los miembros riesgosos antes de que se unan.
 - 🎨 **UX Premium Bilingüe:** Diseño emocional pensado primero en español con profundidad técnica en inglés. Estética fintech de glassmorphism, modo oscuro, tipografía Inter + JetBrains Mono + Outfit.
 
@@ -69,7 +69,7 @@ En México, las **tandas** son la herramienta de ahorro informal más popular, s
 | **Estilos** | Tailwind CSS v4 |
 | **Base de Datos** | Supabase (PostgreSQL + Realtime) |
 | **Pagos** | API de Bitso Business (Depósitos, Pagos, MXNB, Webhooks, Pagos Masivos) |
-| **Cadena** | Arbitrum Sepolia (Stablecoin MXNB, contrato inteligente de escrow) |
+| **Cadena** | BOT Chain Testnet (Stablecoin MXNB, contrato inteligente de escrow) |
 | **IA** | OpenAI GPT-4 (puntuación de confianza, emparejamiento, detección de fraude) |
 | **Despliegue** | Vercel |
 
@@ -78,7 +78,7 @@ graph TB
     User[👤 Miembro de Tanda] -->|Deposita MXNB| Bitso[Bitso Business API]
     Bitso -->|Webhook| API[Rutas API Next.js]
     API -->|Registra| DB[(Supabase PostgreSQL)]
-    API -->|Bloquea Fondos| Escrow[Contrato de Escrow Arbitrum]
+    API -->|Bloquea Fondos| Escrow[Contrato de Escrow BOT Chain]
     API -->|Califica Miembro| AI[OpenAI GPT-4]
     AI -->|Score de Confianza| DB
     Escrow -->|Pago Automático| Bitso
@@ -93,7 +93,7 @@ graph TB
 |---|---|---|
 | **Bitso Business Startup** | $3,900 | Depósitos, Pagos, transferencias MXNB, Webhooks, Pagos Masivos — ver `src/lib/` |
 | **ETH México Principal** | $1,500 | Plataforma DeFi completa que resuelve la confianza financiera en LATAM |
-| **Arbitrum** | $650 | Contrato inteligente de escrow desplegado en Arbitrum — ver `contracts/` |
+| **BOT Chain** | Ecosystem | Contrato inteligente de escrow desplegado en BOT Chain — ver `contracts/` |
 
 
 ## 🚀 Comenzando
@@ -117,14 +117,14 @@ npm run dev                  # http://localhost:3000
 
 | Qué | Estado |
 |---|---|
-| **Wallet** | Instala [MetaMask](https://metamask.io) → cambia a **Arbitrum Sepolia** |
+| **Wallet** | Instala [MetaMask](https://metamask.io) → cambia a **BOT Chain Testnet** |
 | **Contratos Inteligentes** | ✅ Ya desplegados (ver direcciones abajo) |
 | **Base de Datos Supabase** | ✅ Pre-sembrada con datos de demostración |
 | **API de Bitso** | ✅ Llaves de staging incluidas en el demo — no necesitas cuenta personal |
 | **OpenAI** | ✅ La puntuación de confianza funciona con scores pre-calculados en modo demo |
-| **ETH de Prueba** | Obtén ETH gratis en el [Faucet de Arbitrum Sepolia](https://faucet.quicknode.com/arbitrum/sepolia) |
+| **BOT de Prueba** | Obtén BOT gratis en el [Faucet de BOT Chain](https://faucet.botchain.ai) |
 
-### Contratos Desplegados (Arbitrum Sepolia)
+### Contratos Desplegados (BOT Chain Testnet)
 
 | Contrato | Dirección |
 |---|---|
@@ -140,7 +140,7 @@ Para desplegar tu propia instancia del contrato de escrow y el token Mock MXNB:
 ```bash
 cd contracts
 npm install
-cp .env.example .env   # Agrega tu URL RPC de Arbitrum y Llave Privada
+cp .env.example .env   # Agrega tu URL RPC de BOT Chain y Llave Privada
 npx hardhat compile
 npx hardhat run scripts/deploy.ts --network arbitrumSepolia
 ```
@@ -220,6 +220,6 @@ tandot/
 
 ## 🙏 Agradecimientos
 
-Construido para **DoraHacks Ethereum México 2026**. Gracias a Bitso, Arbitrum y la comunidad de ETH México por las APIs, herramientas e inspiración.
+Construido para **DoraHacks Ethereum México 2026**. Gracias a Bitso, BOT Chain y la comunidad de ETH México por las APIs, herramientas e inspiración.
 
 ¡Gracias por revisar este proyecto! 🇲🇽

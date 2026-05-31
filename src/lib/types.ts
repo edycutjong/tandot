@@ -19,7 +19,7 @@ export interface Tanda {
   current_round: number;
   total_rounds: number;
   status: TandaStatus;
-  escrow_address: string | null; // Arbitrum contract address
+  escrow_address: string | null; // BOT Chain contract address
   ai_trust_score: number; // 0-100
   created_at: string;
   next_payout_at: string | null;

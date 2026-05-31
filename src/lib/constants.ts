@@ -7,7 +7,7 @@ export const SITE = {
   tagline: 'Tandas sin confianza ciega',
   taglineEn: 'Trustless Rotating Savings',
   description:
-    'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on Arbitrum.',
+    'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on BOT Chain.',
   url: 'https://tandot.vercel.app',
 } as const;
 

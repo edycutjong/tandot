@@ -30,7 +30,7 @@ describe('CreateTandaPage', () => {
     const button = getByText('Create Tanda with Escrow');
     fireEvent.click(button);
 
-    expect(alertMock).toHaveBeenCalledWith('Coming soon: Arbitrum escrow contract creation will be available shortly.');
+    expect(alertMock).toHaveBeenCalledWith('Coming soon: BOT Chain escrow contract creation will be available shortly.');
     
     alertMock.mockRestore();
   });
@@ -48,7 +48,7 @@ describe('CreateTandaPage', () => {
     const button = getByText('Crear Tanda con Escrow');
     fireEvent.click(button);
 
-    expect(alertMock).toHaveBeenCalledWith('En desarrollo: La creación de contratos escrow en Arbitrum estará disponible próximamente.');
+    expect(alertMock).toHaveBeenCalledWith('En desarrollo: La creación de contratos escrow en BOT Chain estará disponible próximamente.');
     
     alertMock.mockRestore();
   });

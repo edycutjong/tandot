@@ -18,7 +18,7 @@
   ![React](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
   ![Tailwind](https://img.shields.io/badge/Tailwind_v4-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
   ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-  ![Arbitrum](https://img.shields.io/badge/Arbitrum-28A0F0?style=for-the-badge&logo=arbitrum&logoColor=white)
+  ![BOT Chain](https://img.shields.io/badge/BOT_Chain-28A0F0?style=for-the-badge)
   ![Solidity](https://img.shields.io/badge/Solidity_0.8-363636?style=for-the-badge&logo=solidity&logoColor=white)
   ![OpenAI](https://img.shields.io/badge/GPT--4-412991?style=for-the-badge&logo=openai&logoColor=white)
   ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -42,7 +42,7 @@
   <img width="100%" alt="my-tandas-1" src="https://github.com/user-attachments/assets/1421f154-c56d-493b-9851-b51e2449ac8d" />
   <br/><br/>
 
-  <h3>3. Automated Arbitrum Escrow Flow</h3>
+  <h3>3. Automated BOT Chain Escrow Flow</h3>
   <img width="100%" alt="tandot-flow" src="https://github.com/user-attachments/assets/b7ea2d21-a853-450f-a765-78ffd2a56d8e" />
 </div>
 
@@ -54,11 +54,11 @@
 
 In Mexico, **tandas** (rotating savings circles) are the most popular informal savings tool — yet 1 in 3 tandas fail because the organizer disappears with the money. There's no recourse, no insurance, no proof.
 
-**Tandot** eliminates the human organizer entirely. An AI agent manages trust scoring, group matching, and fraud detection, while MXNB (the Mexican peso stablecoin) flows through Arbitrum escrow smart contracts — guaranteeing every payout, every round, every time.
+**Tandot** eliminates the human organizer entirely. An AI agent manages trust scoring, group matching, and fraud detection, while MXNB (the Mexican peso stablecoin) flows through BOT Chain escrow smart contracts — guaranteeing every payout, every round, every time.
 
 **Key Features:**
 - 🤖 **AI Trust Scoring:** GPT-4 evaluates each member's reliability (0-100) using 5-factor analysis: payment history, on-time rate, group diversity, account age, and referral quality.
-- 💰 **MXNB Escrow on Arbitrum:** All contributions flow into a trustless smart contract — funds are locked until automatic payout conditions are met.
+- 💰 **MXNB Escrow on BOT Chain:** All contributions flow into a trustless smart contract — funds are locked until automatic payout conditions are met.
 - 🔒 **Fraud-Proof by Design:** No single person controls the pool. The contract enforces rotation order and the AI flags risky members before they join.
 - 🎨 **Bilingual Premium UX:** Spanish-first emotional design with English technical depth. Glassmorphism fintech aesthetic, dark mode, Inter + JetBrains Mono + Outfit typography.
 
@@ -70,7 +70,7 @@ In Mexico, **tandas** (rotating savings circles) are the most popular informal s
 | **Styling** | Tailwind CSS v4 |
 | **Database** | Supabase (PostgreSQL + Realtime) |
 | **Payments** | Bitso Business API (Pay-ins, Payouts, MXNB, Webhooks, Mass Payouts) |
-| **Chain** | Arbitrum Sepolia (MXNB stablecoin, escrow smart contract) |
+| **Chain** | BOT Chain Testnet (MXNB stablecoin, escrow smart contract) |
 | **AI** | OpenAI GPT-4 (trust scoring, group matching, fraud detection) |
 | **Deploy** | Vercel |
 
@@ -79,7 +79,7 @@ graph TB
     User[👤 Tanda Member] -->|Deposit MXNB| Bitso[Bitso Business API]
     Bitso -->|Webhook| API[Next.js API Routes]
     API -->|Record| DB[(Supabase PostgreSQL)]
-    API -->|Lock Funds| Escrow[Arbitrum Escrow Contract]
+    API -->|Lock Funds| Escrow[BOT Chain Escrow Contract]
     API -->|Score Member| AI[OpenAI GPT-4]
     AI -->|Trust Score| DB
     Escrow -->|Auto Payout| Bitso
@@ -94,7 +94,7 @@ graph TB
 |---|---|---|
 | **Bitso Business Startup** | $3,900 | Pay-ins, Payouts, MXNB transfers, Webhooks, Mass Payouts — see `src/lib/` |
 | **ETH Mexico Main** | $1,500 | Full DeFi tanda platform solving financial trust in LATAM |
-| **Arbitrum** | $650 | Escrow smart contract deployed on Arbitrum — see `contracts/` |
+| **BOT Chain** | Ecosystem | Escrow smart contract deployed on BOT Chain — see `contracts/` |
 
 
 ## 🚀 Getting Started
@@ -118,14 +118,14 @@ npm run dev                  # http://localhost:3000
 
 | What | Status |
 |---|---|
-| **Wallet** | Install [MetaMask](https://metamask.io) → switch to **Arbitrum Sepolia** |
+| **Wallet** | Install [MetaMask](https://metamask.io) → switch to **BOT Chain Testnet** |
 | **Smart Contracts** | ✅ Already deployed (see addresses below) |
 | **Supabase DB** | ✅ Pre-seeded with demo data |
 | **Bitso API** | ✅ Staging keys included in demo — no personal account needed |
 | **OpenAI** | ✅ Trust scoring works with pre-computed scores in demo mode |
-| **Testnet ETH** | Get free ETH from [Arbitrum Sepolia Faucet](https://faucet.quicknode.com/arbitrum/sepolia) |
+| **Testnet BOT** | Get free BOT from [BOT Chain Faucet](https://faucet.botchain.ai) |
 
-### Deployed Contracts (Arbitrum Sepolia)
+### Deployed Contracts (BOT Chain Testnet)
 
 | Contract | Address |
 |---|---|
@@ -141,7 +141,7 @@ To deploy your own instance of the escrow contract and Mock MXNB token:
 ```bash
 cd contracts
 npm install
-cp .env.example .env   # Add your Arbitrum RPC URL and Private Key
+cp .env.example .env   # Add your BOT Chain RPC URL and Private Key
 npx hardhat compile
 npx hardhat run scripts/deploy.ts --network arbitrumSepolia
 ```
@@ -221,6 +221,6 @@ tandot/
 
 ## 🙏 Acknowledgments
 
-Built for **DoraHacks Ethereum Mexico 2026**. Thank you to Bitso, Arbitrum, and the ETH Mexico community for the APIs, tools, and inspiration.
+Built for **DoraHacks Ethereum Mexico 2026**. Thank you to Bitso, BOT Chain, and the ETH Mexico community for the APIs, tools, and inspiration.
 
 ¡Gracias por revisar este proyecto! 🇲🇽

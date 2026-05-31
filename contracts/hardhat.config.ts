@@ -22,6 +22,11 @@ const config: HardhatUserConfig = {
     arbitrumSepolia: {
       url: process.env.ARBITRUM_RPC_URL || "https://sepolia-rollup.arbitrum.io/rpc",
       accounts: [privateKey]
+    },
+    botChainMainnet: {
+      url: process.env.BOT_CHAIN_RPC_URL || "https://rpc.botchain.ai",
+      accounts: [privateKey],
+      chainId: 677
     }
   },
   etherscan: {
