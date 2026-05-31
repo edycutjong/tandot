@@ -8,7 +8,6 @@ export default defineConfig({
   retries: 0,
   workers: 1, // Only 1 worker for demo recording
   reporter: "list",
-  outputDir: "../../DemoStudio/013_Tandot/playwright-output",
   use: {
     baseURL: "http://localhost:3000",
     trace: "off",

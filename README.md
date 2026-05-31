@@ -39,7 +39,7 @@
   <br/><br/>
 
   <h3>2. AI-Powered Dashboard & Analysis</h3>
-  <img width="100%" alt="tandot-dashboard" src="https://github.com/user-attachments/assets/6601bded-11d1-4f47-a69a-72edbcf48d61" />
+  <img width="100%" alt="my-tandas-1" src="https://github.com/user-attachments/assets/1421f154-c56d-493b-9851-b51e2449ac8d" />
   <br/><br/>
 
   <h3>3. Automated Arbitrum Escrow Flow</h3>
