@@ -3,10 +3,14 @@
 import { GlassCard } from '@/components/ui/GlassCard';
 import { PlusCircle, Users, DollarSign, Clock } from 'lucide-react';
 import { useLocale } from '@/lib/LocaleContext';
+import { useWallet } from '@/lib/WalletContext';
+import { useSignMessage } from 'wagmi';
 
 export default function CreateTandaPage() {
   const { locale } = useLocale();
   const isEs = locale === 'es';
+  const { address } = useWallet();
+  const { signMessageAsync } = useSignMessage();
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -89,16 +93,13 @@ export default function CreateTandaPage() {
           className="btn-primary w-full py-4 text-base font-semibold glow-cyan"
           onClick={async () => {
             try {
-              if (typeof window !== 'undefined' && (window as any).ethereum) {
-                const accounts = await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
-                await (window as any).ethereum.request({
-                  method: 'personal_sign',
-                  params: ['Deploying TandaEscrow Contract on BOT Chain Testnet\\n\\nConfirming parameters and initializing AI Trust Matcher.', accounts[0]]
+              if (address) {
+                await signMessageAsync({
+                  message: 'Deploying TandaEscrow Contract on BOT Chain Testnet\n\nConfirming parameters and initializing AI Trust Matcher.'
                 });
                 window.location.href = '/dashboard';
               } else {
-                alert(isEs ? 'Firma exitosa. Creando contrato...' : 'Signature successful. Creating contract...');
-                window.location.href = '/dashboard';
+                alert(isEs ? 'Por favor conecta tu wallet primero.' : 'Please connect your wallet first.');
               }
             } catch (error) {
               console.error('Transaction rejected', error);
