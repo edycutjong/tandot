@@ -33,7 +33,7 @@ export const MOCK_TANDAS: Tanda[] = [
     current_round: 4,
     total_rounds: 10,
     status: 'active',
-    escrow_address: '0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE',
+    escrow_address: '0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e',
     ai_trust_score: 94,
     created_at: '2026-04-15T10:00:00Z',
     next_payout_at: '2026-05-18T10:00:00Z',

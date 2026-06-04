@@ -38,10 +38,10 @@ export function botScanUrl(path: `address/${string}` | `tx/${string}`): string {
 
 // ── Deployed contracts (chain 968) ──────────────────────────
 export const ESCROW_ADDRESS = (process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS ||
-  '0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE') as `0x${string}`;
+  '0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e') as `0x${string}`;
 
 export const MXNB_ADDRESS = (process.env.NEXT_PUBLIC_MXNB_TOKEN_ADDRESS ||
-  '0x5416728FD22b18880d55A8920617A424a6dab1dF') as `0x${string}`;
+  '0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa') as `0x${string}`;
 
 /** MockMXNB uses the default ERC-20 precision. */
 export const MXNB_DECIMALS = 18;

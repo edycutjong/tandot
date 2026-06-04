@@ -5,8 +5,8 @@ import { Search, ExternalLink, ShieldCheck, Clock } from 'lucide-react';
 import { useLocale } from '@/lib/LocaleContext';
 import { useState } from 'react';
 
-const ESCROW_ADDRESS = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS || '0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE';
-const MXNB_ADDRESS = process.env.NEXT_PUBLIC_MXNB_TOKEN_ADDRESS || '0x5416728FD22b18880d55A8920617A424a6dab1dF';
+const ESCROW_ADDRESS = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS || '0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e';
+const MXNB_ADDRESS = process.env.NEXT_PUBLIC_MXNB_TOKEN_ADDRESS || '0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa';
 
 export default function ExplorerPage() {
   const { locale } = useLocale();

@@ -110,7 +110,7 @@ jest.mock('@/lib/constants', () => ({
   FREQUENCY_LABELS: { weekly: 'Weekly' },
   STATUS_LABELS: { active: 'Active' },
   timeAgo: () => '2 days ago',
-  ESCROW_ADDRESS: '0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE',
+  ESCROW_ADDRESS: '0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e',
   botScanUrl: (path: string) => `https://scan.bohr.life/${path}`,
 }));
 
