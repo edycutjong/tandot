@@ -2,6 +2,10 @@ import { render } from '@testing-library/react';
 import DashboardLayout from '../layout';
 import { usePathname } from 'next/navigation';
 
+jest.mock('@/lib/WalletContext', () => ({
+  WalletProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  useWallet: jest.fn(() => ({ address: '0x123' })),
+}));
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(),
@@ -76,5 +80,20 @@ describe('DashboardLayout', () => {
       </DashboardLayout>
     );
     expect(Storage.prototype.getItem).toHaveBeenCalledWith('tandot-locale');
+  });
+
+  it('renders disconnected state when address is undefined', () => {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { useWallet } = require('@/lib/WalletContext');
+    (useWallet as jest.Mock).mockReturnValueOnce({ address: undefined });
+    (usePathname as jest.Mock).mockReturnValue('/dashboard');
+
+    const { getByText } = render(
+      <DashboardLayout>
+        <div>Content</div>
+      </DashboardLayout>
+    );
+
+    expect(getByText('Disconnected')).toBeInTheDocument();
   });
 });

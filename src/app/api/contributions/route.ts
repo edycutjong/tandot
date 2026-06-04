@@ -1,24 +1,19 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/server';
 
 export async function POST(request: Request) {
   try {
-    const supabase = await createClient();
+    // Wallet-authenticated app (no Supabase session) — write via the
+    // service-role admin client after validating the payload.
+    const supabase = await createAdminClient();
     const body = await request.json();
-    
-    // Check authentication
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
 
-    const { tanda_id, member_id, round, amount, arbitrum_tx_hash } = body as {
+    const { tanda_id, member_id, round, amount, botchain_tx_hash } = body as {
       tanda_id: string;
       member_id: string;
       round: number;
       amount: number;
-      arbitrum_tx_hash?: string | null;
+      botchain_tx_hash?: string | null;
     };
 
     // Validate required fields
@@ -38,8 +33,8 @@ export async function POST(request: Request) {
         round,
         amount,
         currency: 'MXNB',
-        status: arbitrum_tx_hash ? 'confirmed' : 'pending',
-        arbitrum_tx_hash,
+        status: botchain_tx_hash ? 'confirmed' : 'pending',
+        botchain_tx_hash,
       } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
       .select()
       .single();

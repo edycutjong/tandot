@@ -59,7 +59,7 @@ function LandingContent() {
 
       {/* ── Navigation ──────────────────────────────────────── */}
       <nav className="fixed top-0 inset-x-0 z-50 border-b border-(--border)"
-           style={{ background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
+        style={{ background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <Image
@@ -83,7 +83,7 @@ function LandingContent() {
 
       {/* ── Hero Section ────────────────────────────────────── */}
       <main className="flex-1 flex flex-col items-center px-6 pt-32 pb-20">
-        
+
         <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 mb-32 relative z-10">
           <motion.div
             variants={containerVariants}
@@ -98,22 +98,22 @@ function LandingContent() {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 
+            <motion.h1
               variants={itemVariants}
               className="font-heading font-extrabold text-5xl md:text-7xl text-center md:text-left leading-[1.1] mb-6 tracking-tight text-(--text-hi)"
             >
-              {t.hero_headline_prefix}<br/><span className="bg-linear-to-r from-(--cyan-400) to-(--emerald-400) bg-clip-text text-transparent">{t.hero_headline_highlight}</span>
+              {t.hero_headline_prefix}<br /><span className="bg-linear-to-r from-(--cyan-400) to-(--emerald-400) bg-clip-text text-transparent">{t.hero_headline_highlight}</span>
             </motion.h1>
 
             {/* Subtitle */}
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-lg md:text-xl text-center md:text-left max-w-2xl mb-4 font-body font-medium text-(--text-mid)"
             >
               {t.hero_subtitle}
             </motion.p>
 
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-sm text-center md:text-left max-w-xl mb-12 text-(--text-low)"
             >
@@ -134,7 +134,7 @@ function LandingContent() {
           </motion.div>
 
           {/* 3D Floating Mockup - The WOW Factor */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9, rotateY: -15, rotateX: 10 }}
             animate={{ opacity: 1, scale: 1, rotateY: 0, rotateX: 0 }}
             transition={{ delay: 0.4, duration: 1, type: "spring" }}
@@ -142,7 +142,7 @@ function LandingContent() {
             style={{ perspective: 2000 }}
           >
             {/* Main AI Coordinator Card */}
-            <motion.div 
+            <motion.div
               animate={{ y: [-10, 10, -10], rotateZ: [-1, 1, -1] }}
               transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 rounded-2xl border border-(--cyan-500)/40 bg-(--bg-elevated)/80 backdrop-blur-xl p-6 shadow-[0_0_60px_rgba(6,182,212,0.25)] z-20"
@@ -177,7 +177,7 @@ function LandingContent() {
             </motion.div>
 
             {/* Floating Member Card 1 */}
-            <motion.div 
+            <motion.div
               animate={{ y: [0, 15, 0], x: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut', delay: 1 }}
               className="absolute top-[10%] left-[0%] w-48 rounded-xl border border-(--border-subtle) bg-(--bg-base)/80 backdrop-blur-lg p-4 shadow-xl z-10"
@@ -188,7 +188,7 @@ function LandingContent() {
             </motion.div>
 
             {/* Floating Member Card 2 */}
-            <motion.div 
+            <motion.div
               animate={{ y: [0, -15, 0], x: [0, -5, 0] }}
               transition={{ repeat: Infinity, duration: 7, ease: 'easeInOut', delay: 2 }}
               className="absolute bottom-[10%] right-[0%] w-48 rounded-xl border border-(--border-subtle) bg-(--bg-base)/80 backdrop-blur-lg p-4 shadow-xl z-30"
@@ -199,7 +199,7 @@ function LandingContent() {
                 <div className="text-xl font-display font-bold text-(--text-hi)">96/100</div>
               </div>
             </motion.div>
-            
+
             {/* Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-(--cyan-500)/30 blur-[100px] rounded-full z-0 pointer-events-none" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 bg-(--emerald-500)/25 blur-[80px] rounded-full z-0 pointer-events-none" />
@@ -209,7 +209,7 @@ function LandingContent() {
         </div>
 
         {/* ── Stats Row ─────────────────────────────────────── */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
@@ -307,7 +307,7 @@ function LandingContent() {
               },
               {
                 name: 'BOT Chain',
-                href: 'https://bot.chain',
+                href: 'https://scan.bohr.life/',
                 logo: (
                   <div className="flex items-center gap-3">
                     <span className="font-bold text-xl tracking-tight">BOT Chain</span>
@@ -377,7 +377,7 @@ function LandingContent() {
           </div>
           <div className="flex items-center gap-6">
             <a href="https://github.com/edycutjong/Tandot" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_github}</a>
-            <a href="https://scan.bohr.life/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_contracts}</a>
+            <a href="https://scan.bohr.life/address/0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_contracts}</a>
             <a href="https://github.com/edycutjong/Tandot#readme" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_docs}</a>
           </div>
         </div>

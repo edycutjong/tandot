@@ -23,13 +23,13 @@ test.describe("Tanda Creation Flow", () => {
 
     const descTextarea = page.getByPlaceholder(/Describe tu tanda para atraer miembros...|Describe your tanda to attract members.../i);
     await expect(descTextarea).toBeVisible();
-    await descTextarea.fill("An E2E test generated Tanda group with isolated Arbitrum escrow.");
+    await descTextarea.fill("An E2E test generated Tanda group with isolated BOT Chain escrow.");
 
     // Handle dialog modal overlay
     let dialogTriggered = false;
     page.on("dialog", async (dialog) => {
       dialogTriggered = true;
-      expect(dialog.message()).toContain("Arbitrum");
+      expect(dialog.message()).toContain("BOT Chain");
       await dialog.accept();
     });
 

@@ -17,7 +17,7 @@ CREATE TABLE tandas (
   current_round INT NOT NULL DEFAULT 0,
   total_rounds INT NOT NULL CHECK (total_rounds >= 1),
   status TEXT NOT NULL DEFAULT 'forming' CHECK (status IN ('forming', 'active', 'completed', 'disputed')),
-  escrow_address TEXT, -- Arbitrum contract address
+  escrow_address TEXT, -- BOT Chain contract address
   ai_trust_score NUMERIC(5,2) DEFAULT 0,
   creator_id UUID REFERENCES auth.users(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -53,7 +53,7 @@ CREATE TABLE contributions (
   currency TEXT NOT NULL DEFAULT 'MXNB' CHECK (currency IN ('MXNB', 'MXN')),
   status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'failed')),
   bitso_tx_id TEXT,
-  arbitrum_tx_hash TEXT,
+  botchain_tx_hash TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   confirmed_at TIMESTAMPTZ,
   UNIQUE(tanda_id, member_id, round)
@@ -69,7 +69,7 @@ CREATE TABLE payouts (
   currency TEXT NOT NULL DEFAULT 'MXNB' CHECK (currency IN ('MXNB', 'MXN')),
   status TEXT NOT NULL DEFAULT 'scheduled' CHECK (status IN ('scheduled', 'processing', 'completed', 'failed')),
   bitso_payout_id TEXT,
-  arbitrum_tx_hash TEXT,
+  botchain_tx_hash TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   completed_at TIMESTAMPTZ,
   UNIQUE(tanda_id, round)

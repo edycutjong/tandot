@@ -50,10 +50,10 @@ describe('ExplorerPage', () => {
     expect(screen.getByText('TandaEscrow')).toBeInTheDocument();
     expect(screen.getByText('MockMXNB Token')).toBeInTheDocument();
     
-    // Check that Arbiscan links are present
-    const arbiscanLinks = screen.getAllByRole('link', { name: /Arbiscan/i });
-    expect(arbiscanLinks).toHaveLength(2);
-    expect(arbiscanLinks[0].closest('a')).toHaveAttribute('href', expect.stringContaining('https://scan.bohr.life/address/'));
+    // Check that BOTScan links are present
+    const botScanLinks = screen.getAllByRole('link', { name: /BOTScan/i });
+    expect(botScanLinks).toHaveLength(2);
+    expect(botScanLinks[0].closest('a')).toHaveAttribute('href', expect.stringContaining('https://scan.bohr.life/address/'));
   });
 
   it('updates search query on input change', () => {

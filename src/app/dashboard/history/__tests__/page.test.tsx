@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import HistoryPage from '../page';
+import { HistoryList, type HistoryRow } from '../HistoryList';
 
 // Mock the GlassCard component
 jest.mock('@/components/ui/GlassCard', () => ({
@@ -15,30 +16,10 @@ jest.mock('@/lib/LocaleContext', () => ({
   useLocale: jest.fn(),
 }));
 
-// Mock constants and mock data
+// Mock constants
 jest.mock('@/lib/constants', () => ({
   formatMXNB: (amount: number) => `${amount} MXNB`,
-}));
-
-jest.mock('@/lib/mock-data', () => ({
-  MOCK_CONTRIBUTIONS: [
-    {
-      id: 'tx-1',
-      tanda_id: 'tanda-1',
-      member_id: 'member-1',
-      amount: 1000,
-      status: 'confirmed',
-      created_at: '2026-05-13T10:00:00Z',
-    },
-    {
-      id: 'tx-2',
-      tanda_id: 'tanda-2',
-      member_id: 'member-1',
-      amount: 500,
-      status: 'pending',
-      created_at: '2026-05-14T12:00:00Z',
-    },
-  ],
+  botScanUrl: (path: string) => `https://scan.bohr.life/${path}`,
 }));
 
 // Mock lucide-react icons
@@ -50,41 +31,94 @@ jest.mock('lucide-react', () => ({
   Clock: () => <div data-testid="clock-icon" />,
 }));
 
+// Mock Supabase server client for the server-component test
+jest.mock('@/lib/supabase/server', () => ({
+  createClient: jest.fn().mockResolvedValue({
+    from: jest.fn().mockReturnValue({
+      select: jest.fn().mockReturnThis(),
+      order: jest.fn().mockReturnThis(),
+      limit: jest.fn().mockResolvedValue({
+        data: [
+          { id: 'tx-1', tanda_id: 'tanda-1', amount: 1000, status: 'confirmed', created_at: '2026-05-13T10:00:00Z', botchain_tx_hash: '0xabc123def4567890' },
+        ],
+        error: null,
+      }),
+    }),
+  }),
+}));
+
 import { useLocale } from '@/lib/LocaleContext';
 
-describe('HistoryPage', () => {
-  it('renders the history page with title in EN locale', () => {
+const ROWS: HistoryRow[] = [
+  { id: 'tx-1', tanda_id: 'tanda-1', amount: 1000, status: 'confirmed', created_at: '2026-05-13T10:00:00Z', botchain_tx_hash: '0xabc123def4567890' },
+  { id: 'tx-2', tanda_id: 'tanda-2', amount: 500, status: 'pending', created_at: '2026-05-14T12:00:00Z', botchain_tx_hash: null },
+];
+
+describe('HistoryList', () => {
+  it('renders the title in EN locale', () => {
     (useLocale as jest.Mock).mockReturnValue({ locale: 'en', t: {} });
-    render(<HistoryPage />);
-    
+    render(<HistoryList contributions={ROWS} />);
     expect(screen.getByText('Transaction History')).toBeInTheDocument();
-    expect(screen.getByText('All your contributions and payouts recorded on-chain.')).toBeInTheDocument();
   });
 
-  it('renders the history page with title in ES locale', () => {
+  it('renders the title in ES locale', () => {
     (useLocale as jest.Mock).mockReturnValue({ locale: 'es', t: {} });
-    render(<HistoryPage />);
-    
+    render(<HistoryList contributions={ROWS} />);
     expect(screen.getByText('Historial de Transacciones')).toBeInTheDocument();
-    expect(screen.getByText('Todas tus contribuciones y pagos registrados on-chain.')).toBeInTheDocument();
   });
 
-  it('renders the transactions list in EN locale', () => {
+  it('renders contribution rows with amounts and a BOTScan tx link', () => {
     (useLocale as jest.Mock).mockReturnValue({ locale: 'en', t: {} });
-    render(<HistoryPage />);
-    
+    render(<HistoryList contributions={ROWS} />);
     expect(screen.getByText('Contribution · tanda-1')).toBeInTheDocument();
     expect(screen.getByText('1000 MXNB')).toBeInTheDocument();
-    
     expect(screen.getByText('Contribution · tanda-2')).toBeInTheDocument();
     expect(screen.getByText('500 MXNB')).toBeInTheDocument();
+    expect(screen.getByText(/0xabc123de/).closest('a')).toHaveAttribute(
+      'href',
+      'https://scan.bohr.life/tx/0xabc123def4567890',
+    );
   });
 
-  it('renders the transactions list in ES locale', () => {
+  it('shows an empty state when there are no contributions', () => {
+    (useLocale as jest.Mock).mockReturnValue({ locale: 'en', t: {} });
+    render(<HistoryList contributions={[]} />);
+    expect(screen.getByText('No contributions recorded yet.')).toBeInTheDocument();
+  });
+
+  it('shows an empty state when there are no contributions in ES locale', () => {
     (useLocale as jest.Mock).mockReturnValue({ locale: 'es', t: {} });
-    render(<HistoryPage />);
+    render(<HistoryList contributions={[]} />);
+    expect(screen.getByText('Aún no hay contribuciones registradas.')).toBeInTheDocument();
+  });
+});
+
+describe('HistoryPage (server)', () => {
+  it('fetches contributions and renders them', async () => {
+    (useLocale as jest.Mock).mockReturnValue({ locale: 'en', t: {} });
+    const ui = await HistoryPage();
+    render(ui);
+    expect(screen.getByText('Contribution · tanda-1')).toBeInTheDocument();
+    expect(screen.getByText('1000 MXNB')).toBeInTheDocument();
+  });
+
+  it('handles null data gracefully', async () => {
+    (useLocale as jest.Mock).mockReturnValue({ locale: 'en', t: {} });
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const mockSupabase = require('@/lib/supabase/server').createClient;
+    mockSupabase.mockResolvedValueOnce({
+      from: jest.fn().mockReturnValue({
+        select: jest.fn().mockReturnThis(),
+        order: jest.fn().mockReturnThis(),
+        limit: jest.fn().mockResolvedValue({
+          data: null,
+          error: null,
+        }),
+      }),
+    });
     
-    expect(screen.getByText('Contribución · tanda-1')).toBeInTheDocument();
-    expect(screen.getByText('Contribución · tanda-2')).toBeInTheDocument();
+    const ui = await HistoryPage();
+    render(ui);
+    expect(screen.getByText('No contributions recorded yet.')).toBeInTheDocument();
   });
 });

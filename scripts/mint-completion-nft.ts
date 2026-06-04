@@ -22,7 +22,7 @@ async function mintCompletionCertificate(tandaId: string, memberAddress: string,
     await new Promise(resolve => setTimeout(resolve, 800));
     
     console.log(`✅ Successfully minted Tanda Excellence NFT to ${memberAddress}`);
-    console.log(`🔗 Network: Arbitrum Sepolia`);
+    console.log(`🔗 Network: BOT Chain`);
     console.log(`📄 Contract: 0xRareTanda...`);
     
     return true;

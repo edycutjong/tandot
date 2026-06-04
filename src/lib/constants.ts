@@ -11,6 +11,51 @@ export const SITE = {
   url: 'https://tandot.vercel.app',
 } as const;
 
+// ============================================================
+// BOT Chain — network config (verified live via eth_chainId)
+// Demo runs on the "bohr" testnet: chain 968, rpc.bohr.life,
+// scan.bohr.life — where TandaEscrow/MockMXNB are deployed.
+// (Mainnet is chain 677 / rpc.botchain.ai, not used for the demo.)
+// ============================================================
+export const BOT_CHAIN_ID = 968;
+
+export const BOT_CHAIN = {
+  id: BOT_CHAIN_ID,
+  name: 'BOT Chain Testnet',
+  nativeCurrency: { name: 'BOT', symbol: 'BOT', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://rpc.bohr.life'] },
+  },
+  blockExplorers: {
+    default: { name: 'BOTScan', url: 'https://scan.bohr.life' },
+  },
+} as const;
+
+/** Build a BOTScan address/tx URL */
+export function botScanUrl(path: `address/${string}` | `tx/${string}`): string {
+  return `${BOT_CHAIN.blockExplorers.default.url}/${path}`;
+}
+
+// ── Deployed contracts (chain 968) ──────────────────────────
+export const ESCROW_ADDRESS = (process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS ||
+  '0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE') as `0x${string}`;
+
+export const MXNB_ADDRESS = (process.env.NEXT_PUBLIC_MXNB_TOKEN_ADDRESS ||
+  '0x5416728FD22b18880d55A8920617A424a6dab1dF') as `0x${string}`;
+
+/** MockMXNB uses the default ERC-20 precision. */
+export const MXNB_DECIMALS = 18;
+
+/**
+ * Map a tanda's DB UUID to the uint256 `tandaId` used on-chain for per-tanda
+ * accounting. Strips hyphens and parses the 128-bit UUID directly to a BigInt
+ * to guarantee zero collisions on-chain.
+ */
+export function toOnchainTandaId(uuid: string): bigint {
+  // Strip hyphens and parse as hex. A UUID is 128 bits, which fits safely in a bigint/uint256.
+  return BigInt('0x' + uuid.replace(/-/g, ''));
+}
+
 /** Design system color tokens */
 export const COLORS = {
   // Primary — MXNB / Bitso brand

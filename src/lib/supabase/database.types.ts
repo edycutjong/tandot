@@ -116,7 +116,7 @@ export interface Database {
           currency: 'MXNB' | 'MXN'
           status: 'pending' | 'confirmed' | 'failed'
           bitso_tx_id: string | null
-          arbitrum_tx_hash: string | null
+          botchain_tx_hash: string | null
           created_at: string
           confirmed_at: string | null
         }
@@ -129,7 +129,7 @@ export interface Database {
           currency?: 'MXNB' | 'MXN'
           status?: 'pending' | 'confirmed' | 'failed'
           bitso_tx_id?: string | null
-          arbitrum_tx_hash?: string | null
+          botchain_tx_hash?: string | null
           created_at?: string
           confirmed_at?: string | null
         }
@@ -142,7 +142,7 @@ export interface Database {
           currency?: 'MXNB' | 'MXN'
           status?: 'pending' | 'confirmed' | 'failed'
           bitso_tx_id?: string | null
-          arbitrum_tx_hash?: string | null
+          botchain_tx_hash?: string | null
           created_at?: string
           confirmed_at?: string | null
         }
@@ -157,7 +157,7 @@ export interface Database {
           currency: 'MXNB' | 'MXN'
           status: 'scheduled' | 'processing' | 'completed' | 'failed'
           bitso_payout_id: string | null
-          arbitrum_tx_hash: string | null
+          botchain_tx_hash: string | null
           created_at: string
           completed_at: string | null
         }
@@ -170,7 +170,7 @@ export interface Database {
           currency?: 'MXNB' | 'MXN'
           status?: 'scheduled' | 'processing' | 'completed' | 'failed'
           bitso_payout_id?: string | null
-          arbitrum_tx_hash?: string | null
+          botchain_tx_hash?: string | null
           created_at?: string
           completed_at?: string | null
         }
@@ -183,7 +183,7 @@ export interface Database {
           currency?: 'MXNB' | 'MXN'
           status?: 'scheduled' | 'processing' | 'completed' | 'failed'
           bitso_payout_id?: string | null
-          arbitrum_tx_hash?: string | null
+          botchain_tx_hash?: string | null
           created_at?: string
           completed_at?: string | null
         }

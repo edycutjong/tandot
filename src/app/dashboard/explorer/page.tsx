@@ -5,8 +5,8 @@ import { Search, ExternalLink, ShieldCheck, Clock } from 'lucide-react';
 import { useLocale } from '@/lib/LocaleContext';
 import { useState } from 'react';
 
-const ESCROW_ADDRESS = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS || '0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c';
-const MXNB_ADDRESS = process.env.NEXT_PUBLIC_MXNB_TOKEN_ADDRESS || '0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7';
+const ESCROW_ADDRESS = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS || '0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE';
+const MXNB_ADDRESS = process.env.NEXT_PUBLIC_MXNB_TOKEN_ADDRESS || '0x5416728FD22b18880d55A8920617A424a6dab1dF';
 
 export default function ExplorerPage() {
   const { locale } = useLocale();
@@ -35,7 +35,7 @@ export default function ExplorerPage() {
         {isEs ? 'Explorador On-Chain' : 'On-Chain Explorer'}
       </h1>
       <p className="text-(--text-mid) mb-8">
-        {isEs ? 'Verifica contratos y transacciones directamente en Arbiscan.' : 'Verify contracts and transactions directly on Arbiscan.'}
+        {isEs ? 'Verifica contratos y transacciones directamente en BOTScan.' : 'Verify contracts and transactions directly on BOTScan.'}
       </p>
 
       {/* Search */}
@@ -78,7 +78,7 @@ export default function ExplorerPage() {
               rel="noopener noreferrer"
               className="btn-secondary text-xs flex items-center gap-1.5"
             >
-              Arbiscan <ExternalLink className="w-3.5 h-3.5" />
+              BOTScan <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </GlassCard>
         ))}

@@ -8,7 +8,7 @@
   [![Demo en Vivo](https://img.shields.io/badge/🚀_Demo-En_Vivo-06b6d4?style=for-the-badge)](https://tandot.edycu.dev)
   [![Presentación](https://img.shields.io/badge/📊_Presentación-f59e0b?style=for-the-badge)](https://tandot.edycu.dev/pitch)
   [![Video de Pitch](https://img.shields.io/badge/🎬_Video-Pitch-ef4444?style=for-the-badge)](https://youtu.be/gQ0IduJwbo0)
-  [![Arbiscan](https://img.shields.io/badge/📜_Arbiscan-Contratos-28A0F0?style=for-the-badge)](https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c)
+  [![BOTScan](https://img.shields.io/badge/📜_BOTScan-Contratos-28A0F0?style=for-the-badge)](https://scan.bohr.life/address/0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE)
   [![Construido para ETH México](https://img.shields.io/badge/DoraHacks-ETH_México_2026-8b5cf6?style=for-the-badge)](https://dorahacks.io/hackathon/ethmexico2026bitso/detail)
 
   <br/>
@@ -58,7 +58,7 @@ En México, las **tandas** son la herramienta de ahorro informal más popular, s
 **Características Clave:**
 - 🤖 **Puntuación de Confianza por IA:** GPT-4 evalúa la fiabilidad de cada miembro (0-100) mediante un análisis de 5 factores: historial de pagos, tasa de puntualidad, diversidad del grupo, antigüedad de la cuenta y calidad de las referencias.
 - 💰 **Escrow de MXNB en BOT Chain:** Todas las contribuciones fluyen hacia un contrato inteligente sin necesidad de confianza; los fondos se bloquean hasta que se cumplen las condiciones de pago automático.
-- 🔒 **Diseño a Prueba de Fraude:** Ninguna persona individual controla el pozo común. El contrato impone el orden de rotación y la IA marca a los miembros riesgosos antes de que se unan.
+- 🔒 **Diseño a Prueba de Fraude:** Ninguna persona individual controla el pozo común. El contrato impone el orden de rotación y la IA marca a los miembros riesgosos antes de que se unan. Capacidades de reembolso sin confianza aseguran que los fondos no queden bloqueados permanentemente si una ronda no logra formarse.
 - 🎨 **UX Premium Bilingüe:** Diseño emocional pensado primero en español con profundidad técnica en inglés. Estética fintech de glassmorphism, modo oscuro, tipografía Inter + JetBrains Mono + Outfit.
 
 ## 🏗️ Arquitectura y Stack Tecnológico
@@ -69,7 +69,7 @@ En México, las **tandas** son la herramienta de ahorro informal más popular, s
 | **Estilos** | Tailwind CSS v4 |
 | **Base de Datos** | Supabase (PostgreSQL + Realtime) |
 | **Pagos** | API de Bitso Business (Depósitos, Pagos, MXNB, Webhooks, Pagos Masivos) |
-| **Cadena** | BOT Chain Testnet (Stablecoin MXNB, contrato inteligente de escrow) |
+| **Cadena** | BOT Chain (Stablecoin MXNB, contrato inteligente de escrow) |
 | **IA** | OpenAI GPT-4 (puntuación de confianza, emparejamiento, detección de fraude) |
 | **Despliegue** | Vercel |
 
@@ -117,19 +117,19 @@ npm run dev                  # http://localhost:3000
 
 | Qué | Estado |
 |---|---|
-| **Wallet** | Instala [MetaMask](https://metamask.io) → cambia a **BOT Chain Testnet** |
+| **Wallet** | Instala [MetaMask](https://metamask.io) → cambia a **BOT Chain** |
 | **Contratos Inteligentes** | ✅ Ya desplegados (ver direcciones abajo) |
 | **Base de Datos Supabase** | ✅ Pre-sembrada con datos de demostración |
 | **API de Bitso** | ✅ Llaves de staging incluidas en el demo — no necesitas cuenta personal |
 | **OpenAI** | ✅ La puntuación de confianza funciona con scores pre-calculados en modo demo |
 | **BOT de Prueba** | Obtén BOT gratis en el [Faucet de BOT Chain](https://faucet.botchain.ai) |
 
-### Contratos Desplegados (BOT Chain Testnet)
+### Contratos Desplegados (BOT Chain)
 
 | Contrato | Dirección |
 |---|---|
-| **TandaEscrow** | [`0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c`](https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c) |
-| **MockMXNB (ERC-20)** | [`0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7`](https://sepolia.arbiscan.io/address/0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7) |
+| **TandaEscrow** | [`0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e`](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e) |
+| **MockMXNB (ERC-20)** | [`0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa`](https://scan.bohr.life/address/0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa) |
 
 > **Para Jueces:** Los contratos ya están en vivo; no es necesario desplegarlos. El dashboard lee estas direcciones automáticamente.
 
@@ -142,7 +142,7 @@ cd contracts
 npm install
 cp .env.example .env   # Agrega tu URL RPC de BOT Chain y Llave Privada
 npx hardhat compile
-npx hardhat run scripts/deploy.ts --network arbitrumSepolia
+npx hardhat run scripts/deploy.ts --network botChainTestnet
 ```
 
 Luego actualiza `NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS` y `NEXT_PUBLIC_MXNB_TOKEN_ADDRESS` en `.env.local`.
@@ -184,8 +184,8 @@ npm run lighthouse    # Auditoría de cumplimiento de Lighthouse CI
 | Capa | Herramienta | Estado | Detalles |
 |---|---|---|---|
 | **Calidad de Código** | ESLint + TypeScript | ✅ | Modo estricto, cero errores o advertencias |
-| **Pruebas Unitarias** | Jest | ✅ | 29 suites, 100 pruebas, 100% de cobertura en líneas/ramas/funciones/declaraciones |
-| **Pruebas de Contrato** | Hardhat + Chai | ✅ | 28 pruebas de contratos inteligentes exitosas (depósitos, contabilidad aislada, pagos automáticos) |
+| **Pruebas Unitarias** | Jest | ✅ | 32 suites, 150 pruebas, 100% de cobertura en líneas/ramas/funciones/declaraciones |
+| **Pruebas de Contrato** | Hardhat + Chai | ✅ | 35 pruebas de contratos inteligentes exitosas (depósitos, contabilidad aislada, pagos automáticos, reembolsos sin confianza) |
 | **Pruebas E2E** | Playwright | ✅ | 3 suites: pruebas de humo, responsividad móvil/tablet/desktop, flujo de creación de Tanda |
 | **Seguridad (SAST)** | CodeQL | ✅ | Análisis de código estático automatizado en GitHub Actions |
 | **Seguridad (SCA)** | Dependabot + Audit | ✅ | Escaneo de dependencias semanal y actualizaciones automatizadas |

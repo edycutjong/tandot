@@ -1,4 +1,4 @@
-import { formatMXN, formatMXNB, timeAgo, trustLabel, FREQUENCY_LABELS, STATUS_LABELS } from '../constants';
+import { formatMXN, formatMXNB, timeAgo, trustLabel, FREQUENCY_LABELS, STATUS_LABELS, botScanUrl, toOnchainTandaId } from '../constants';
 
 describe('Constants and Formatting Utilities', () => {
   describe('formatMXN', () => {
@@ -19,6 +19,14 @@ describe('Constants and Formatting Utilities', () => {
     it('appends MXNB correctly', () => {
       expect(formatMXNB(500)).toContain('500');
       expect(formatMXNB(500)).toContain('MXNB');
+    });
+  });
+
+  describe('toOnchainTandaId', () => {
+    it('parses UUID to BigInt deterministically', () => {
+      const uuid = '550e8400-e29b-41d4-a716-446655440000';
+      const expected = BigInt('0x550e8400e29b41d4a716446655440000');
+      expect(toOnchainTandaId(uuid)).toBe(expected);
     });
   });
 
@@ -77,6 +85,13 @@ describe('Constants and Formatting Utilities', () => {
     it('has correct STATUS_LABELS', () => {
       expect(STATUS_LABELS.forming).toBe('Formándose');
       expect(STATUS_LABELS.active).toBe('Activa');
+    });
+  });
+
+  describe('botScanUrl', () => {
+    it('returns formatted block explorer url', () => {
+      expect(botScanUrl('address/0x123')).toBe('https://scan.bohr.life/address/0x123');
+      expect(botScanUrl('tx/0xabc')).toBe('https://scan.bohr.life/tx/0xabc');
     });
   });
 });

@@ -1,6 +1,6 @@
 /**
  * Benchmark Script for ETH Mexico 2026
- * Demonstrates the expected latency of the AI Trust Scoring and Arbitrum Escrow setup
+ * Demonstrates the expected latency of the AI Trust Scoring and BOT Chain Escrow setup
  */
 
 async function sleep(ms: number) {
@@ -19,10 +19,10 @@ async function simulateAITrustScoring(memberAddress: string) {
   };
 }
 
-async function simulateArbitrumPayout(_tandaId: string, _recipient: string, _amount: number) {
+async function simulateBotChainPayout(_tandaId: string, _recipient: string, _amount: number) {
   void _tandaId; void _recipient; void _amount;
   const start = performance.now();
-  // Simulate Arbitrum Sepolia RPC call for executing payout
+  // Simulate BOT Chain RPC call for executing payout
   await sleep(400 + Math.random() * 150);
   const end = performance.now();
   return {
@@ -44,8 +44,8 @@ async function runBenchmark() {
   
   console.table(scores);
   
-  console.log('\n[2/2] Benchmarking Arbitrum Escrow Payouts (MXNB)');
-  const payout = await simulateArbitrumPayout('d41f5312', '0x70997970C51812dc3A010C7d01b50e0d17dc79C8', 5000);
+  console.log('\n[2/2] Benchmarking BOT Chain Escrow Payouts (MXNB)');
+  const payout = await simulateBotChainPayout('d41f5312', '0x70997970C51812dc3A010C7d01b50e0d17dc79C8', 5000);
   console.log(`✅ Payout completed in ${payout.latencyMs}ms`);
   console.log(`🔗 Transaction Hash: ${payout.txHash}`);
   

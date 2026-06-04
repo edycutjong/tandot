@@ -183,15 +183,15 @@ export default async function DashboardPage() {
                         </p>
                       </div>
                     </div>
-                    {contrib.arbitrum_tx_hash && (
+                    {contrib.botchain_tx_hash && (
                       <a
-                        href={`https://scan.bohr.life/tx/${contrib.arbitrum_tx_hash}`}
+                        href={`https://scan.bohr.life/tx/${contrib.botchain_tx_hash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-mono text-xs"
                         style={{ color: 'var(--accent)' }}
                       >
-                        {contrib.arbitrum_tx_hash.slice(0, 8)}…
+                        {contrib.botchain_tx_hash.slice(0, 8)}…
                       </a>
                     )}
                   </div>
@@ -220,9 +220,9 @@ export default async function DashboardPage() {
                           </p>
                         </div>
                       </div>
-                      {payout.arbitrum_tx_hash && (
+                      {payout.botchain_tx_hash && (
                         <a
-                          href={`https://scan.bohr.life/tx/${payout.arbitrum_tx_hash}`}
+                          href={`https://scan.bohr.life/tx/${payout.botchain_tx_hash}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-mono text-xs"

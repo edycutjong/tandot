@@ -22,7 +22,7 @@ const mockPayouts = [
     amount: 100,
     recipient_id: '0x123',
     created_at: '2023-01-01',
-    arbitrum_tx_hash: '0xabc'
+    botchain_tx_hash: '0xabc'
   },
   {
     id: '2',
@@ -31,7 +31,7 @@ const mockPayouts = [
     amount: 100,
     recipient_id: '0x456',
     created_at: '2023-01-02',
-    arbitrum_tx_hash: null
+    botchain_tx_hash: null
   }
 ];
 

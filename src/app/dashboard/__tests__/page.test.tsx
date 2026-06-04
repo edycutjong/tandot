@@ -23,11 +23,11 @@ describe('DashboardPage', () => {
         } else if (table === 'payouts') {
           data = [
             { id: 'p1', amount: 1000, status: 'scheduled', round: 2, recipient_id: 'abc', created_at: '2026-05-13' },
-            { id: 'p2', amount: 1000, status: 'completed', round: 1, recipient_id: 'def', created_at: '2026-05-06', arbitrum_tx_hash: '0x123' },
+            { id: 'p2', amount: 1000, status: 'completed', round: 1, recipient_id: 'def', created_at: '2026-05-06', botchain_tx_hash: '0x123' },
           ];
         } else if (table === 'contributions') {
           data = [
-            { id: 'c1', amount: 100, status: 'confirmed', round: 1, created_at: '2026-05-06', arbitrum_tx_hash: '0x456' },
+            { id: 'c1', amount: 100, status: 'confirmed', round: 1, created_at: '2026-05-06', botchain_tx_hash: '0x456' },
             { id: 'c2', amount: 100, status: 'pending', round: 2, created_at: '2026-05-13' },
           ];
         }

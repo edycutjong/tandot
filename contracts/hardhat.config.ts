@@ -19,10 +19,6 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
-    arbitrumSepolia: {
-      url: process.env.ARBITRUM_RPC_URL || "https://sepolia-rollup.arbitrum.io/rpc",
-      accounts: [privateKey]
-    },
     botChainMainnet: {
       url: process.env.BOT_CHAIN_RPC_URL || "https://rpc.botchain.ai",
       accounts: [privateKey],
@@ -36,8 +32,19 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      arbitrumSepolia: process.env.ARBISCAN_API_KEY || "",
+      botChainMainnet: process.env.BOTSCAN_API_KEY || "abc",
+      botChainTestnet: process.env.BOTSCAN_API_KEY || "abc",
     },
+    customChains: [
+      {
+        network: "botChainTestnet",
+        chainId: 968,
+        urls: {
+          apiURL: "https://scan.bohr.life/api",
+          browserURL: "https://scan.bohr.life"
+        }
+      }
+    ]
   },
 };
 

@@ -20,7 +20,7 @@ async function main() {
 
   console.log("TandaEscrow deployed to:", escrowAddress);
 
-  // Verify contracts on Arbiscan (skip on localhost)
+  // Verify contracts on BOTScan (skip on localhost)
   const network = await ethers.provider.getNetwork();
   if (network.chainId !== 31337n) {
     console.log("\nWaiting 30s for block confirmations before verification...");

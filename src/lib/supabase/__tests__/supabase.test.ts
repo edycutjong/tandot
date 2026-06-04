@@ -45,6 +45,18 @@ describe('Supabase Clients', () => {
       );
       expect(client).toEqual({ isMockBrowserClient: true });
     });
+
+    it('creates a browser client with fallback environment variables', () => {
+      delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+      delete process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      const client = createBrowserClient();
+      
+      expect(mockCreateBrowserClient).toHaveBeenCalledWith(
+        'http://127.0.0.1:9999',
+        'mock-anon-key'
+      );
+      expect(client).toBeDefined();
+    });
   });
 
   describe('Server Client', () => {
@@ -68,6 +80,24 @@ describe('Supabase Clients', () => {
       expect(mockCookieStore.set).toHaveBeenCalledWith('test', 'value', {});
     });
 
+    it('creates a server client with fallback environment variables', async () => {
+      delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+      delete process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      const mockCookieStore = {
+        getAll: jest.fn().mockReturnValue([]),
+        set: jest.fn(),
+      };
+      (cookies as jest.Mock).mockResolvedValue(mockCookieStore);
+
+      await createServerClient();
+      
+      expect(mockCreateServerClient).toHaveBeenCalledWith(
+        'http://127.0.0.1:9999',
+        'mock-anon-key',
+        expect.any(Object)
+      );
+    });
+
     it('creates an admin client and interacts with cookies', async () => {
       const mockCookieStore = {
         getAll: jest.fn().mockReturnValue([]),
@@ -86,6 +116,24 @@ describe('Supabase Clients', () => {
       expect(client).toEqual({ isMockServerClient: true });
       expect(mockCookieStore.getAll).toHaveBeenCalled();
       expect(mockCookieStore.set).toHaveBeenCalledWith('test', 'value', {});
+    });
+
+    it('creates an admin client with fallback environment variables', async () => {
+      delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+      delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+      const mockCookieStore = {
+        getAll: jest.fn().mockReturnValue([]),
+        set: jest.fn(),
+      };
+      (cookies as jest.Mock).mockResolvedValue(mockCookieStore);
+
+      await createAdminClient();
+      
+      expect(mockCreateServerClient).toHaveBeenCalledWith(
+        'http://127.0.0.1:9999',
+        'mock-service-key',
+        expect.any(Object)
+      );
     });
 
     it('handles errors when setting cookies from a Server Component', async () => {

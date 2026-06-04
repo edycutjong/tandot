@@ -110,6 +110,14 @@ jest.mock('@/lib/constants', () => ({
   FREQUENCY_LABELS: { weekly: 'Weekly' },
   STATUS_LABELS: { active: 'Active' },
   timeAgo: () => '2 days ago',
+  ESCROW_ADDRESS: '0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE',
+  botScanUrl: (path: string) => `https://scan.bohr.life/${path}`,
+}));
+
+// ContributionFlow is an on-chain client component with its own test suite —
+// stub it here so this server-component test doesn't pull in wagmi/viem.
+jest.mock('@/components/ContributionFlow', () => ({
+  ContributionFlow: () => <div data-testid="contribution-flow" />,
 }));
 
 // Mock next/link
@@ -169,7 +177,7 @@ describe('TandaDetailPage', () => {
                 id: 'tanda-2',
                 name: 'Test Tanda 2',
                 description: 'A test tanda',
-                status: 'pending',
+                status: 'active',
                 ai_trust_score: 95,
                 total_rounds: 0,
                 current_round: 0,
@@ -215,7 +223,7 @@ describe('TandaDetailPage', () => {
                   round: 0,
                   status: 'pending',
                   created_at: '2026-05-13T10:00:00Z',
-                  arbitrum_tx_hash: '0xhash1',
+                  botchain_tx_hash: '0xhash1',
                 },
               ],
               error: null,
@@ -235,7 +243,7 @@ describe('TandaDetailPage', () => {
                   status: 'pending',
                   recipient_id: 'member-2',
                   created_at: '2026-05-06T10:00:00Z',
-                  arbitrum_tx_hash: '0xhash2',
+                  botchain_tx_hash: '0xhash2',
                 },
               ],
               error: null,

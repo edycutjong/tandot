@@ -9,7 +9,7 @@
   [![Live Demo](https://img.shields.io/badge/🚀_Live-Demo-06b6d4?style=for-the-badge)](https://tandot.edycu.dev)
   [![Pitch Deck](https://img.shields.io/badge/📊_Pitch-Deck-f59e0b?style=for-the-badge)](https://tandot.edycu.dev/pitch)
   [![Pitch Video](https://img.shields.io/badge/🎬_Pitch-Video-ef4444?style=for-the-badge)](https://youtu.be/gQ0IduJwbo0)
-  [![Arbiscan](https://img.shields.io/badge/📜_Arbiscan-Contracts-28A0F0?style=for-the-badge)](https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c)
+  [![BOTScan](https://img.shields.io/badge/📜_BOTScan-Contracts-28A0F0?style=for-the-badge)](https://scan.bohr.life/address/0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE)
   [![Built for ETH Mexico](https://img.shields.io/badge/DoraHacks-ETH_Mexico_2026-8b5cf6?style=for-the-badge)](https://dorahacks.io/hackathon/ethmexico2026bitso/detail)
 
   <br/>
@@ -59,7 +59,7 @@ In Mexico, **tandas** (rotating savings circles) are the most popular informal s
 **Key Features:**
 - 🤖 **AI Trust Scoring:** GPT-4 evaluates each member's reliability (0-100) using 5-factor analysis: payment history, on-time rate, group diversity, account age, and referral quality.
 - 💰 **MXNB Escrow on BOT Chain:** All contributions flow into a trustless smart contract — funds are locked until automatic payout conditions are met.
-- 🔒 **Fraud-Proof by Design:** No single person controls the pool. The contract enforces rotation order and the AI flags risky members before they join.
+- 🔒 **Fraud-Proof by Design:** No single person controls the pool. The contract enforces rotation order and the AI flags risky members before they join. Trustless refund capabilities ensure funds cannot be permanently locked if a round fails to form.
 - 🎨 **Bilingual Premium UX:** Spanish-first emotional design with English technical depth. Glassmorphism fintech aesthetic, dark mode, Inter + JetBrains Mono + Outfit typography.
 
 ## 🏗️ Architecture & Tech Stack
@@ -70,7 +70,7 @@ In Mexico, **tandas** (rotating savings circles) are the most popular informal s
 | **Styling** | Tailwind CSS v4 |
 | **Database** | Supabase (PostgreSQL + Realtime) |
 | **Payments** | Bitso Business API (Pay-ins, Payouts, MXNB, Webhooks, Mass Payouts) |
-| **Chain** | BOT Chain Testnet (MXNB stablecoin, escrow smart contract) |
+| **Chain** | BOT Chain (MXNB stablecoin, escrow smart contract) |
 | **AI** | OpenAI GPT-4 (trust scoring, group matching, fraud detection) |
 | **Deploy** | Vercel |
 
@@ -118,19 +118,19 @@ npm run dev                  # http://localhost:3000
 
 | What | Status |
 |---|---|
-| **Wallet** | Install [MetaMask](https://metamask.io) → switch to **BOT Chain Testnet** |
+| **Wallet** | Install [MetaMask](https://metamask.io) → switch to **BOT Chain** |
 | **Smart Contracts** | ✅ Already deployed (see addresses below) |
 | **Supabase DB** | ✅ Pre-seeded with demo data |
 | **Bitso API** | ✅ Staging keys included in demo — no personal account needed |
 | **OpenAI** | ✅ Trust scoring works with pre-computed scores in demo mode |
 | **Testnet BOT** | Get free BOT from [BOT Chain Faucet](https://faucet.botchain.ai) |
 
-### Deployed Contracts (BOT Chain Testnet)
+### Deployed Contracts (BOT Chain)
 
 | Contract | Address |
 |---|---|
-| **TandaEscrow** | [`0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c`](https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c) |
-| **MockMXNB (ERC-20)** | [`0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7`](https://sepolia.arbiscan.io/address/0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7) |
+| **TandaEscrow** | [`0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e`](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e) |
+| **MockMXNB (ERC-20)** | [`0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa`](https://scan.bohr.life/address/0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa) |
 
 > **For Judges:** Contracts are already live — no deployment needed. The dashboard reads from these addresses automatically.
 
@@ -143,7 +143,7 @@ cd contracts
 npm install
 cp .env.example .env   # Add your BOT Chain RPC URL and Private Key
 npx hardhat compile
-npx hardhat run scripts/deploy.ts --network arbitrumSepolia
+npx hardhat run scripts/deploy.ts --network botChainTestnet
 ```
 
 Then update `NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS` and `NEXT_PUBLIC_MXNB_TOKEN_ADDRESS` in `.env.local`.
@@ -185,8 +185,8 @@ npm run lighthouse    # Lighthouse CI compliance audit
 | Layer | Tool | Status | Details |
 |---|---|---|---|
 | **Code Quality** | ESLint + TypeScript | ✅ | Strict mode, zero lint errors/warnings |
-| **Unit Testing** | Jest | ✅ | 29 suites, 100 tests, 100% statements/branches/functions/lines coverage |
-| **Contract Testing** | Hardhat + Chai | ✅ | 28 contract tests passing (deposits, isolated accounting, payouts) |
+| **Unit Testing** | Jest | ✅ | 32 suites, 150 tests, 100% statements/branches/functions/lines coverage |
+| **Contract Testing** | Hardhat + Chai | ✅ | 35 contract tests passing (deposits, isolated accounting, payouts, trustless refunds) |
 | **E2E Testing** | Playwright | ✅ | 3 suites: smoke tests, responsive layout, create Tanda flow |
 | **Security (SAST)** | CodeQL | ✅ | GitHub Actions static code scanning |
 | **Security (SCA)** | Dependabot + Audit | ✅ | Weekly dependency scanning and automated PRs |

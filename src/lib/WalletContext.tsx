@@ -9,23 +9,25 @@ import {
 } from '@rainbow-me/rainbowkit';
 import { 
   metaMaskWallet,
-  coinbaseWallet,
-  injectedWallet
+  coinbaseWallet
 } from '@rainbow-me/rainbowkit/wallets';
 import { WagmiProvider, useAccount, useDisconnect } from 'wagmi';
-import { arbitrum } from 'wagmi/chains';
+import { defineChain } from 'viem';
+import { BOT_CHAIN } from '@/lib/constants';
+
+const botChain = defineChain(BOT_CHAIN);
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 const config = getDefaultConfig({
   appName: 'Tandot',
   // Keep the ID for type strictness, but we won't hit their servers
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'b56e18d47c72ab683b10817fea6bad40',
-  chains: [arbitrum],
+  chains: [botChain],
   ssr: true, // Next.js App Router support
   wallets: [
     {
       groupName: 'Recommended',
-      wallets: [metaMaskWallet, coinbaseWallet, injectedWallet],
+      wallets: [metaMaskWallet, coinbaseWallet],
     },
   ],
 });
