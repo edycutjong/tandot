@@ -17,6 +17,7 @@ import {
   MXNB_ADDRESS,
   MXNB_DECIMALS,
   BOT_CHAIN_ID,
+  NETWORK,
   toOnchainTandaId,
 } from '@/lib/constants';
 import { TANDA_ESCROW_ABI } from '@/lib/abi/TandaEscrow';
@@ -234,8 +235,8 @@ export function ContributionFlow({ tandaId, amount, round, members, onSuccess }:
           <p className="text-xs text-red-400 mb-3 break-words">{error}</p>
         )}
 
-        {/* No MXNB → offer the test faucet first */}
-        {!busy && address && !hasFunds && (
+        {/* No MXNB → offer the test faucet first (testnet only) */}
+        {!busy && address && !hasFunds && NETWORK === 'testnet' && (
           <button
             onClick={getTestMXNB}
             disabled={funding}

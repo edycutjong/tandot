@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { isAddress, parseUnits } from 'viem';
 import { getFaucetWallet, publicClient } from '@/lib/server/botchain';
 import { MXNB_ABI } from '@/lib/abi/MockMXNB';
-import { MXNB_ADDRESS, MXNB_DECIMALS } from '@/lib/constants';
+import { MXNB_ADDRESS, MXNB_DECIMALS, NETWORK } from '@/lib/constants';
 
 // Amount of test MXNB dispensed per request.
 const FAUCET_AMOUNT = 1000;
@@ -12,6 +12,15 @@ const lastClaim = new Map<string, number>();
 
 export async function POST(request: Request) {
   try {
+    // The faucet mints test MXNB — it only makes sense on testnet. Never
+    // expose it on mainnet, where MXNB has real value.
+    if (NETWORK === 'mainnet') {
+      return NextResponse.json(
+        { error: 'Faucet is disabled on mainnet' },
+        { status: 403 },
+      );
+    }
+
     const { address } = (await request.json()) as { address?: string };
 
     if (!address || !isAddress(address)) {

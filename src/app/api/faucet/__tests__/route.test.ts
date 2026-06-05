@@ -124,4 +124,19 @@ describe('Faucet API', () => {
     expect(data.error).toBe('Faucet failed');
     consoleError.mockRestore();
   });
+
+  it('returns 403 and never mints when running on mainnet', async () => {
+    jest.resetModules();
+    const prev = process.env.NEXT_PUBLIC_NETWORK;
+    process.env.NEXT_PUBLIC_NETWORK = 'mainnet';
+    // Re-require so the real constants module recomputes NETWORK from the env above.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { POST: MainnetPOST } = require('../route');
+    const res = await MainnetPOST(createRequest({ address: '0xVALID' }));
+    expect(res.status).toBe(403);
+    const data = await res.json();
+    expect(data.error).toBe('Faucet is disabled on mainnet');
+    process.env.NEXT_PUBLIC_NETWORK = prev;
+    jest.resetModules();
+  });
 });
