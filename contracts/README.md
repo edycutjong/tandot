@@ -1,15 +1,24 @@
 # 🛡️ Tandot Smart Contracts
 
-Solidity escrow contracts for the Tandot rotating savings platform. Deployed and verified on **BOT Chain testnet** (chain `968`, "bohr"), RPC `rpc.bohr.life`, explorer [scan.bohr.life](https://scan.bohr.life).
+Solidity escrow contracts for the Tandot rotating savings platform. Deployed on **BOT Chain Mainnet** and **Testnet**.
 
-## Deployed Addresses (chain 968 — `scan.bohr.life`)
+## Deployed Addresses
+
+### 🟢 Mainnet (chain 677 — `scan.botchain.ai`)
 
 | Contract | Address | Explorer |
 |----------|---------|----------|
-| **TandaEscrow** | `0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE` | [View ↗](https://scan.bohr.life/address/0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE) |
-| **MockMXNB** | `0x5416728FD22b18880d55A8920617A424a6dab1dF` | [View ↗](https://scan.bohr.life/address/0x5416728FD22b18880d55A8920617A424a6dab1dF) |
+| **TandaEscrow** | `0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c` | [View ↗](https://scan.botchain.ai/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c) |
+| **MockMXNB** | `0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7` | [View ↗](https://scan.botchain.ai/address/0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7) |
 
-> Deployer: `0x4cCB355e6e97c9cEcC936b58e5e0CfDB5ede95d8`
+### 🟡 Testnet (chain 968 — `scan.bohr.life`)
+
+| Contract | Address | Explorer |
+|----------|---------|----------|
+| **TandaEscrow** | `0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e` | [View ↗](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e) |
+| **MockMXNB** | `0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa` | [View ↗](https://scan.bohr.life/address/0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa) |
+
+> Deployer (Both): `0x4cCB355e6e97c9cEcC936b58e5e0CfDB5ede95d8`
 
 ## Contracts
 

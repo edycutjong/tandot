@@ -127,6 +127,15 @@ npm run dev                  # http://localhost:3000
 
 ### Deployed Contracts (BOT Chain)
 
+#### 🟢 Mainnet (Chain 677)
+
+| Contract | Address |
+|---|---|
+| **TandaEscrow** | [`0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c`](https://scan.botchain.ai/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c) |
+| **MockMXNB (ERC-20)** | [`0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7`](https://scan.botchain.ai/address/0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7) |
+
+#### 🟡 Testnet (Chain 968)
+
 | Contract | Address |
 |---|---|
 | **TandaEscrow** | [`0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e`](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e) |
