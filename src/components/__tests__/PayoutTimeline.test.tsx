@@ -8,6 +8,7 @@ type Payout = Database['public']['Tables']['payouts']['Row'];
 jest.mock('@/lib/constants', () => ({
   formatMXNB: (val: number) => `$${val} MXNB`,
   timeAgo: () => '2 days ago',
+  botScanUrl: (path: string) => `https://scan.bohr.life/${path}`,
 }));
 
 jest.mock('@/components/ui/ClientTranslation', () => ({

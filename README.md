@@ -9,7 +9,7 @@
   [![Live Demo](https://img.shields.io/badge/🚀_Live-Demo-06b6d4?style=for-the-badge)](https://tandot.edycu.dev)
   [![Pitch Deck](https://img.shields.io/badge/📊_Pitch-Deck-f59e0b?style=for-the-badge)](https://tandot.edycu.dev/pitch)
   [![Pitch Video](https://img.shields.io/badge/🎬_Pitch-Video-ef4444?style=for-the-badge)](https://youtu.be/gQ0IduJwbo0)
-  [![BOTScan](https://img.shields.io/badge/📜_BOTScan-Contracts-28A0F0?style=for-the-badge)](https://scan.bohr.life/address/0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE)
+  [![BOTScan](https://img.shields.io/badge/📜_BOTScan-Contracts-28A0F0?style=for-the-badge)](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e)
   [![Built for ETH Mexico](https://img.shields.io/badge/DoraHacks-ETH_Mexico_2026-8b5cf6?style=for-the-badge)](https://dorahacks.io/hackathon/ethmexico2026bitso/detail)
 
   <br/>
@@ -143,6 +143,28 @@ npm run dev                  # http://localhost:3000
 
 > **For Judges:** Contracts are already live — no deployment needed. The dashboard reads from these addresses automatically.
 
+### Switching Networks (Testnet ↔ Mainnet)
+
+The app defaults to **testnet (968)**. The active network is selected by a single
+env var, `NEXT_PUBLIC_NETWORK` — chain ID, RPC, explorer, and both contract
+addresses are defined per-network in [`src/lib/constants.ts`](src/lib/constants.ts)
+and always switch together.
+
+```bash
+npm run dev                 # testnet (default)
+npm run dev:mainnet         # mainnet (chain 677)
+npm run dev:testnet         # testnet (chain 968)
+npm run build:mainnet       # production build pinned to mainnet
+```
+
+Or set it persistently in `.env.local`:
+
+```bash
+NEXT_PUBLIC_NETWORK=mainnet   # or testnet
+```
+
+> The `dev:*` / `build:*` scripts override `.env.local` for that run.
+
 ### Redeploy Contracts (Optional)
 
 To deploy your own instance of the escrow contract and Mock MXNB token:
@@ -155,7 +177,7 @@ npx hardhat compile
 npx hardhat run scripts/deploy.ts --network botChainTestnet
 ```
 
-Then update `NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS` and `NEXT_PUBLIC_MXNB_TOKEN_ADDRESS` in `.env.local`.
+Then update the deployed addresses in the `NETWORKS` registry in [`src/lib/constants.ts`](src/lib/constants.ts) (the `escrow` / `mxnb` fields for the network you deployed to).
 
 ### Bitso Business API (Staging)
 

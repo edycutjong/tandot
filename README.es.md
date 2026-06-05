@@ -8,7 +8,7 @@
   [![Demo en Vivo](https://img.shields.io/badge/🚀_Demo-En_Vivo-06b6d4?style=for-the-badge)](https://tandot.edycu.dev)
   [![Presentación](https://img.shields.io/badge/📊_Presentación-f59e0b?style=for-the-badge)](https://tandot.edycu.dev/pitch)
   [![Video de Pitch](https://img.shields.io/badge/🎬_Video-Pitch-ef4444?style=for-the-badge)](https://youtu.be/gQ0IduJwbo0)
-  [![BOTScan](https://img.shields.io/badge/📜_BOTScan-Contratos-28A0F0?style=for-the-badge)](https://scan.bohr.life/address/0x9c400171c76F1eaE1D64aD98E1a0bFB8B871BbdE)
+  [![BOTScan](https://img.shields.io/badge/📜_BOTScan-Contratos-28A0F0?style=for-the-badge)](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e)
   [![Construido para ETH México](https://img.shields.io/badge/DoraHacks-ETH_México_2026-8b5cf6?style=for-the-badge)](https://dorahacks.io/hackathon/ethmexico2026bitso/detail)
 
   <br/>
@@ -133,6 +133,28 @@ npm run dev                  # http://localhost:3000
 
 > **Para Jueces:** Los contratos ya están en vivo; no es necesario desplegarlos. El dashboard lee estas direcciones automáticamente.
 
+### Cambiar de Red (Testnet ↔ Mainnet)
+
+La app usa **testnet (968)** por defecto. La red activa se selecciona con una sola
+variable de entorno, `NEXT_PUBLIC_NETWORK` — el chain ID, RPC, explorador y ambas
+direcciones de contrato se definen por red en [`src/lib/constants.ts`](src/lib/constants.ts)
+y siempre cambian juntas.
+
+```bash
+npm run dev                 # testnet (por defecto)
+npm run dev:mainnet         # mainnet (chain 677)
+npm run dev:testnet         # testnet (chain 968)
+npm run build:mainnet       # build de producción fijado a mainnet
+```
+
+O fíjala de forma persistente en `.env.local`:
+
+```bash
+NEXT_PUBLIC_NETWORK=mainnet   # o testnet
+```
+
+> Los scripts `dev:*` / `build:*` sobrescriben `.env.local` para esa ejecución.
+
 ### Redesplegar Contratos (Opcional)
 
 Para desplegar tu propia instancia del contrato de escrow y el token Mock MXNB:
@@ -145,7 +167,7 @@ npx hardhat compile
 npx hardhat run scripts/deploy.ts --network botChainTestnet
 ```
 
-Luego actualiza `NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS` y `NEXT_PUBLIC_MXNB_TOKEN_ADDRESS` en `.env.local`.
+Luego actualiza las direcciones desplegadas en el registro `NETWORKS` en [`src/lib/constants.ts`](src/lib/constants.ts) (los campos `escrow` / `mxnb` de la red a la que desplegaste).
 
 ### API de Bitso Business (Staging)
 

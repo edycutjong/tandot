@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { formatMXNB, timeAgo } from '@/lib/constants';
+import { formatMXNB, timeAgo, botScanUrl } from '@/lib/constants';
 import { Database } from '@/lib/supabase/database.types';
 import { ClientTranslation as TText } from '@/components/ui/ClientTranslation';
 
@@ -81,7 +81,7 @@ export function PayoutTimeline({ payouts, currentRound }: PayoutTimelineProps) {
                   </div>
                   {payout.botchain_tx_hash && (
                     <a 
-                      href={`https://scan.bohr.life/tx/${payout.botchain_tx_hash}`}
+                      href={botScanUrl(`tx/${payout.botchain_tx_hash}`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[10px] hover:text-cyan-400 transition-colors underline decoration-cyan-500/30"

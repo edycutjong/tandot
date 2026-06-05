@@ -43,7 +43,9 @@ export default function CreateTandaPage() {
         await switchChainAsync({ chainId: BOT_CHAIN_ID });
       }
       await signMessageAsync({
-        message: 'Deploying TandaEscrow Contract on BOT Chain\n\nConfirming parameters and initializing AI Trust Matcher.',
+        message: isEs
+          ? 'Registrar tanda en Tandot\n\nFirma para confirmar que eres el organizador. Es una firma sin costo — no es una transacción ni cobra gas. Los depósitos on-chain ocurren al contribuir.'
+          : 'Register tanda on Tandot\n\nSign to confirm you are the organizer. This is a gasless signature — not a transaction and no gas fee. On-chain deposits happen when members contribute.',
       });
 
       const res = await fetch('/api/tandas', {
@@ -174,13 +176,13 @@ export default function CreateTandaPage() {
           <PlusCircle className="w-5 h-5 mr-2 inline" />
           {submitting
             ? (isEs ? 'Creando…' : 'Creating…')
-            : (isEs ? 'Crear Tanda con Escrow' : 'Create Tanda with Escrow')}
+            : (isEs ? 'Crear Tanda' : 'Create Tanda')}
         </button>
 
         <p className="text-xs text-center text-(--text-low)">
           {isEs
-            ? 'Se desplegará un contrato de escrow en BOT Chain automáticamente.'
-            : 'An escrow contract will be deployed to BOT Chain automatically.'}
+            ? 'Firmas un mensaje sin costo para crear la tanda. Quedará protegida por el contrato de escrow de BOT Chain; los depósitos on-chain ocurren al contribuir.'
+            : 'You sign a gasless message to create the tanda. It will be protected by the BOT Chain escrow contract; on-chain deposits happen when members contribute.'}
         </p>
       </GlassCard>
     </div>

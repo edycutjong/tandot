@@ -68,12 +68,12 @@ describe('CreateTandaPage', () => {
     fireEvent.change(amountInput, { target: { value: '1000' } });
     fireEvent.change(membersInput, { target: { value: '10' } });
 
-    const button = getByText('Create Tanda with Escrow');
+    const button = getByText('Create Tanda');
     fireEvent.click(button);
 
     await waitFor(() => {
       expect(signMessageAsyncMock).toHaveBeenCalledWith({
-        message: 'Deploying TandaEscrow Contract on BOT Chain\n\nConfirming parameters and initializing AI Trust Matcher.'
+        message: 'Register tanda on Tandot\n\nSign to confirm you are the organizer. This is a gasless signature — not a transaction and no gas fee. On-chain deposits happen when members contribute.'
       });
     });
   });
@@ -93,12 +93,12 @@ describe('CreateTandaPage', () => {
     fireEvent.change(amountInput, { target: { value: '2000' } });
     fireEvent.change(membersInput, { target: { value: '5' } });
 
-    const button = getByText('Crear Tanda con Escrow');
+    const button = getByText('Crear Tanda');
     fireEvent.click(button);
 
     await waitFor(() => {
       expect(signMessageAsyncMock).toHaveBeenCalledWith({
-        message: 'Deploying TandaEscrow Contract on BOT Chain\n\nConfirming parameters and initializing AI Trust Matcher.'
+        message: 'Registrar tanda en Tandot\n\nFirma para confirmar que eres el organizador. Es una firma sin costo — no es una transacción ni cobra gas. Los depósitos on-chain ocurren al contribuir.'
       });
     });
   });
@@ -117,7 +117,7 @@ describe('CreateTandaPage', () => {
     fireEvent.change(amountInput, { target: { value: '1000' } });
     fireEvent.change(membersInput, { target: { value: '10' } });
 
-    const button = getByText('Create Tanda with Escrow');
+    const button = getByText('Create Tanda');
     fireEvent.click(button);
 
     await waitFor(() => {
@@ -140,7 +140,7 @@ describe('CreateTandaPage', () => {
     fireEvent.change(amountInput, { target: { value: '1000' } });
     fireEvent.change(membersInput, { target: { value: '10' } });
 
-    const button = getByText('Create Tanda with Escrow');
+    const button = getByText('Create Tanda');
     fireEvent.click(button);
 
     await waitFor(() => {
@@ -166,7 +166,7 @@ describe('CreateTandaPage', () => {
     fireEvent.change(amountInput, { target: { value: '1000' } });
     fireEvent.change(membersInput, { target: { value: '10' } });
 
-    const button = getByText('Create Tanda with Escrow');
+    const button = getByText('Create Tanda');
     fireEvent.click(button);
 
     await waitFor(() => {
@@ -190,11 +190,11 @@ describe('CreateTandaPage', () => {
     fireEvent.change(amountInput, { target: { value: '1000' } });
     fireEvent.change(membersInput, { target: { value: '10' } });
 
-    const button = getByText('Create Tanda with Escrow');
+    const button = getByText('Create Tanda');
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(getByText('Create Tanda with Escrow')).toBeInTheDocument();
+      expect(getByText('Create Tanda')).toBeInTheDocument();
     });
   });
 
@@ -211,7 +211,7 @@ describe('CreateTandaPage', () => {
     fireEvent.change(getByPlaceholderText('1,000'), { target: { value: '1000' } });
     fireEvent.change(getByPlaceholderText('10'), { target: { value: '10' } });
 
-    fireEvent.click(getByText('Create Tanda with Escrow'));
+    fireEvent.click(getByText('Create Tanda'));
 
     await waitFor(() => {
       expect(getByText('Failed to create tanda')).toBeInTheDocument();
@@ -228,13 +228,13 @@ describe('CreateTandaPage', () => {
     
     // Test empty name
     fireEvent.change(nameInput, { target: { value: '   ' } });
-    fireEvent.click(getByText('Create Tanda with Escrow'));
+    fireEvent.click(getByText('Create Tanda'));
     expect(getByText('Fill in a name, amount (> 0) and at least 2 members.')).toBeInTheDocument();
 
     // Test invalid amount
     fireEvent.change(nameInput, { target: { value: 'Test' } });
     fireEvent.change(amountInput, { target: { value: '0' } });
-    fireEvent.click(getByText('Create Tanda with Escrow'));
+    fireEvent.click(getByText('Create Tanda'));
     expect(getByText('Fill in a name, amount (> 0) and at least 2 members.')).toBeInTheDocument();
   });
 
@@ -263,7 +263,7 @@ describe('CreateTandaPage', () => {
     const { getByText, getByPlaceholderText, rerender } = render(<CreateTandaPage />);
     
     // Line 30 check (wallet)
-    fireEvent.click(getByText('Crear Tanda con Escrow'));
+    fireEvent.click(getByText('Crear Tanda'));
     expect(alertMock).toHaveBeenCalledWith('Por favor conecta tu wallet primero.');
     alertMock.mockRestore();
 
@@ -271,7 +271,7 @@ describe('CreateTandaPage', () => {
     (useWallet as jest.Mock).mockReturnValue({ address: '0x123' });
     rerender(<CreateTandaPage />);
     fireEvent.change(getByPlaceholderText('ej. Tanda Navideña 2026'), { target: { value: '   ' } });
-    fireEvent.click(getByText('Crear Tanda con Escrow'));
+    fireEvent.click(getByText('Crear Tanda'));
     expect(getByText('Completa nombre, cuota (> 0) y al menos 2 miembros.')).toBeInTheDocument();
 
     // Line 63/72 check (fetch fail)
@@ -283,7 +283,7 @@ describe('CreateTandaPage', () => {
     fireEvent.change(getByPlaceholderText('1,000'), { target: { value: '1000' } });
     fireEvent.change(getByPlaceholderText('10'), { target: { value: '10' } });
     
-    fireEvent.click(getByText('Crear Tanda con Escrow'));
+    fireEvent.click(getByText('Crear Tanda'));
     await waitFor(() => {
       expect(getByText('Failed to create tanda')).toBeInTheDocument();
     });

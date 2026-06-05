@@ -3,7 +3,7 @@ import { createPublicClient, createWalletClient, defineChain, http } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts';
 import { BOT_CHAIN } from '@/lib/constants';
 
-/** viem chain object for BOT Chain (testnet 968). */
+/** viem chain object for the active BOT Chain network (see NEXT_PUBLIC_NETWORK). */
 export const botChain = defineChain(BOT_CHAIN);
 
 export const publicClient = createPublicClient({

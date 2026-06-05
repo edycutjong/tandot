@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SITE } from '@/lib/constants';
+import { SITE, BOT_CHAIN, ESCROW_ADDRESS, botScanUrl } from '@/lib/constants';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { TrustRing } from '@/components/ui/TrustRing';
 import { LanguageToggle } from '@/components/ui/LanguageToggle';
@@ -307,7 +307,7 @@ function LandingContent() {
               },
               {
                 name: 'BOT Chain',
-                href: 'https://scan.bohr.life/',
+                href: `${BOT_CHAIN.blockExplorers.default.url}/`,
                 logo: (
                   <div className="flex items-center gap-3">
                     <span className="font-bold text-xl tracking-tight">BOT Chain</span>
@@ -377,7 +377,7 @@ function LandingContent() {
           </div>
           <div className="flex items-center gap-6">
             <a href="https://github.com/edycutjong/Tandot" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_github}</a>
-            <a href="https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_contracts}</a>
+            <a href={botScanUrl(`address/${ESCROW_ADDRESS}`)} target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_contracts}</a>
             <a href="https://github.com/edycutjong/Tandot#readme" target="_blank" rel="noopener noreferrer" className="text-sm text-(--text-low) hover:text-(--text-hi) transition-colors">{t.footer_docs}</a>
           </div>
         </div>

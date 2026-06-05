@@ -5,6 +5,7 @@ import {
   formatMXN,
   formatMXNB,
   timeAgo,
+  botScanUrl,
 } from '@/lib/constants';
 import { Database } from '@/lib/supabase/database.types';
 import { TandaCard } from '@/components/TandaCard';
@@ -185,7 +186,7 @@ export default async function DashboardPage() {
                     </div>
                     {contrib.botchain_tx_hash && (
                       <a
-                        href={`https://scan.bohr.life/tx/${contrib.botchain_tx_hash}`}
+                        href={botScanUrl(`tx/${contrib.botchain_tx_hash}`)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-mono text-xs"
@@ -222,7 +223,7 @@ export default async function DashboardPage() {
                       </div>
                       {payout.botchain_tx_hash && (
                         <a
-                          href={`https://scan.bohr.life/tx/${payout.botchain_tx_hash}`}
+                          href={botScanUrl(`tx/${payout.botchain_tx_hash}`)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-mono text-xs"

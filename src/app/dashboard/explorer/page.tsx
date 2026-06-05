@@ -4,9 +4,7 @@ import { GlassCard } from '@/components/ui/GlassCard';
 import { Search, ExternalLink, ShieldCheck, Clock } from 'lucide-react';
 import { useLocale } from '@/lib/LocaleContext';
 import { useState } from 'react';
-
-const ESCROW_ADDRESS = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS || '0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e';
-const MXNB_ADDRESS = process.env.NEXT_PUBLIC_MXNB_TOKEN_ADDRESS || '0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa';
+import { ESCROW_ADDRESS, MXNB_ADDRESS, botScanUrl } from '@/lib/constants';
 
 export default function ExplorerPage() {
   const { locale } = useLocale();
@@ -73,7 +71,7 @@ export default function ExplorerPage() {
               </div>
             </div>
             <a
-              href={`https://scan.bohr.life/address/${contract.address}`}
+              href={botScanUrl(`address/${contract.address}`)}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary text-xs flex items-center gap-1.5"

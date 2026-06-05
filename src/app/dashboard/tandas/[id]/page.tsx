@@ -306,7 +306,7 @@ export default async function TandaDetailPage({
                         <td className="py-3" style={{ color: 'var(--text-muted)' }}>{timeAgo(contrib.created_at)}</td>
                         <td className="py-3">
                           <a 
-                            href={`https://scan.bohr.life/tx/${contrib.botchain_tx_hash}`}
+                            href={botScanUrl(`tx/${contrib.botchain_tx_hash}`)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-mono text-cyan-500 hover:underline"

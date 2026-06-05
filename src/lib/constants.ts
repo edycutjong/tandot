@@ -12,22 +12,62 @@ export const SITE = {
 } as const;
 
 // ============================================================
-// BOT Chain — network config (verified live via eth_chainId)
-// Demo runs on the "bohr" testnet: chain 968, rpc.bohr.life,
-// scan.bohr.life — where TandaEscrow/MockMXNB are deployed.
-// (Mainnet is chain 677 / rpc.botchain.ai, not used for the demo.)
+// BOT Chain — network registry (verified live via eth_chainId)
+// Switch with NEXT_PUBLIC_NETWORK=testnet|mainnet (defaults to
+// testnet). Chain id, RPC, explorer, and the deployed contract
+// addresses all move together as one unit, so the active chain
+// can never drift out of sync with the contracts it points at.
 // ============================================================
-export const BOT_CHAIN_ID = 968;
+export type BotNetwork = 'testnet' | 'mainnet';
+
+const NETWORKS = {
+  // "bohr" testnet — chain 968, where the demo contracts are deployed.
+  testnet: {
+    id: 968,
+    name: 'BOT Chain Testnet',
+    rpcUrl: 'https://rpc.bohr.life',
+    explorerUrl: 'https://scan.bohr.life',
+    escrow: '0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e',
+    mxnb: '0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa',
+  },
+  // BOT Chain mainnet — chain 677.
+  mainnet: {
+    id: 677,
+    name: 'BOT Chain',
+    rpcUrl: 'https://rpc.botchain.ai',
+    explorerUrl: 'https://scan.botchain.ai',
+    escrow: '0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c',
+    mxnb: '0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7',
+  },
+} as const satisfies Record<
+  BotNetwork,
+  {
+    id: number;
+    name: string;
+    rpcUrl: string;
+    explorerUrl: string;
+    escrow: `0x${string}`;
+    mxnb: `0x${string}`;
+  }
+>;
+
+/** Active network, selected at build/runtime via NEXT_PUBLIC_NETWORK. */
+export const NETWORK: BotNetwork =
+  process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? 'mainnet' : 'testnet';
+
+const ACTIVE = NETWORKS[NETWORK];
+
+export const BOT_CHAIN_ID = ACTIVE.id;
 
 export const BOT_CHAIN = {
-  id: BOT_CHAIN_ID,
-  name: 'BOT Chain Testnet',
+  id: ACTIVE.id,
+  name: ACTIVE.name,
   nativeCurrency: { name: 'BOT', symbol: 'BOT', decimals: 18 },
   rpcUrls: {
-    default: { http: ['https://rpc.bohr.life'] },
+    default: { http: [ACTIVE.rpcUrl] },
   },
   blockExplorers: {
-    default: { name: 'BOTScan', url: 'https://scan.bohr.life' },
+    default: { name: 'BOTScan', url: ACTIVE.explorerUrl },
   },
 } as const;
 
@@ -36,12 +76,9 @@ export function botScanUrl(path: `address/${string}` | `tx/${string}`): string {
   return `${BOT_CHAIN.blockExplorers.default.url}/${path}`;
 }
 
-// ── Deployed contracts (chain 968) ──────────────────────────
-export const ESCROW_ADDRESS = (process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS ||
-  '0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e') as `0x${string}`;
-
-export const MXNB_ADDRESS = (process.env.NEXT_PUBLIC_MXNB_TOKEN_ADDRESS ||
-  '0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa') as `0x${string}`;
+// ── Deployed contracts (move with the active network) ──────────
+export const ESCROW_ADDRESS = ACTIVE.escrow as `0x${string}`;
+export const MXNB_ADDRESS = ACTIVE.mxnb as `0x${string}`;
 
 /** MockMXNB uses the default ERC-20 precision. */
 export const MXNB_DECIMALS = 18;
