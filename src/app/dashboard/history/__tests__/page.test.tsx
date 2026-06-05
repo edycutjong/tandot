@@ -20,6 +20,7 @@ jest.mock('@/lib/LocaleContext', () => ({
 jest.mock('@/lib/constants', () => ({
   formatMXNB: (amount: number) => `${amount} MXNB`,
   botScanUrl: (path: string) => `https://scan.bohr.life/${path}`,
+  ESCROW_ADDRESS: '0xESCROW',
 }));
 
 // Mock lucide-react icons
@@ -31,19 +32,27 @@ jest.mock('lucide-react', () => ({
   Clock: () => <div data-testid="clock-icon" />,
 }));
 
-// Mock Supabase server client for the server-component test
+// Mock Supabase server client for the server-component test. The page now runs
+// two queries: tandas (for the active network's ids) then contributions.
+const CONTRIB_ROWS = [
+  { id: 'tx-1', tanda_id: 'tanda-1', amount: 1000, status: 'confirmed', created_at: '2026-05-13T10:00:00Z', botchain_tx_hash: '0xabc123def4567890' },
+];
+function makeHistoryChain(rows: unknown) {
+  const chain: Record<string, jest.Mock> = {};
+  chain.select = jest.fn(() => chain);
+  chain.eq = jest.fn(() => chain);
+  chain.in = jest.fn(() => chain);
+  chain.order = jest.fn(() => chain);
+  chain.limit = jest.fn().mockResolvedValue({ data: rows, error: null });
+  // The tandas query is awaited directly (no .limit), so make the chain thenable.
+  chain.then = jest.fn((resolve) => resolve({ data: [{ id: 'tanda-1' }], error: null }));
+  return chain;
+}
 jest.mock('@/lib/supabase/server', () => ({
   createClient: jest.fn().mockResolvedValue({
-    from: jest.fn().mockReturnValue({
-      select: jest.fn().mockReturnThis(),
-      order: jest.fn().mockReturnThis(),
-      limit: jest.fn().mockResolvedValue({
-        data: [
-          { id: 'tx-1', tanda_id: 'tanda-1', amount: 1000, status: 'confirmed', created_at: '2026-05-13T10:00:00Z', botchain_tx_hash: '0xabc123def4567890' },
-        ],
-        error: null,
-      }),
-    }),
+    from: jest.fn((table: string) =>
+      makeHistoryChain(table === 'contributions' ? CONTRIB_ROWS : [{ id: 'tanda-1' }]),
+    ),
   }),
 }));
 
@@ -106,15 +115,15 @@ describe('HistoryPage (server)', () => {
     (useLocale as jest.Mock).mockReturnValue({ locale: 'en', t: {} });
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const mockSupabase = require('@/lib/supabase/server').createClient;
+    const nullChain: Record<string, jest.Mock> = {};
+    nullChain.select = jest.fn(() => nullChain);
+    nullChain.eq = jest.fn(() => nullChain);
+    nullChain.in = jest.fn(() => nullChain);
+    nullChain.order = jest.fn(() => nullChain);
+    nullChain.limit = jest.fn().mockResolvedValue({ data: null, error: null });
+    nullChain.then = jest.fn((resolve) => resolve({ data: null, error: null }));
     mockSupabase.mockResolvedValueOnce({
-      from: jest.fn().mockReturnValue({
-        select: jest.fn().mockReturnThis(),
-        order: jest.fn().mockReturnThis(),
-        limit: jest.fn().mockResolvedValue({
-          data: null,
-          error: null,
-        }),
-      }),
+      from: jest.fn().mockReturnValue(nullChain),
     });
     
     const ui = await HistoryPage();

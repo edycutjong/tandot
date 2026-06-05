@@ -35,6 +35,7 @@ describe('DashboardPage', () => {
         return {
           select: jest.fn().mockReturnThis(),
           eq: jest.fn().mockReturnThis(),
+          in: jest.fn().mockReturnThis(),
           order: jest.fn().mockReturnThis(),
           limit: jest.fn().mockReturnThis(),
           then: jest.fn((resolve) => resolve({ data, count: data.length })),
@@ -61,6 +62,7 @@ describe('DashboardPage', () => {
       from: jest.fn().mockReturnValue({
         select: jest.fn().mockReturnThis(),
         eq: jest.fn().mockReturnThis(),
+        in: jest.fn().mockReturnThis(),
         order: jest.fn().mockReturnThis(),
         limit: jest.fn().mockReturnThis(),
         then: jest.fn((resolve) => resolve({ data: null, count: 0 })), // returning null handles fallback `|| []`
@@ -84,6 +86,7 @@ describe('DashboardPage', () => {
         return {
           select: jest.fn().mockReturnThis(),
           eq: jest.fn().mockReturnThis(),
+          in: jest.fn().mockReturnThis(),
           order: jest.fn().mockReturnThis(),
           limit: jest.fn().mockReturnThis(),
           then: jest.fn((resolve) => resolve({ data, count: data.length })),

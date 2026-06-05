@@ -35,30 +35,46 @@ Local:
 npm run dev:testnet     # or dev:mainnet / build:testnet / build:mainnet
 ```
 
-## Databases — one per network
+## Database — one shared DB, separated in-app
 
-Testnet and mainnet use **separate Supabase projects** (like staging vs prod).
-The schema has no `chain_id` column, and mainnet holds real-value records, so the
-isolation is the safety mechanism — never share a DB between them.
+On the free tier there is **one Supabase project**, shared by both deployments.
+Network isolation is enforced **in application code**: every tanda row is stamped
+with the active network's `escrow_address` on insert (testnet and mainnet have
+different escrow contracts), and all tanda reads filter by it
+(`.eq('escrow_address', ESCROW_ADDRESS)`). The dashboard's recent activity and the
+history page scope their contribution/payout reads to the current network's tanda
+ids. So testnet and mainnet rows live in the same tables but never appear in each
+other's views.
 
-1. Create a Supabase project per network (e.g. `tandot-testnet`, `tandot-mainnet`).
-   - Mind the free-tier limit of 2 active projects per org; pause the old Arbitrum
-     project or use a separate org if needed.
-2. In each, run [`db/schema.sql`](../db/schema.sql) **unchanged** — it works as-is
-   per network.
-3. Use each project's own URL + keys in the matching deployment below.
+- Run [`db/schema.sql`](../db/schema.sql) once (already applied to the existing DB).
+- **Optional one-time backfill** so any legacy/seeded rows show on testnet (assigns
+  everything that isn't the mainnet escrow to the testnet escrow):
+  ```sql
+  UPDATE tandas
+  SET escrow_address = '0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e'  -- testnet escrow
+  WHERE escrow_address IS NULL
+     OR escrow_address NOT IN (
+       '0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e',   -- testnet
+       '0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c'    -- mainnet
+     );
+  ```
+
+> ⚠️ Real-value safety: a shared DB keeps mainnet financial rows in the same tables
+> as test rows. The escrow filter is the only thing separating them — if you ever
+> move to a paid tier, prefer a **separate Supabase project for mainnet**.
 
 ## Vercel — one project per network
 
-Two Vercel projects, **both building from `botchain`**. Every variable is identical
-except the two marked **⟂** (they differ per network):
+Two Vercel projects, **both building from `botchain`**, sharing the **same single
+Supabase**. Only the row marked **⟂** differs between them — everything else
+(including the Supabase creds) is identical:
 
 | Env var | Testnet project | Mainnet project |
 |---|---|---|
 | `NEXT_PUBLIC_NETWORK` ⟂ | `testnet` | `mainnet` |
-| `NEXT_PUBLIC_SUPABASE_URL` ⟂ | testnet project URL | mainnet project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` ⟂ | testnet anon key | mainnet anon key |
-| `SUPABASE_SERVICE_ROLE_KEY` ⟂ | testnet service key | mainnet service key |
+| `NEXT_PUBLIC_SUPABASE_URL` | same (shared DB) | same (shared DB) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | same | same |
+| `SUPABASE_SERVICE_ROLE_KEY` | same | same |
 | `BITSO_API_KEY` | same | same |
 | `BITSO_API_SECRET` | same | same |
 | `BITSO_API_URL` | same | same |
@@ -66,7 +82,8 @@ except the two marked **⟂** (they differ per network):
 | `FAUCET_PRIVATE_KEY` | MockMXNB owner on 968 | (unused — faucet off on mainnet) |
 | `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` | same | same |
 
-Set them in **Vercel → Project → Settings → Environment Variables**, or via CLI
+So the **only** env difference between the two projects is `NEXT_PUBLIC_NETWORK`.
+Set vars in **Vercel → Project → Settings → Environment Variables**, or via CLI
 (`vercel env add <NAME> production`). Use [`.env.example`](../.env.example) as the
 checklist. **Never commit real secret values** — only variable names live in git.
 

@@ -6,6 +6,7 @@ import {
   formatMXNB,
   timeAgo,
   botScanUrl,
+  ESCROW_ADDRESS,
 } from '@/lib/constants';
 import { Database } from '@/lib/supabase/database.types';
 import { TandaCard } from '@/components/TandaCard';
@@ -19,23 +20,31 @@ type Payout = Database['public']['Tables']['payouts']['Row'];
 export default async function DashboardPage() {
   const supabase = await createClient();
 
-  // Fetch stats concurrently
+  // Only this network's tandas. Rows are stamped with the active network's
+  // escrow address on insert, so on a shared DB it doubles as the network
+  // discriminator (testnet and mainnet have different escrow contracts).
+  const { data: tandas } = await supabase
+    .from('tandas')
+    .select('*')
+    .eq('escrow_address', ESCROW_ADDRESS)
+    .order('created_at', { ascending: false });
+  const safeTandas = (tandas as Tanda[]) || [];
+  const tandaIds = safeTandas.map((t) => t.id);
+
+  // Stats + recent activity, all scoped to this network's tandas.
   const [
     { count: totalTandas },
     { count: activeTandas },
-    { data: tandas },
     { data: recentContributions },
     { data: recentPayouts },
   ] = await Promise.all([
-    supabase.from('tandas').select('*', { count: 'exact', head: true }),
-    supabase.from('tandas').select('*', { count: 'exact', head: true }).eq('status', 'active'),
-    supabase.from('tandas').select('*').order('created_at', { ascending: false }),
-    supabase.from('contributions').select('*').order('created_at', { ascending: false }).limit(5),
-    supabase.from('payouts').select('*').order('created_at', { ascending: false }).limit(4),
+    supabase.from('tandas').select('*', { count: 'exact', head: true }).eq('escrow_address', ESCROW_ADDRESS),
+    supabase.from('tandas').select('*', { count: 'exact', head: true }).eq('escrow_address', ESCROW_ADDRESS).eq('status', 'active'),
+    supabase.from('contributions').select('*').in('tanda_id', tandaIds).order('created_at', { ascending: false }).limit(5),
+    supabase.from('payouts').select('*').in('tanda_id', tandaIds).order('created_at', { ascending: false }).limit(4),
   ]);
 
   // Handle potential nulls
-  const safeTandas = (tandas as Tanda[]) || [];
   const safeContributions = (recentContributions as Contribution[]) || [];
   const safePayouts = (recentPayouts as Payout[]) || [];
 
