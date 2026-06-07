@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { isAddress } from 'viem';
 import { createAdminClient } from '@/lib/supabase/server';
-import { ESCROW_ADDRESS } from '@/lib/constants';
+import { ESCROW_ADDRESS, NETWORK } from '@/lib/constants';
 
 /**
  * Create a tanda from the connected wallet. This app authenticates with a
@@ -55,6 +55,7 @@ export async function POST(request: Request) {
         total_rounds,
         status: 'forming',
         escrow_address: ESCROW_ADDRESS,
+        network: NETWORK,
       } as never)
       .select()
       .single();

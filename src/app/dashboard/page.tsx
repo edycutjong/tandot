@@ -6,7 +6,7 @@ import {
   formatMXNB,
   timeAgo,
   botScanUrl,
-  ESCROW_ADDRESS,
+  NETWORK,
 } from '@/lib/constants';
 import { Database } from '@/lib/supabase/database.types';
 import { TandaCard } from '@/components/TandaCard';
@@ -26,7 +26,7 @@ export default async function DashboardPage() {
   const { data: tandas } = await supabase
     .from('tandas')
     .select('*')
-    .eq('escrow_address', ESCROW_ADDRESS)
+    .eq('network', NETWORK)
     .order('created_at', { ascending: false });
   const safeTandas = (tandas as Tanda[]) || [];
   const tandaIds = safeTandas.map((t) => t.id);
@@ -38,8 +38,8 @@ export default async function DashboardPage() {
     { data: recentContributions },
     { data: recentPayouts },
   ] = await Promise.all([
-    supabase.from('tandas').select('*', { count: 'exact', head: true }).eq('escrow_address', ESCROW_ADDRESS),
-    supabase.from('tandas').select('*', { count: 'exact', head: true }).eq('escrow_address', ESCROW_ADDRESS).eq('status', 'active'),
+    supabase.from('tandas').select('*', { count: 'exact', head: true }).eq('network', NETWORK),
+    supabase.from('tandas').select('*', { count: 'exact', head: true }).eq('network', NETWORK).eq('status', 'active'),
     supabase.from('contributions').select('*').in('tanda_id', tandaIds).order('created_at', { ascending: false }).limit(5),
     supabase.from('payouts').select('*').in('tanda_id', tandaIds).order('created_at', { ascending: false }).limit(4),
   ]);

@@ -22,7 +22,8 @@ CREATE TABLE tandas (
   creator_id UUID REFERENCES auth.users(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   next_payout_at TIMESTAMPTZ,
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  network TEXT NOT NULL DEFAULT 'testnet'
 );
 
 -- ── Members Table ───────────────────────────────────────────
@@ -81,7 +82,8 @@ CREATE TABLE webhook_events (
   event_type TEXT NOT NULL,
   payload JSONB NOT NULL,
   processed BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  network TEXT NOT NULL DEFAULT 'testnet'
 );
 
 -- ── Indexes ─────────────────────────────────────────────────

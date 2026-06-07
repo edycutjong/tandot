@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import { ESCROW_ADDRESS } from '@/lib/constants';
+import { NETWORK } from '@/lib/constants';
 import { HistoryList, type HistoryRow } from './HistoryList';
 
 export default async function HistoryPage() {
@@ -9,7 +9,7 @@ export default async function HistoryPage() {
   const { data: networkTandas } = await supabase
     .from('tandas')
     .select('id')
-    .eq('escrow_address', ESCROW_ADDRESS);
+    .eq('network', NETWORK);
   const tandaIds = (networkTandas ?? []).map((t) => (t as { id: string }).id);
 
   const { data } = await supabase

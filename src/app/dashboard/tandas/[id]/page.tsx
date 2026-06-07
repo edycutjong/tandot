@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { formatMXN, formatMXNB, trustLabel, timeAgo, ESCROW_ADDRESS, botScanUrl } from '@/lib/constants';
+import { formatMXN, formatMXNB, trustLabel, timeAgo, ESCROW_ADDRESS, botScanUrl, NETWORK } from '@/lib/constants';
 import { ClientTranslation as TText } from '@/components/ui/ClientTranslation';
 import type { Dictionary } from '@/lib/i18n';
 
@@ -25,7 +25,7 @@ export default async function TandaDetailPage({
   const supabase = await createClient();
 
   // Fetch tanda
-  const { data: tandaData } = await supabase.from('tandas').select('*').eq('id', id).single();
+  const { data: tandaData } = await supabase.from('tandas').select('*').eq('id', id).eq('network', NETWORK).single();
   const tanda = tandaData as Tanda | null;
 
   if (!tanda) {

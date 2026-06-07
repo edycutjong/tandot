@@ -26,6 +26,7 @@ export interface Database {
           created_at: string
           next_payout_at: string | null
           updated_at: string | null
+          network: string
         }
         Insert: {
           id?: string
@@ -43,6 +44,7 @@ export interface Database {
           created_at?: string
           next_payout_at?: string | null
           updated_at?: string | null
+          network?: string
         }
         Update: {
           id?: string
@@ -60,6 +62,7 @@ export interface Database {
           created_at?: string
           next_payout_at?: string | null
           updated_at?: string | null
+          network?: string
         }
       }
       tanda_members: {
@@ -195,6 +198,7 @@ export interface Database {
           payload: Json
           processed: boolean
           created_at: string
+          network: string
         }
         Insert: {
           id?: string
@@ -202,6 +206,7 @@ export interface Database {
           payload: Json
           processed?: boolean
           created_at?: string
+          network?: string
         }
         Update: {
           id?: string
@@ -209,6 +214,7 @@ export interface Database {
           payload?: Json
           processed?: boolean
           created_at?: string
+          network?: string
         }
       }
     }
