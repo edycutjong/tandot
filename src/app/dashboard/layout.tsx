@@ -143,7 +143,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
             <LanguageToggle />
             
             <a
-              href={NETWORK === 'mainnet' ? 'https://testnet.tandot.vercel.app' : 'https://tandot.vercel.app'}
+              href={NETWORK === 'mainnet' ? 'https://testnet.tandot.edycu.dev' : 'https://mainnet.tandot.edycu.dev'}
               className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-(--border) bg-(--bg-card-hover) hover:bg-(--border) transition-colors"
             >
               <ArrowRightLeft className="w-3 h-3" />

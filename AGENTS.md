@@ -41,6 +41,7 @@ AI-managed fraud-proof rotating savings circles (tandas) on-chain using MXNB sta
 - **RLS** = anon key for reads, service_role key for writes
 
 ## Critical Patterns
+- **Multi-Network**: Vercel handles dual deployments via `NEXT_PUBLIC_NETWORK=testnet|mainnet`. Both deployments share the same Supabase instance, separated explicitly by a `network` column on the `tandas` and `webhook_events` tables.
 - All state initialization uses **lazy initializers** (not setState-in-useEffect)
 - `params` is a **Promise** in Next.js 16 — must `await`
 - `PageProps<'/path'>` and `RouteContext<'/path'>` are global type helpers

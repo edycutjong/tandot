@@ -8,7 +8,7 @@ export const SITE = {
   taglineEn: 'Trustless Rotating Savings',
   description:
     'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on BOT Chain.',
-  url: 'https://tandot.vercel.app',
+  url: 'https://mainnet.tandot.edycu.dev',
 } as const;
 
 // ============================================================
