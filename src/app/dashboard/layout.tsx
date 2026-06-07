@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { SITE } from '@/lib/constants';
+import { SITE, NETWORK } from '@/lib/constants';
 import { LocaleProvider, useLocale } from '@/lib/LocaleContext';
 import { WalletProvider, useWallet } from '@/lib/WalletContext';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
@@ -16,6 +16,7 @@ import {
   History,
   BrainCircuit,
   Search,
+  ArrowRightLeft,
 } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 
@@ -140,6 +141,15 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
           </div>
           <div className="flex items-center gap-4">
             <LanguageToggle />
+            
+            <a
+              href={NETWORK === 'mainnet' ? 'https://testnet.tandot.vercel.app' : 'https://tandot.vercel.app'}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-(--border) bg-(--bg-card-hover) hover:bg-(--border) transition-colors"
+            >
+              <ArrowRightLeft className="w-3 h-3" />
+              {NETWORK === 'mainnet' ? 'Testnet' : 'Mainnet'}
+            </a>
+
             <div className="badge badge-active">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-live inline-block" />
               Demo Mode
