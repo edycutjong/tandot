@@ -110,10 +110,7 @@ CREATE POLICY "members_read_all" ON tanda_members FOR SELECT USING (true);
 CREATE POLICY "contributions_read_all" ON contributions FOR SELECT USING (true);
 CREATE POLICY "payouts_read_all" ON payouts FOR SELECT USING (true);
 
--- Authenticated write access
-CREATE POLICY "tandas_insert_auth" ON tandas FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "members_insert_auth" ON tanda_members FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "contributions_insert_auth" ON contributions FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+-- Write access is explicitly handled by service_role (bypassing RLS or via explicit policy), so no authenticated insert policies are needed per agent rules.
 
 -- Service role for webhook processing
 CREATE POLICY "webhook_service_insert" ON webhook_events FOR INSERT WITH CHECK (auth.role() = 'service_role');

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { isAddress, parseUnits } from 'viem';
 import { getFaucetWallet, publicClient } from '@/lib/server/botchain';
-import { MXNB_ABI } from '@/lib/abi/MockMXNB';
+import { MXNB_ABI } from '@/lib/abi/MXNB';
 import { MXNB_ADDRESS, MXNB_DECIMALS, NETWORK } from '@/lib/constants';
 
 // Amount of test MXNB dispensed per request.

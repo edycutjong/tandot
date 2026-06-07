@@ -1,5 +1,5 @@
-// Minimal ERC-20 ABI for MockMXNB (deployed on BOT Chain testnet 968).
-// Source: contracts/contracts/MockMXNB.sol — standard ERC-20 + owner-only mint.
+// Standard ERC-20 ABI for MXNB (deployed on BOT Chain).
+// Includes owner-only mint for testnet faucet usage.
 export const MXNB_ABI = [
   {
     type: 'function',

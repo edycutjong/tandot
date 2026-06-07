@@ -21,7 +21,7 @@ import {
   toOnchainTandaId,
 } from '@/lib/constants';
 import { TANDA_ESCROW_ABI } from '@/lib/abi/TandaEscrow';
-import { MXNB_ABI } from '@/lib/abi/MockMXNB';
+import { MXNB_ABI } from '@/lib/abi/MXNB';
 import { ClientTranslation as TText } from '@/components/ui/ClientTranslation';
 
 interface ContributionFlowProps {

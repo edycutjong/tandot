@@ -9,7 +9,7 @@ import { ESCROW_ADDRESS, MXNB_ADDRESS, botScanUrl } from '@/lib/constants';
 export default function ExplorerPage() {
   const { locale } = useLocale();
   const isEs = locale === 'es';
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(() => '');
 
   const contracts = [
     {
@@ -19,7 +19,7 @@ export default function ExplorerPage() {
       deployedAt: '2026-05-13',
     },
     {
-      name: 'MockMXNB Token',
+      name: 'MXNB Token',
       address: MXNB_ADDRESS,
       status: isEs ? 'Verificado' : 'Verified',
       deployedAt: '2026-05-13',

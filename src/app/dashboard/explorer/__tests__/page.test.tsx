@@ -48,7 +48,7 @@ describe('ExplorerPage', () => {
     render(<ExplorerPage />);
     
     expect(screen.getByText('TandaEscrow')).toBeInTheDocument();
-    expect(screen.getByText('MockMXNB Token')).toBeInTheDocument();
+    expect(screen.getByText('MXNB Token')).toBeInTheDocument();
     
     // Check that BOTScan links are present
     const botScanLinks = screen.getAllByRole('link', { name: /BOTScan/i });

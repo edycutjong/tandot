@@ -80,7 +80,7 @@ export function botScanUrl(path: `address/${string}` | `tx/${string}`): string {
 export const ESCROW_ADDRESS = ACTIVE.escrow as `0x${string}`;
 export const MXNB_ADDRESS = ACTIVE.mxnb as `0x${string}`;
 
-/** MockMXNB uses the default ERC-20 precision. */
+/** MXNB uses the default ERC-20 precision. */
 export const MXNB_DECIMALS = 18;
 
 /**
