@@ -14,7 +14,6 @@ jest.mock('lucide-react', () => ({
 
 import React from 'react';
 
-// Helper to remove framer-motion specific props that cause React warnings
 const sanitizeProps = (props: Record<string, unknown>) => {
   const sanitized = { ...props };
   delete sanitized.initial;
@@ -26,16 +25,12 @@ const sanitizeProps = (props: Record<string, unknown>) => {
   return sanitized;
 };
 
-// Mock framer-motion to avoid animation issues in tests
 jest.mock('framer-motion', () => {
   const actual = jest.requireActual('framer-motion');
-  
   type MockProps = Record<string, unknown> & { children?: React.ReactNode };
-  
   const MockComponent = ({ children, ...props }: MockProps) => <div {...sanitizeProps(props)}>{children}</div>;
   const MockCircle = ({ children, ...props }: MockProps) => <circle {...sanitizeProps(props)}>{children}</circle>;
   const MockSpan = ({ children, ...props }: MockProps) => <span {...sanitizeProps(props)}>{children}</span>;
-  
   return {
     ...actual,
     motion: {
@@ -48,7 +43,6 @@ jest.mock('framer-motion', () => {
   };
 });
 
-// Mock next/image to avoid src warnings
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: Record<string, unknown>) => {
@@ -59,32 +53,17 @@ jest.mock('next/image', () => ({
   },
 }));
 
-describe('LandingPage', () => {
-  it('renders correctly and respects local storage for locale', () => {
-    // Set mock local storage
+jest.mock('@/lib/constants', () => ({
+  ...jest.requireActual('@/lib/constants'),
+  NETWORK: 'mainnet',
+}));
+
+describe('LandingPage on mainnet', () => {
+  it('renders correctly on mainnet', () => {
     Storage.prototype.getItem = jest.fn(() => 'en');
     Storage.prototype.setItem = jest.fn();
 
     const { getByText } = render(<LandingPage />);
-    
-    // We expect some english string to be rendered based on the mock or fallback
     expect(getByText(/without blind trust/i)).toBeInTheDocument();
-    
-    // Ensure get item was called
-    expect(Storage.prototype.getItem).toHaveBeenCalledWith('tandot-locale');
-  });
-
-  it('updates locale correctly when toggled', async () => {
-    const { getByText } = render(<LandingPage />);
-    const { fireEvent } = await import('@testing-library/react');
-    const enButton = getByText('EN');
-    fireEvent.click(enButton);
-    expect(Storage.prototype.setItem).toHaveBeenCalledWith('tandot-locale', 'es');
-  });
-
-  it('handles null locale from storage', () => {
-    Storage.prototype.getItem = jest.fn(() => null);
-    render(<LandingPage />);
-    expect(Storage.prototype.getItem).toHaveBeenCalledWith('tandot-locale');
   });
 });

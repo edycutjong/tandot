@@ -16,6 +16,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "ci": "npm run lint && npm run typecheck && npm run test:coverage",
+    "ci:full": "npm run ci && npm run e2e && npm run lighthouse",
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
     "record:demo": "npx playwright test -c playwright.demo.config.ts",

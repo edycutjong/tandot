@@ -6,8 +6,9 @@
 
   <br/>
 
-  [![Live Demo](https://img.shields.io/badge/🚀_Live-Demo-06b6d4?style=for-the-badge)](https://mainnet.tandot.edycu.dev)
-  [![Pitch Deck](https://img.shields.io/badge/📊_Pitch-Deck-f59e0b?style=for-the-badge)](https://mainnet.tandot.edycu.dev/pitch)
+  [![Mainnet Demo](https://img.shields.io/badge/🟢_Mainnet-Live-06b6d4?style=for-the-badge)](https://mainnet.tandot.edycu.dev)
+  [![Testnet Demo](https://img.shields.io/badge/🟡_Testnet-Live-f59e0b?style=for-the-badge)](https://testnet.tandot.edycu.dev)
+  [![Pitch Deck](https://img.shields.io/badge/📊_Pitch-Deck-8b5cf6?style=for-the-badge)](https://mainnet.tandot.edycu.dev/pitch)
   [![Pitch Video](https://img.shields.io/badge/🎬_Pitch-Video-ef4444?style=for-the-badge)](https://youtu.be/gQ0IduJwbo0)
   [![BOTScan](https://img.shields.io/badge/📜_BOTScan-Contracts-28A0F0?style=for-the-badge)](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e)
 

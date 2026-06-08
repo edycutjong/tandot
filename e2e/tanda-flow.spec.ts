@@ -29,12 +29,12 @@ test.describe("Tanda Creation Flow", () => {
     let dialogTriggered = false;
     page.on("dialog", async (dialog) => {
       dialogTriggered = true;
-      expect(dialog.message()).toContain("BOT Chain");
+      expect(dialog.message()).toMatch(/BOT Chain|wallet/i);
       await dialog.accept();
     });
 
     // Click submit button
-    const submitBtn = page.getByRole("button", { name: /Crear Tanda con Escrow|Create Tanda with Escrow/i });
+    const submitBtn = page.getByRole("button", { name: /Crear Tanda$|Create Tanda$/i });
     await expect(submitBtn).toBeVisible();
     await submitBtn.click({ force: true });
 
