@@ -87,15 +87,6 @@ graph TB
     DB -->|Tiempo Real| Dashboard[UI del Dashboard]
 ```
 
-## 🏆 Tracks de Patrocinadores Objetivados
-
-| Recompensa (Bounty) | Premio | Integración |
-|---|---|---|
-| **Bitso Business Startup** | $3,900 | Depósitos, Pagos, transferencias MXNB, Webhooks, Pagos Masivos — ver `src/lib/` |
-| **ETH México Principal** | $1,500 | Plataforma DeFi completa que resuelve la confianza financiera en LATAM |
-| **BOT Chain** | Ecosystem | Contrato inteligente de escrow desplegado en BOT Chain — ver `contracts/` |
-
-
 ## 🚀 Comenzando
 
 ### Prerrequisitos

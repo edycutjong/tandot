@@ -88,15 +88,6 @@ graph TB
     DB -->|Realtime| Dashboard[Dashboard UI]
 ```
 
-## 🏆 Sponsor Tracks Targeted
-
-| Bounty | Prize | Integration |
-|---|---|---|
-| **Bitso Business Startup** | $3,900 | Pay-ins, Payouts, MXNB transfers, Webhooks, Mass Payouts — see `src/lib/` |
-| **ETH Mexico Main** | $1,500 | Full DeFi tanda platform solving financial trust in LATAM |
-| **BOT Chain** | Ecosystem | Escrow smart contract deployed on BOT Chain — see `contracts/` |
-
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -130,7 +121,7 @@ npm run dev                  # http://localhost:3000
 | Contract | Address |
 |---|---|
 | **TandaEscrow** | [`0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c`](https://scan.botchain.ai/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c) |
-| **MockMXNB (ERC-20)** | [`0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7`](https://scan.botchain.ai/address/0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7) |
+| **MXNB Token (ERC-20)** | [`0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7`](https://scan.botchain.ai/address/0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7) |
 
 #### 🟡 Testnet (Chain 968)
 
