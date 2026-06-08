@@ -142,13 +142,10 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-4">
             <LanguageToggle />
             
-            <a
-              href={NETWORK === 'mainnet' ? 'https://testnet.tandot.edycu.dev' : 'https://mainnet.tandot.edycu.dev'}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-(--border) bg-(--bg-card-hover) hover:bg-(--border) transition-colors"
-            >
-              <ArrowRightLeft className="w-3 h-3" />
-              {NETWORK === 'mainnet' ? 'Testnet' : 'Mainnet'}
-            </a>
+            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border ${NETWORK === 'mainnet' ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400' : 'border-amber-500/30 bg-amber-500/10 text-amber-400'}`}>
+              <div className={`w-1.5 h-1.5 rounded-full ${NETWORK === 'mainnet' ? 'bg-emerald-400' : 'bg-amber-400'}`} />
+              {NETWORK === 'mainnet' ? 'BOT Mainnet' : 'BOT Testnet'}
+            </div>
 
 
             <ConnectButton showBalance={false} />

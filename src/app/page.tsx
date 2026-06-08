@@ -3,13 +3,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SITE, BOT_CHAIN, ESCROW_ADDRESS, botScanUrl } from '@/lib/constants';
+import { SITE, BOT_CHAIN, ESCROW_ADDRESS, botScanUrl, NETWORK } from '@/lib/constants';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { TrustRing } from '@/components/ui/TrustRing';
 import { LanguageToggle } from '@/components/ui/LanguageToggle';
 import { LocaleProvider, useLocale } from '@/lib/LocaleContext';
 import { motion, Variants } from 'framer-motion';
-import { ShieldCheck, BrainCircuit, Zap, ArrowRight, Coins } from 'lucide-react';
+import { ShieldCheck, BrainCircuit, Zap, ArrowRight, Coins, ArrowRightLeft } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 
 export default function LandingPage() {
@@ -73,6 +73,13 @@ function LandingContent() {
             <span className="font-heading font-bold text-lg tracking-tight">{SITE.name}</span>
           </Link>
           <div className="flex items-center gap-3">
+            <a
+              href={NETWORK === 'mainnet' ? 'https://testnet.tandot.edycu.dev' : 'https://mainnet.tandot.edycu.dev'}
+              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-(--border) bg-(--bg-card-hover) hover:bg-(--border) transition-colors"
+            >
+              <ArrowRightLeft className="w-3 h-3" />
+              {NETWORK === 'mainnet' ? 'Testnet' : 'Mainnet'}
+            </a>
             <LanguageToggle />
             <Link href="/dashboard" className="btn-primary text-sm min-w-[160px] justify-center shrink-0">
               {t.nav_launch} <ArrowRight className="w-4 h-4 ml-1 shrink-0" />
