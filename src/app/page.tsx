@@ -315,16 +315,6 @@ function LandingContent() {
                 ),
               },
               {
-                name: 'Ethereum Mexico',
-                href: 'https://dorahacks.io/hackathon/ethmexico2026bitso/detail',
-                logo: (
-                  <div className="flex items-center gap-2">
-                    <Image src="/logos/logo-ethereum.svg" alt="Ethereum" width={24} height={24} className="w-6 h-6 object-contain brightness-0 invert opacity-90" />
-                    <span className="font-bold text-lg tracking-tight">Ethereum Mexico</span>
-                  </div>
-                ),
-              },
-              {
                 name: 'Supabase',
                 href: 'https://supabase.com',
                 logo: (

@@ -150,11 +150,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
               {NETWORK === 'mainnet' ? 'Testnet' : 'Mainnet'}
             </a>
 
-            <div className="badge badge-active">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-live inline-block" />
-              Demo Mode
-            </div>
-            
+
             <ConnectButton showBalance={false} />
           </div>
         </header>

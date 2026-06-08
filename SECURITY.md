@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Tandot is currently in active development for the DoraHacks ETH Mexico 2026 hackathon. We actively monitor and maintain the `main` branch.
+Tandot is currently in active development. We actively monitor and maintain the `main` branch.
 
 | Version | Supported          |
 | ------- | ------------------ |

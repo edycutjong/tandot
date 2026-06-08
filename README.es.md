@@ -9,7 +9,6 @@
   [![Presentación](https://img.shields.io/badge/📊_Presentación-f59e0b?style=for-the-badge)](https://mainnet.tandot.edycu.dev/pitch)
   [![Video de Pitch](https://img.shields.io/badge/🎬_Video-Pitch-ef4444?style=for-the-badge)](https://youtu.be/gQ0IduJwbo0)
   [![BOTScan](https://img.shields.io/badge/📜_BOTScan-Contratos-28A0F0?style=for-the-badge)](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e)
-  [![Construido para ETH México](https://img.shields.io/badge/DoraHacks-ETH_México_2026-8b5cf6?style=for-the-badge)](https://dorahacks.io/hackathon/ethmexico2026bitso/detail)
 
   <br/>
 
@@ -111,9 +110,7 @@ cp .env.example .env.local   # Agrega tus llaves de API
 npm run dev                  # http://localhost:3000
 ```
 
-### 🧑‍⚖️ Para Jueces — Inicio Rápido
-
-> **No se requiere iniciar sesión, ni desplegar, ni llaves de API para explorar el dashboard.**
+### 🚀 Inicio Rápido
 
 | Qué | Estado |
 |---|---|
@@ -121,7 +118,7 @@ npm run dev                  # http://localhost:3000
 | **Contratos Inteligentes** | ✅ Ya desplegados (ver direcciones abajo) |
 | **Base de Datos Supabase** | ✅ Pre-sembrada con datos de demostración |
 | **API de Bitso** | ✅ Llaves de staging incluidas en el demo — no necesitas cuenta personal |
-| **OpenAI** | ✅ La puntuación de confianza funciona con scores pre-calculados en modo demo |
+| **OpenAI** | ✅ La puntuación de confianza funciona con scores pre-calculados localmente |
 | **BOT de Prueba** | Obtén BOT gratis en el [Faucet de BOT Chain](https://faucet.botchain.ai) |
 
 ### Contratos Desplegados (BOT Chain)
@@ -130,8 +127,6 @@ npm run dev                  # http://localhost:3000
 |---|---|
 | **TandaEscrow** | [`0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e`](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e) |
 | **MockMXNB (ERC-20)** | [`0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa`](https://scan.bohr.life/address/0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa) |
-
-> **Para Jueces:** Los contratos ya están en vivo; no es necesario desplegarlos. El dashboard lee estas direcciones automáticamente.
 
 ### Cambiar de Red (Testnet ↔ Mainnet)
 
@@ -171,7 +166,7 @@ Luego actualiza las direcciones desplegadas en el registro `NETWORKS` en [`src/l
 
 ### API de Bitso Business (Staging)
 
-> ⚠️ **Usa el entorno de staging** — nunca el de producción para pruebas de hackathon.
+> ⚠️ **Usa el entorno de staging** — nunca el de producción para pruebas locales.
 
 1. Crea una cuenta en [`stage.bitso.com`](https://stage.bitso.com)
 2. Genera llaves de API en la configuración de la API
@@ -196,7 +191,7 @@ npx hardhat compile   # Compilación de Hardhat
 npx hardhat test      # Pruebas unitarias de contratos en Hardhat
 
 # ── Pruebas E2E y Rendimiento Avanzadas ─────
-npm run e2e           # Pruebas E2E de Playwright (modo demo)
+npm run e2e           # Pruebas E2E de Playwright
 npm run e2e:ui        # Interfaz interactiva de Playwright E2E
 npm run lighthouse    # Auditoría de cumplimiento de Lighthouse CI
 ```
@@ -242,6 +237,6 @@ tandot/
 
 ## 🙏 Agradecimientos
 
-Construido para **DoraHacks Ethereum México 2026**. Gracias a Bitso, BOT Chain y la comunidad de ETH México por las APIs, herramientas e inspiración.
+Gracias a Bitso y BOT Chain por las APIs y herramientas.
 
 ¡Gracias por revisar este proyecto! 🇲🇽

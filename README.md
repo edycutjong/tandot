@@ -10,7 +10,6 @@
   [![Pitch Deck](https://img.shields.io/badge/📊_Pitch-Deck-f59e0b?style=for-the-badge)](https://mainnet.tandot.edycu.dev/pitch)
   [![Pitch Video](https://img.shields.io/badge/🎬_Pitch-Video-ef4444?style=for-the-badge)](https://youtu.be/gQ0IduJwbo0)
   [![BOTScan](https://img.shields.io/badge/📜_BOTScan-Contracts-28A0F0?style=for-the-badge)](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e)
-  [![Built for ETH Mexico](https://img.shields.io/badge/DoraHacks-ETH_Mexico_2026-8b5cf6?style=for-the-badge)](https://dorahacks.io/hackathon/ethmexico2026bitso/detail)
 
   <br/>
 
@@ -112,9 +111,7 @@ cp .env.example .env.local   # Add your API keys
 npm run dev                  # http://localhost:3000
 ```
 
-### 🧑‍⚖️ For Judges — Quick Start
-
-> **No login, no deploy, no API keys needed to explore the dashboard.**
+### 🚀 Quick Start
 
 | What | Status |
 |---|---|
@@ -122,7 +119,7 @@ npm run dev                  # http://localhost:3000
 | **Smart Contracts** | ✅ Already deployed (see addresses below) |
 | **Supabase DB** | ✅ Pre-seeded with demo data |
 | **Bitso API** | ✅ Staging keys included in demo — no personal account needed |
-| **OpenAI** | ✅ Trust scoring works with pre-computed scores in demo mode |
+| **OpenAI** | ✅ Trust scoring works with pre-computed scores locally |
 | **Testnet BOT** | Get free BOT from [BOT Chain Faucet](https://faucet.botchain.ai) |
 
 ### Deployed Contracts (BOT Chain)
@@ -140,8 +137,6 @@ npm run dev                  # http://localhost:3000
 |---|---|
 | **TandaEscrow** | [`0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e`](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e) |
 | **MockMXNB (ERC-20)** | [`0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa`](https://scan.bohr.life/address/0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa) |
-
-> **For Judges:** Contracts are already live — no deployment needed. The dashboard reads from these addresses automatically.
 
 ### Switching Networks (Testnet ↔ Mainnet)
 
@@ -181,7 +176,7 @@ Then update the deployed addresses in the `NETWORKS` registry in [`src/lib/const
 
 ### Bitso Business API (Staging)
 
-> ⚠️ **Use the staging environment** — never production for hackathon testing.
+> ⚠️ **Use the staging environment** — never production for local testing.
 
 1. Create an account at [`stage.bitso.com`](https://stage.bitso.com)
 2. Generate API keys under API Settings
@@ -206,7 +201,7 @@ npx hardhat compile   # Hardhat compile
 npx hardhat test      # Hardhat smart contract test suite
 
 # ── Advanced E2E & Perf Testing ─────────────
-npm run e2e           # Playwright E2E tests (demo mode)
+npm run e2e           # Playwright E2E tests
 npm run e2e:ui        # Playwright interactive E2E UI
 npm run lighthouse    # Lighthouse CI compliance audit
 ```
@@ -252,6 +247,6 @@ tandot/
 
 ## 🙏 Acknowledgments
 
-Built for **DoraHacks Ethereum Mexico 2026**. Thank you to Bitso, BOT Chain, and the ETH Mexico community for the APIs, tools, and inspiration.
+Thank you to Bitso and BOT Chain for the APIs and tools.
 
 ¡Gracias por revisar este proyecto! 🇲🇽

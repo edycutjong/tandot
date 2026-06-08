@@ -1,6 +1,6 @@
 /**
  * Bitso Business API Client Stub
- * Demonstrates intent for Bitso Startup Bounty integration.
+ * Demonstrates intent for Bitso integration.
  */
 
 interface BitsoConfig {
@@ -30,7 +30,7 @@ export class BitsoClient {
    */
   async createPayinLink(amount: number, reference: string): Promise<{ url: string, expiresAt: string }> {
     console.log(`[Bitso API] Generating pay-in for ${amount} MXNB (Ref: ${reference})`);
-    // Stub implementation for hackathon MVP
+    // Stub implementation for MVP
     return {
       url: `https://bitso.com/pay/${reference}`,
       expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString() // 24 hours
@@ -42,7 +42,7 @@ export class BitsoClient {
    */
   async executeMassPayout(payouts: Array<{ address: string, amount: number }>): Promise<{ batchId: string, status: string }> {
     console.log(`[Bitso API] Executing mass payout for ${payouts.length} members`);
-    // Stub implementation for hackathon MVP
+    // Stub implementation for MVP
     return {
       batchId: `batch_${Date.now()}`,
       status: 'processing'
@@ -54,7 +54,7 @@ export class BitsoClient {
    */
   async registerWebhook(endpointUrl: string): Promise<{ webhookId: string }> {
     console.log(`[Bitso API] Registering webhook for deposits at ${endpointUrl}`);
-    // Stub implementation for hackathon MVP
+    // Stub implementation for MVP
     return {
       webhookId: `wh_${Date.now()}`
     };

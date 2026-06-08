@@ -1,8 +1,8 @@
-Title: Tandot: AI-Powered Trustless Savings Circles (DoraHacks ETH Mexico 2026)
+Title: Tandot: AI-Powered Trustless Savings Circles
 Description: 
-Tandot eliminates the human organizer in traditional savings circles (tandas) using GPT-4 Trust Scoring and BOT Chain Smart Contracts. Built for the DoraHacks ETH Mexico 2026 Hackathon!
+Tandot eliminates the human organizer in traditional savings circles (tandas) using GPT-4 Trust Scoring and BOT Chain Smart Contracts.
 
-Live Demo: https://testnet.tandot.edycu.dev
+Live Demo: https://mainnet.tandot.edycu.dev
 GitHub Repo: https://github.com/edycutjong/tandot
 
-Tags: #ETHMexico #BOT Chain #Web3 #AI #Nextjs #Hackathon
+Tags: #BOT Chain #Web3 #AI #Nextjs

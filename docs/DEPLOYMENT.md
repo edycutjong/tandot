@@ -1,7 +1,7 @@
 # Deployment — Testnet & Mainnet
 
 How Tandot's BOT Chain version is branched, databased, and deployed. The
-Arbitrum hackathon submission is preserved separately (see [Branches](#branches)).
+Arbitrum V1 submission is preserved separately (see [Branches](#branches)).
 
 ## Branches
 
@@ -9,7 +9,7 @@ Arbitrum hackathon submission is preserved separately (see [Branches](#branches)
 |---|---|---|
 | `main` | Active default branch | yes (BOT Chain line lives here once merged) |
 | `botchain` | The BOT Chain codebase — **one branch, both networks** | yes — this is where work happens |
-| `v1-arbitrum-hackathon` (tag) | Frozen ETH Mexico 2026 Arbitrum submission | **no — historical record** |
+| `v1-arbitrum-legacy` (tag) | Frozen V1 Arbitrum submission | **no — historical record** |
 
 There is **no "testnet branch" vs "mainnet branch."** The network is chosen by an
 environment variable, not by code. The same `botchain` branch deploys to both.
