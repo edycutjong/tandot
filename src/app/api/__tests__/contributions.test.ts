@@ -1,6 +1,6 @@
 import { POST } from '../contributions/route';
 import { NextResponse, NextRequest } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/server';
 
 jest.mock('next/server', () => ({
   NextResponse: {
@@ -9,7 +9,7 @@ jest.mock('next/server', () => ({
 }));
 
 jest.mock('@/lib/supabase/server', () => ({
-  createClient: jest.fn()
+  createAdminClient: jest.fn()
 }));
 
 describe('Contributions API', () => {
@@ -24,23 +24,11 @@ describe('Contributions API', () => {
     consoleSpy.mockRestore();
   });
 
-
-  it('returns 401 if unauthorized', async () => {
-    const mockSupabase = {
-      auth: { getSession: jest.fn().mockResolvedValue({ data: { session: null } }) }
-    };
-    (createClient as jest.Mock).mockResolvedValue(mockSupabase);
-
-    const request = { json: async () => ({}) } as unknown as NextRequest;
-    await POST(request);
-    expect(NextResponse.json).toHaveBeenCalledWith({ error: 'Unauthorized' }, { status: 401 });
-  });
-
   it('returns 400 if required fields are missing', async () => {
     const mockSupabase = {
-      auth: { getSession: jest.fn().mockResolvedValue({ data: { session: {} } }) }
+      from: jest.fn()
     };
-    (createClient as jest.Mock).mockResolvedValue(mockSupabase);
+    (createAdminClient as jest.Mock).mockResolvedValue(mockSupabase);
 
     const request = { json: async () => ({}) } as unknown as NextRequest;
     await POST(request);
@@ -50,12 +38,11 @@ describe('Contributions API', () => {
   it('returns 201 on success', async () => {
     const mockInsert = jest.fn().mockReturnValue({ select: jest.fn().mockReturnValue({ single: jest.fn().mockResolvedValue({ data: { id: 1 }, error: null }) }) });
     const mockSupabase = {
-      auth: { getSession: jest.fn().mockResolvedValue({ data: { session: {} } }) },
       from: jest.fn().mockReturnValue({ insert: mockInsert })
     };
-    (createClient as jest.Mock).mockResolvedValue(mockSupabase);
+    (createAdminClient as jest.Mock).mockResolvedValue(mockSupabase);
 
-    const body = { tanda_id: 't1', member_id: 'm1', round: 1, amount: 100, arbitrum_tx_hash: '0xabc' };
+    const body = { tanda_id: 't1', member_id: 'm1', round: 1, amount: 100, botchain_tx_hash: '0xabc' };
     const request = { json: async () => body } as unknown as NextRequest;
     await POST(request);
     
@@ -66,10 +53,9 @@ describe('Contributions API', () => {
   it('returns 500 on db error', async () => {
     const mockInsert = jest.fn().mockReturnValue({ select: jest.fn().mockReturnValue({ single: jest.fn().mockResolvedValue({ data: null, error: new Error('DB Error') }) }) });
     const mockSupabase = {
-      auth: { getSession: jest.fn().mockResolvedValue({ data: { session: {} } }) },
       from: jest.fn().mockReturnValue({ insert: mockInsert })
     };
-    (createClient as jest.Mock).mockResolvedValue(mockSupabase);
+    (createAdminClient as jest.Mock).mockResolvedValue(mockSupabase);
 
     const body = { tanda_id: 't1', member_id: 'm1', round: 1, amount: 100 };
     const request = { json: async () => body } as unknown as NextRequest;
@@ -81,10 +67,9 @@ describe('Contributions API', () => {
   it('returns 500 on non-error object', async () => {
     const mockInsert = jest.fn().mockReturnValue({ select: jest.fn().mockReturnValue({ single: jest.fn().mockResolvedValue({ data: null, error: 'String error' }) }) });
     const mockSupabase = {
-      auth: { getSession: jest.fn().mockResolvedValue({ data: { session: {} } }) },
       from: jest.fn().mockReturnValue({ insert: mockInsert })
     };
-    (createClient as jest.Mock).mockResolvedValue(mockSupabase);
+    (createAdminClient as jest.Mock).mockResolvedValue(mockSupabase);
 
     const body = { tanda_id: 't1', member_id: 'm1', round: 1, amount: 100 };
     const request = { json: async () => body } as unknown as NextRequest;

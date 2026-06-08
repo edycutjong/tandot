@@ -203,6 +203,74 @@ describe("TandaEscrow", function () {
   });
 
   // ─────────────────────────────────────────────────────────
+  // Cancellation and Refunds
+  // ─────────────────────────────────────────────────────────
+  describe("Cancellation and Refunds", function () {
+    beforeEach(async function () {
+      await mockMXNB.connect(user1).approve(await tandaEscrow.getAddress(), DEPOSIT_AMOUNT);
+      await tandaEscrow.connect(user1).deposit(TANDA_ID, DEPOSIT_AMOUNT);
+    });
+
+    it("Should allow admin to cancel a tanda", async function () {
+      const tx = await tandaEscrow.connect(owner).cancelTanda(TANDA_ID);
+      await expect(tx)
+        .to.emit(tandaEscrow, "TandaCanceled")
+        .withArgs(TANDA_ID);
+
+      expect(await tandaEscrow.tandaCanceled(TANDA_ID)).to.be.true;
+    });
+
+    it("Should revert if non-admin tries to cancel a tanda", async function () {
+      await expect(
+        tandaEscrow.connect(user1).cancelTanda(TANDA_ID)
+      ).to.be.revertedWithCustomError(tandaEscrow, "OwnableUnauthorizedAccount");
+    });
+
+    it("Should revert if tanda is already canceled", async function () {
+      await tandaEscrow.connect(owner).cancelTanda(TANDA_ID);
+      await expect(
+        tandaEscrow.connect(owner).cancelTanda(TANDA_ID)
+      ).to.be.revertedWith("Tanda already canceled");
+    });
+
+    it("Should allow user to claim refund if tanda is canceled", async function () {
+      await tandaEscrow.connect(owner).cancelTanda(TANDA_ID);
+      
+      const tx = await tandaEscrow.connect(user1).claimRefund(TANDA_ID);
+      await expect(tx)
+        .to.emit(tandaEscrow, "RefundClaimed")
+        .withArgs(user1.address, TANDA_ID, DEPOSIT_AMOUNT);
+
+      expect(await mockMXNB.balanceOf(await tandaEscrow.getAddress())).to.equal(0);
+      expect(await mockMXNB.balanceOf(user1.address)).to.equal(ethers.parseUnits("5000", 18));
+      expect(await tandaEscrow.tandaBalances(TANDA_ID)).to.equal(0);
+      expect(await tandaEscrow.userDeposits(user1.address, TANDA_ID)).to.equal(0);
+    });
+
+    it("Should revert if user tries to claim refund for active tanda", async function () {
+      await expect(
+        tandaEscrow.connect(user1).claimRefund(TANDA_ID)
+      ).to.be.revertedWith("Tanda is not canceled");
+    });
+
+    it("Should revert if user has no funds to claim", async function () {
+      await tandaEscrow.connect(owner).cancelTanda(TANDA_ID);
+      await expect(
+        tandaEscrow.connect(user2).claimRefund(TANDA_ID)
+      ).to.be.revertedWith("No funds to claim");
+    });
+
+    it("Should prevent double-refunds", async function () {
+      await tandaEscrow.connect(owner).cancelTanda(TANDA_ID);
+      await tandaEscrow.connect(user1).claimRefund(TANDA_ID);
+
+      await expect(
+        tandaEscrow.connect(user1).claimRefund(TANDA_ID)
+      ).to.be.revertedWith("No funds to claim");
+    });
+  });
+
+  // ─────────────────────────────────────────────────────────
   // Emergency Withdraw
   // ─────────────────────────────────────────────────────────
   describe("Emergency Withdraw", function () {

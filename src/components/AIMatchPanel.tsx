@@ -18,7 +18,7 @@ export function AIMatchPanel({ memberId, score }: AIMatchPanelProps) {
   useEffect(() => {
     const rawLogs = [
       `Analizando billetera: ${memberId || '0x...'}`,
-      "Verificando historial en Arbitrum Sepolia...",
+      "Verificando historial en BOT Chain...",
       "Calculando tasa de puntualidad histórica...",
       "Evaluando red de referidos...",
       "Comparando con perfiles de riesgo MXNB...",

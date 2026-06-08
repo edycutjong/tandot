@@ -17,12 +17,13 @@ CREATE TABLE tandas (
   current_round INT NOT NULL DEFAULT 0,
   total_rounds INT NOT NULL CHECK (total_rounds >= 1),
   status TEXT NOT NULL DEFAULT 'forming' CHECK (status IN ('forming', 'active', 'completed', 'disputed')),
-  escrow_address TEXT, -- Arbitrum contract address
+  escrow_address TEXT, -- BOT Chain contract address
   ai_trust_score NUMERIC(5,2) DEFAULT 0,
   creator_id UUID REFERENCES auth.users(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   next_payout_at TIMESTAMPTZ,
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  network TEXT NOT NULL DEFAULT 'testnet'
 );
 
 -- ── Members Table ───────────────────────────────────────────
@@ -53,7 +54,7 @@ CREATE TABLE contributions (
   currency TEXT NOT NULL DEFAULT 'MXNB' CHECK (currency IN ('MXNB', 'MXN')),
   status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'failed')),
   bitso_tx_id TEXT,
-  arbitrum_tx_hash TEXT,
+  botchain_tx_hash TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   confirmed_at TIMESTAMPTZ,
   UNIQUE(tanda_id, member_id, round)
@@ -69,7 +70,7 @@ CREATE TABLE payouts (
   currency TEXT NOT NULL DEFAULT 'MXNB' CHECK (currency IN ('MXNB', 'MXN')),
   status TEXT NOT NULL DEFAULT 'scheduled' CHECK (status IN ('scheduled', 'processing', 'completed', 'failed')),
   bitso_payout_id TEXT,
-  arbitrum_tx_hash TEXT,
+  botchain_tx_hash TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   completed_at TIMESTAMPTZ,
   UNIQUE(tanda_id, round)
@@ -81,7 +82,8 @@ CREATE TABLE webhook_events (
   event_type TEXT NOT NULL,
   payload JSONB NOT NULL,
   processed BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  network TEXT NOT NULL DEFAULT 'testnet'
 );
 
 -- ── Indexes ─────────────────────────────────────────────────
@@ -110,10 +112,7 @@ CREATE POLICY "members_read_all" ON tanda_members FOR SELECT USING (true);
 CREATE POLICY "contributions_read_all" ON contributions FOR SELECT USING (true);
 CREATE POLICY "payouts_read_all" ON payouts FOR SELECT USING (true);
 
--- Authenticated write access
-CREATE POLICY "tandas_insert_auth" ON tandas FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "members_insert_auth" ON tanda_members FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "contributions_insert_auth" ON contributions FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+-- Write access is explicitly handled by service_role (bypassing RLS or via explicit policy), so no authenticated insert policies are needed per agent rules.
 
 -- Service role for webhook processing
 CREATE POLICY "webhook_service_insert" ON webhook_events FOR INSERT WITH CHECK (auth.role() = 'service_role');

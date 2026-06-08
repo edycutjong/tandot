@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { formatMXN, formatMXNB, trustLabel, timeAgo } from '@/lib/constants';
+import { formatMXN, formatMXNB, trustLabel, timeAgo, ESCROW_ADDRESS, botScanUrl, NETWORK } from '@/lib/constants';
 import { ClientTranslation as TText } from '@/components/ui/ClientTranslation';
 import type { Dictionary } from '@/lib/i18n';
 
@@ -25,7 +25,7 @@ export default async function TandaDetailPage({
   const supabase = await createClient();
 
   // Fetch tanda
-  const { data: tandaData } = await supabase.from('tandas').select('*').eq('id', id).single();
+  const { data: tandaData } = await supabase.from('tandas').select('*').eq('id', id).eq('network', NETWORK).single();
   const tanda = tandaData as Tanda | null;
 
   if (!tanda) {
@@ -210,8 +210,11 @@ export default async function TandaDetailPage({
           <div className="grid md:grid-cols-2 gap-6">
             {/* Contribution Flow */}
             {tanda.status === 'active' && (
-              <ContributionFlow 
-                amount={tanda.contribution_amount} 
+              <ContributionFlow
+                tandaId={tanda.id}
+                amount={tanda.contribution_amount}
+                round={tanda.current_round || 1}
+                members={safeMembers.map((m) => ({ id: m.id, wallet_address: m.wallet_address }))}
               />
             )}
 
@@ -232,25 +235,25 @@ export default async function TandaDetailPage({
                       <TText tKey="detail_contract_address" />
                     </p>
                     <p className="font-mono text-xs text-cyan-400 break-all">
-                      {tanda.escrow_address || '0x742d35Cc6634C0532925a3b844Bc454e4438f44e'}
+                      {tanda.escrow_address || ESCROW_ADDRESS}
                     </p>
                   </div>
                   
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-xs font-medium">Arbitrum Sepolia Live</span>
+                    <span className="text-xs font-medium">BOT Chain Live</span>
                   </div>
                 </div>
               </div>
 
               <div className="mt-6 pt-4 border-t border-white/5">
                 <a
-                  href={`https://sepolia.arbiscan.io/address/${tanda.escrow_address || '0x742d35Cc6634C0532925a3b844Bc454e4438f44e'}`}
+                  href={botScanUrl(`address/${tanda.escrow_address || ESCROW_ADDRESS}`)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary w-full py-2 text-xs flex items-center justify-center gap-2"
                 >
-                  <TText tKey="detail_view_on_arbiscan" />
+                  <TText tKey="detail_view_on_botscan" />
                 </a>
               </div>
             </div>
@@ -303,12 +306,12 @@ export default async function TandaDetailPage({
                         <td className="py-3" style={{ color: 'var(--text-muted)' }}>{timeAgo(contrib.created_at)}</td>
                         <td className="py-3">
                           <a 
-                            href={`https://sepolia.arbiscan.io/tx/${contrib.arbitrum_tx_hash}`}
+                            href={botScanUrl(`tx/${contrib.botchain_tx_hash}`)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-mono text-cyan-500 hover:underline"
                           >
-                            {contrib.arbitrum_tx_hash?.slice(0, 10)}...
+                            {contrib.botchain_tx_hash?.slice(0, 10)}...
                           </a>
                         </td>
                       </tr>

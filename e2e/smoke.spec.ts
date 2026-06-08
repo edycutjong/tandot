@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Demo Mode Smoke Tests", () => {
+test.describe("Smoke Tests", () => {
   test("should load the landing page successfully", async ({ page }) => {
     await page.goto("/");
     

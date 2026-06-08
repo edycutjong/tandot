@@ -7,9 +7,91 @@ export const SITE = {
   tagline: 'Tandas sin confianza ciega',
   taglineEn: 'Trustless Rotating Savings',
   description:
-    'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on Arbitrum.',
-  url: 'https://tandot.vercel.app',
+    'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on BOT Chain.',
+  url: 'https://mainnet.tandot.edycu.dev',
 } as const;
+
+// ============================================================
+// BOT Chain — network registry (verified live via eth_chainId)
+// Switch with NEXT_PUBLIC_NETWORK=testnet|mainnet (defaults to
+// testnet). Chain id, RPC, explorer, and the deployed contract
+// addresses all move together as one unit, so the active chain
+// can never drift out of sync with the contracts it points at.
+// ============================================================
+export type BotNetwork = 'testnet' | 'mainnet';
+
+const NETWORKS = {
+  // "bohr" testnet — chain 968, where the demo contracts are deployed.
+  testnet: {
+    id: 968,
+    name: 'BOT Chain Testnet',
+    rpcUrl: 'https://rpc.bohr.life',
+    explorerUrl: 'https://scan.bohr.life',
+    escrow: '0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e',
+    mxnb: '0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa',
+  },
+  // BOT Chain mainnet — chain 677.
+  mainnet: {
+    id: 677,
+    name: 'BOT Chain',
+    rpcUrl: 'https://rpc.botchain.ai',
+    explorerUrl: 'https://scan.botchain.ai',
+    escrow: '0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c',
+    mxnb: '0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7',
+  },
+} as const satisfies Record<
+  BotNetwork,
+  {
+    id: number;
+    name: string;
+    rpcUrl: string;
+    explorerUrl: string;
+    escrow: `0x${string}`;
+    mxnb: `0x${string}`;
+  }
+>;
+
+/** Active network, selected at build/runtime via NEXT_PUBLIC_NETWORK. */
+export const NETWORK: BotNetwork =
+  process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? 'mainnet' : 'testnet';
+
+const ACTIVE = NETWORKS[NETWORK];
+
+export const BOT_CHAIN_ID = ACTIVE.id;
+
+export const BOT_CHAIN = {
+  id: ACTIVE.id,
+  name: ACTIVE.name,
+  nativeCurrency: { name: 'BOT', symbol: 'BOT', decimals: 18 },
+  rpcUrls: {
+    default: { http: [ACTIVE.rpcUrl] },
+  },
+  blockExplorers: {
+    default: { name: 'BOTScan', url: ACTIVE.explorerUrl },
+  },
+} as const;
+
+/** Build a BOTScan address/tx URL */
+export function botScanUrl(path: `address/${string}` | `tx/${string}`): string {
+  return `${BOT_CHAIN.blockExplorers.default.url}/${path}`;
+}
+
+// ── Deployed contracts (move with the active network) ──────────
+export const ESCROW_ADDRESS = ACTIVE.escrow as `0x${string}`;
+export const MXNB_ADDRESS = ACTIVE.mxnb as `0x${string}`;
+
+/** MXNB uses the default ERC-20 precision. */
+export const MXNB_DECIMALS = 18;
+
+/**
+ * Map a tanda's DB UUID to the uint256 `tandaId` used on-chain for per-tanda
+ * accounting. Strips hyphens and parses the 128-bit UUID directly to a BigInt
+ * to guarantee zero collisions on-chain.
+ */
+export function toOnchainTandaId(uuid: string): bigint {
+  // Strip hyphens and parse as hex. A UUID is 128 bits, which fits safely in a bigint/uint256.
+  return BigInt('0x' + uuid.replace(/-/g, ''));
+}
 
 /** Design system color tokens */
 export const COLORS = {

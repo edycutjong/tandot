@@ -31,6 +31,9 @@ contract TandaEscrow is Ownable2Step, ReentrancyGuard, Pausable {
     // Per-user per-tanda deposit tracking — enables refund & audit
     mapping(address => mapping(uint256 => uint256)) public userDeposits;
 
+    // Track canceled tandas to enable trustless user refunds
+    mapping(uint256 => bool) public tandaCanceled;
+
     // Events
     /// @param user The address that deposited tokens
     /// @param tandaId The unique identifier of the tanda round
@@ -45,6 +48,14 @@ contract TandaEscrow is Ownable2Step, ReentrancyGuard, Pausable {
     /// @param owner The admin address that executed the emergency withdrawal
     /// @param amount The total amount of tokens withdrawn
     event EmergencyWithdraw(address indexed owner, uint256 amount);
+
+    /// @param tandaId The unique identifier of the canceled tanda round
+    event TandaCanceled(uint256 indexed tandaId);
+
+    /// @param user The address that claimed the refund
+    /// @param tandaId The unique identifier of the canceled tanda round
+    /// @param amount The amount of tokens refunded
+    event RefundClaimed(address indexed user, uint256 indexed tandaId, uint256 amount);
 
     /// @param token The address of the payment token configured at deployment
     event EscrowInitialized(address indexed token);
@@ -88,6 +99,33 @@ contract TandaEscrow is Ownable2Step, ReentrancyGuard, Pausable {
         tandaBalances[tandaId] -= amount;
         paymentToken.safeTransfer(recipient, amount);
         emit PayoutExecuted(recipient, tandaId, amount);
+    }
+
+    /**
+     * @dev Cancels a tanda. Only callable by the admin (AI Backend).
+     * @param tandaId The unique ID of the Tanda round.
+     */
+    function cancelTanda(uint256 tandaId) external onlyOwner whenNotPaused {
+        require(!tandaCanceled[tandaId], "Tanda already canceled");
+        tandaCanceled[tandaId] = true;
+        emit TandaCanceled(tandaId);
+    }
+
+    /**
+     * @dev Allows users to claim their refund if a tanda is canceled.
+     * Shifts the gas cost of refunds from the admin to the user.
+     * @param tandaId The unique ID of the Tanda round.
+     */
+    function claimRefund(uint256 tandaId) external nonReentrant whenNotPaused {
+        require(tandaCanceled[tandaId], "Tanda is not canceled");
+        uint256 amount = userDeposits[msg.sender][tandaId];
+        require(amount > 0, "No funds to claim");
+
+        userDeposits[msg.sender][tandaId] = 0;
+        tandaBalances[tandaId] -= amount;
+        
+        paymentToken.safeTransfer(msg.sender, amount);
+        emit RefundClaimed(msg.sender, tandaId, amount);
     }
 
     /**

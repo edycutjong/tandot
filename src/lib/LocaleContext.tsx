@@ -27,11 +27,11 @@ export function LocaleProvider({
     document.documentElement.lang = locale;
     document.title = `Tandot — ${t.dash_tagline}`;
     
-    const longDescEs = 'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on Arbitrum. Elimina el riesgo de las tandas tradicionales.';
-    const longDescEn = 'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on Arbitrum. Eliminate the risk of traditional tandas.';
+    const longDescEs = 'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on BOT Chain. Elimina el riesgo de las tandas tradicionales.';
+    const longDescEn = 'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on BOT Chain. Eliminate the risk of traditional tandas.';
 
-    const shortDescEs = 'Tandas inteligentes protegidas por IA y contratos inteligentes en Arbitrum.';
-    const shortDescEn = 'Smart tandas protected by AI and smart contracts on Arbitrum.';
+    const shortDescEs = 'Tandas inteligentes protegidas por IA y contratos inteligentes en BOT Chain.';
+    const shortDescEn = 'Smart tandas protected by AI and smart contracts on BOT Chain.';
 
     // Update main meta description
     const metaDescription = document.querySelector('meta[name="description"]');

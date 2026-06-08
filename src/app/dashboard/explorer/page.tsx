@@ -4,14 +4,12 @@ import { GlassCard } from '@/components/ui/GlassCard';
 import { Search, ExternalLink, ShieldCheck, Clock } from 'lucide-react';
 import { useLocale } from '@/lib/LocaleContext';
 import { useState } from 'react';
-
-const ESCROW_ADDRESS = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS || '0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c';
-const MXNB_ADDRESS = process.env.NEXT_PUBLIC_MXNB_TOKEN_ADDRESS || '0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7';
+import { ESCROW_ADDRESS, MXNB_ADDRESS, botScanUrl } from '@/lib/constants';
 
 export default function ExplorerPage() {
   const { locale } = useLocale();
   const isEs = locale === 'es';
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(() => '');
 
   const contracts = [
     {
@@ -21,7 +19,7 @@ export default function ExplorerPage() {
       deployedAt: '2026-05-13',
     },
     {
-      name: 'MockMXNB Token',
+      name: 'MXNB Token',
       address: MXNB_ADDRESS,
       status: isEs ? 'Verificado' : 'Verified',
       deployedAt: '2026-05-13',
@@ -35,7 +33,7 @@ export default function ExplorerPage() {
         {isEs ? 'Explorador On-Chain' : 'On-Chain Explorer'}
       </h1>
       <p className="text-(--text-mid) mb-8">
-        {isEs ? 'Verifica contratos y transacciones directamente en Arbiscan.' : 'Verify contracts and transactions directly on Arbiscan.'}
+        {isEs ? 'Verifica contratos y transacciones directamente en BOTScan.' : 'Verify contracts and transactions directly on BOTScan.'}
       </p>
 
       {/* Search */}
@@ -73,12 +71,12 @@ export default function ExplorerPage() {
               </div>
             </div>
             <a
-              href={`https://sepolia.arbiscan.io/address/${contract.address}`}
+              href={botScanUrl(`address/${contract.address}`)}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary text-xs flex items-center gap-1.5"
             >
-              Arbiscan <ExternalLink className="w-3.5 h-3.5" />
+              BOTScan <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </GlassCard>
         ))}

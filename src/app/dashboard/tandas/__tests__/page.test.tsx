@@ -11,6 +11,7 @@ jest.mock('@/lib/supabase/server', () => ({
 jest.mock('@/lib/constants', () => ({
   formatMXN: (amount: number) => `$${amount} MXN`,
   trustLabel: () => ({ label: 'High Trust', color: '#10b981' }),
+  ESCROW_ADDRESS: '0xESCROW',
 }));
 
 // Mock ClientTranslation

@@ -82,7 +82,7 @@ test.describe("DemoStudio Asset Generation Flow", () => {
     await page.getByPlaceholder("10").pressSequentially("10", { delay: 100 });
     
     await page.waitForTimeout(500);
-    await page.getByPlaceholder(/Describe/i).pressSequentially("Trustless savings pool with Arbitrum Escrow.", { delay: 50 });
+    await page.getByPlaceholder(/Describe/i).pressSequentially("Trustless savings pool with BOT Chain Escrow.", { delay: 50 });
     
     await page.waitForTimeout(1000);
     await page.screenshot({ path: "../../DemoStudio/013_Tandot/demo-assets/tanda-creation-form.png" });
@@ -93,7 +93,7 @@ test.describe("DemoStudio Asset Generation Flow", () => {
       await dialog.accept();
     });
 
-    await page.getByRole("button", { name: /Create Tanda with Escrow|Crear Tanda con Escrow/i }).click({ force: true });
+    await page.getByRole("button", { name: /Crear Tanda$|Create Tanda$/i }).click({ force: true });
 
     // Wait a little bit after submission
     await page.waitForTimeout(1500);

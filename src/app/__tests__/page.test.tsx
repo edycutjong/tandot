@@ -9,6 +9,7 @@ jest.mock('lucide-react', () => ({
   ArrowRight: () => <div data-testid="icon-arrow-right" />,
   Coins: () => <div data-testid="icon-coins" />,
   Globe: () => <div data-testid="icon-globe" />,
+  ArrowRightLeft: () => <div data-testid="icon-arrow-right-left" />,
 }));
 
 import React from 'react';

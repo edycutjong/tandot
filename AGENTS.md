@@ -7,10 +7,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 # 🎰 Tandot — Agent Instructions
 
 ## Project
-AI-managed fraud-proof rotating savings circles (tandas) on-chain using MXNB stablecoin. Eliminates the trust problem in Mexico's most popular informal savings institution — tandas — by replacing the human organizer with an AI agent + Arbitrum escrow.
+AI-managed fraud-proof rotating savings circles (tandas) on-chain using MXNB stablecoin. Eliminates the trust problem in Mexico's most popular informal savings institution — tandas — by replacing the human organizer with an AI agent + BOT Chain escrow.
 
-## Hackathon
-**DoraHacks Ethereum Mexico 2026** — Targeting Bitso Business Startup bounty ($3,900) with multi-bounty stacking across ETH Mexico ($1,500) and Arbitrum ($650).
 
 ## Structure
 - `src/app/` — Next.js 16 App Router pages (landing, dashboard, tanda detail, API routes)
@@ -27,7 +25,7 @@ AI-managed fraud-proof rotating savings circles (tandas) on-chain using MXNB sta
 | **Styling** | Tailwind CSS v4 |
 | **Database** | Supabase (PostgreSQL + Realtime) |
 | **Payments** | Bitso Business API (Pay-ins, Payouts, MXNB, Webhooks, Mass Payouts) |
-| **Chain** | Arbitrum (MXNB stablecoin, escrow smart contract) |
+| **Chain** | BOT Chain (MXNB stablecoin, escrow smart contract) |
 | **AI** | OpenAI GPT-4 (trust scoring, group matching, fraud detection) |
 
 | **Deploy** | Vercel |
@@ -41,6 +39,7 @@ AI-managed fraud-proof rotating savings circles (tandas) on-chain using MXNB sta
 - **RLS** = anon key for reads, service_role key for writes
 
 ## Critical Patterns
+- **Multi-Network**: Vercel handles dual deployments via `NEXT_PUBLIC_NETWORK=testnet|mainnet`. Both deployments share the same Supabase instance, separated explicitly by a `network` column on the `tandas` and `webhook_events` tables.
 - All state initialization uses **lazy initializers** (not setState-in-useEffect)
 - `params` is a **Promise** in Next.js 16 — must `await`
 - `PageProps<'/path'>` and `RouteContext<'/path'>` are global type helpers

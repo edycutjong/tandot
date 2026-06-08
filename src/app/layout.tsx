@@ -1,18 +1,21 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
+const isMainnet = process.env.NEXT_PUBLIC_NETWORK === 'mainnet';
+const siteUrl = isMainnet ? 'https://mainnet.tandot.edycu.dev' : 'https://testnet.tandot.edycu.dev';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tandot.edycu.dev'),
+  metadataBase: new URL(siteUrl),
   title: 'Tandot — Tandas sin confianza ciega',
   description:
-    'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on Arbitrum. Elimina el riesgo de las tandas tradicionales.',
+    'AI-managed, fraud-proof rotating savings circles (tandas) on MXNB — the Mexican peso stablecoin on BOT Chain. Elimina el riesgo de las tandas tradicionales.',
   keywords: [
     'tanda',
     'ahorro',
     'MXNB',
     'stablecoin',
     'Bitso',
-    'Arbitrum',
+    'BOT Chain',
     'rotating savings',
     'Mexico',
     'fintech',
@@ -25,8 +28,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Tandot — Tandas sin confianza ciega',
     description:
-      'Tandas inteligentes protegidas por IA y contratos inteligentes en Arbitrum.',
-    url: 'https://tandot.edycu.dev',
+      'Tandas inteligentes protegidas por IA y contratos inteligentes en BOT Chain.',
+    url: siteUrl,
     siteName: 'Tandot',
     images: [
       {

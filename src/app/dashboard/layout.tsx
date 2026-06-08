@@ -4,8 +4,10 @@ import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { SITE } from '@/lib/constants';
+import { SITE, NETWORK } from '@/lib/constants';
 import { LocaleProvider, useLocale } from '@/lib/LocaleContext';
+import { WalletProvider, useWallet } from '@/lib/WalletContext';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { LanguageToggle } from '@/components/ui/LanguageToggle';
 import {
   LayoutDashboard,
@@ -14,7 +16,6 @@ import {
   History,
   BrainCircuit,
   Search,
-  User,
 } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 
@@ -40,7 +41,9 @@ export default function DashboardLayout({
 
   return (
     <LocaleProvider locale={locale} setLocale={setLocale}>
-      <DashboardShell>{children}</DashboardShell>
+      <WalletProvider>
+        <DashboardShell>{children}</DashboardShell>
+      </WalletProvider>
     </LocaleProvider>
   );
 }
@@ -48,6 +51,7 @@ export default function DashboardLayout({
 function DashboardShell({ children }: { children: React.ReactNode }) {
   const { t } = useLocale();
   const pathname = usePathname();
+  const { address } = useWallet();
 
   const navItems = [
     { href: '/dashboard', icon: LayoutDashboard, label: t.dash_summary },
@@ -111,10 +115,12 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         {/* Status footer */}
         <div className="p-4 border-t border-(--border)">
           <div className="glass-card p-3 flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-live" />
+            <span className={`w-2 h-2 rounded-full ${address ? 'bg-emerald-400 pulse-live' : 'bg-red-500'}`} />
             <div>
-              <p className="text-xs font-medium">{t.dash_network_status}</p>
-              <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{t.dash_connected}</p>
+              <p className="text-xs font-medium">BOT {NETWORK === 'mainnet' ? 'Mainnet' : 'Testnet'}</p>
+              <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                {address ? t.dash_connected : 'Disconnected'}
+              </p>
             </div>
           </div>
         </div>
@@ -134,13 +140,11 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
           </div>
           <div className="flex items-center gap-4">
             <LanguageToggle />
-            <div className="badge badge-active">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-live inline-block" />
-              Demo Mode
-            </div>
-            <div className="w-8 h-8 rounded-full bg-slate-800/50 border border-(--border) flex items-center justify-center text-white text-xs font-bold hover:bg-slate-800 transition-colors cursor-pointer" title="User Profile / Perfil de Usuario">
-              <User className="w-4 h-4 text-slate-400" />
-            </div>
+            
+
+
+
+            <ConnectButton showBalance={false} />
           </div>
         </header>
 

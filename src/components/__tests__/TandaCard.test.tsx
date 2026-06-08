@@ -25,7 +25,8 @@ const mockTanda: Tanda = {
   created_at: new Date().toISOString(),
   creator_id: 'owner-1',
   next_payout_at: new Date().toISOString(),
-  updated_at: new Date().toISOString()
+  updated_at: new Date().toISOString(),
+  network: 'testnet'
 };
 
 describe('TandaCard', () => {

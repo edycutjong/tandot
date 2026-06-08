@@ -1,4 +1,14 @@
 import '@testing-library/jest-dom';
+import { TextEncoder, TextDecoder } from 'util';
+
+// viem (used by on-chain components) needs TextEncoder/TextDecoder, which jsdom omits.
+if (typeof globalThis.TextEncoder === 'undefined') {
+  globalThis.TextEncoder = TextEncoder as typeof globalThis.TextEncoder;
+}
+if (typeof globalThis.TextDecoder === 'undefined') {
+  globalThis.TextDecoder = TextDecoder as unknown as typeof globalThis.TextDecoder;
+}
+
 
 // Mock Next.js Navigation
 jest.mock('next/navigation', () => ({
@@ -60,3 +70,9 @@ Object.defineProperty(window, 'ResizeObserver', {
   configurable: true,
   value: ResizeObserver,
 });
+if (!globalThis.fetch) {
+  globalThis.fetch = jest.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({})
+  }) as unknown as typeof fetch;
+}

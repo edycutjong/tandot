@@ -98,7 +98,7 @@ export interface Dictionary {
   detail_infrastructure: string;
   detail_infrastructure_desc: string;
   detail_contract_address: string;
-  detail_view_on_arbiscan: string;
+  detail_view_on_botscan: string;
   detail_contribution_log: string;
   detail_no_contributions: string;
   detail_confirmed: string;
@@ -186,13 +186,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
     // How It Works
     how_title: 'Arquitectura Trustless',
     how_subtitle:
-      'Reemplazamos al organizador humano con un agente de IA y un contrato de escrow en Arbitrum.',
+      'Reemplazamos al organizador humano con un agente de IA y un contrato de escrow en BOT Chain.',
     how_step1_title: 'AI Trust Matching',
     how_step1_desc:
       'La IA evalúa perfiles, analiza historiales financieros y agrupa participantes con scores de confianza compatibles para minimizar el riesgo de impago.',
     how_step2_title: 'Contribuciones en MXNB',
     how_step2_desc:
-      'Cada periodo aportas tu cuota en MXNB a través de Bitso. El capital se bloquea criptográficamente en nuestro contrato inteligente de Arbitrum.',
+      'Cada periodo aportas tu cuota en MXNB a través de Bitso. El capital se bloquea criptográficamente en nuestro contrato inteligente de BOT Chain.',
     how_step3_title: 'Escrow Automatizado',
     how_step3_desc:
       'Cuando es tu turno, el contrato inteligente verifica las aportaciones y libera automáticamente el pozo completo a tu wallet. Sin intermediarios.',
@@ -218,7 +218,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     dash_tools: 'Herramientas',
     dash_ai_trust: 'IA Trust Score',
     dash_explorer: 'Explorador',
-    dash_network_status: 'Arbitrum Sepolia',
+    dash_network_status: 'BOT Chain',
     dash_connected: 'MXNB · Conectado',
 
     // Dashboard Page
@@ -248,9 +248,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
     detail_members: 'Miembros',
     detail_payout_schedule: 'Cronograma de Pagos',
     detail_infrastructure: 'Infraestructura',
-    detail_infrastructure_desc: 'Esta tanda utiliza un contrato de Escrow verificado en Arbitrum Sepolia para garantizar la rotación de fondos.',
+    detail_infrastructure_desc: 'Esta tanda utiliza un contrato de Escrow verificado en BOT Chain para garantizar la rotación de fondos.',
     detail_contract_address: 'Dirección del Contrato',
-    detail_view_on_arbiscan: 'Ver en Arbiscan ↗',
+    detail_view_on_botscan: 'Ver en BOTScan ↗',
     detail_contribution_log: 'Registro de Contribuciones',
     detail_no_contributions: 'No hay contribuciones registradas en esta ronda.',
     detail_confirmed: 'Confirmado',
@@ -298,9 +298,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
     contrib_btn_approve: 'Aprobar y Depositar',
     contrib_btn_approving: 'Aprobando MXNB...',
     contrib_btn_depositing: 'Depositando fondos...',
-    contrib_success_msg: 'Tu aportación de {amount} ha sido procesada correctamente en Arbitrum.',
+    contrib_success_msg: 'Tu aportación de {amount} ha sido procesada correctamente en BOT Chain.',
     contrib_btn_done: 'Listo',
-    contrib_network_notice: 'Esta transacción será ejecutada en Arbitrum Sepolia vía Bitso.',
+    contrib_network_notice: 'Esta transacción será ejecutada en BOT Chain vía Bitso.',
   },
 
   en: {
@@ -337,13 +337,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
     // How It Works
     how_title: 'Trustless Architecture',
     how_subtitle:
-      'We replace the human organizer with an AI agent and an Arbitrum escrow contract.',
+      'We replace the human organizer with an AI agent and a BOT Chain escrow contract.',
     how_step1_title: 'AI Trust Matching',
     how_step1_desc:
       'AI evaluates profiles, analyzes financial histories, and groups participants with compatible trust scores to minimize default risk.',
     how_step2_title: 'MXNB Contributions',
     how_step2_desc:
-      'Each period you contribute your share in MXNB via Bitso. Capital is cryptographically locked in our Arbitrum smart contract.',
+      'Each period you contribute your share in MXNB via Bitso. Capital is cryptographically locked in our BOT Chain smart contract.',
     how_step3_title: 'Automated Escrow',
     how_step3_desc:
       'When it\'s your turn, the smart contract verifies contributions and automatically releases the full pool to your wallet. No middlemen.',
@@ -369,7 +369,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     dash_tools: 'Tools',
     dash_ai_trust: 'AI Trust Score',
     dash_explorer: 'Explorer',
-    dash_network_status: 'Arbitrum Sepolia',
+    dash_network_status: 'BOT Chain',
     dash_connected: 'MXNB · Connected',
 
     // Dashboard Page
@@ -399,9 +399,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
     detail_members: 'Members',
     detail_payout_schedule: 'Payout Schedule',
     detail_infrastructure: 'Infrastructure',
-    detail_infrastructure_desc: 'This tanda uses a verified Escrow contract on Arbitrum Sepolia to guarantee fund rotation.',
+    detail_infrastructure_desc: 'This tanda uses a verified Escrow contract on BOT Chain to guarantee fund rotation.',
     detail_contract_address: 'Contract Address',
-    detail_view_on_arbiscan: 'View on Arbiscan ↗',
+    detail_view_on_botscan: 'View on BOTScan ↗',
     detail_contribution_log: 'Contribution Log',
     detail_no_contributions: 'No contributions recorded in this round.',
     detail_confirmed: 'Confirmed',
@@ -449,8 +449,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
     contrib_btn_approve: 'Approve & Deposit',
     contrib_btn_approving: 'Approving MXNB...',
     contrib_btn_depositing: 'Depositing funds...',
-    contrib_success_msg: 'Your contribution of {amount} has been successfully processed on Arbitrum.',
+    contrib_success_msg: 'Your contribution of {amount} has been successfully processed on BOT Chain.',
     contrib_btn_done: 'Done',
-    contrib_network_notice: 'This transaction will be executed on Arbitrum Sepolia via Bitso.',
+    contrib_network_notice: 'This transaction will be executed on BOT Chain via Bitso.',
   },
 };

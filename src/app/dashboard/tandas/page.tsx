@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { formatMXN, trustLabel } from '@/lib/constants';
+import { formatMXN, trustLabel, NETWORK } from '@/lib/constants';
 import { ClientTranslation as TText } from '@/components/ui/ClientTranslation';
 import type { Dictionary } from '@/lib/i18n';
 
@@ -16,7 +16,13 @@ export default async function TandasPage({
   const { filter = 'all' } = await searchParams;
   const supabase = await createClient();
 
-  const query = supabase.from('tandas').select('*').order('created_at', { ascending: false });
+  // Scope to this network's tandas (escrow address is the network discriminator
+  // on the shared DB).
+  const query = supabase
+    .from('tandas')
+    .select('*')
+    .eq('network', NETWORK)
+    .order('created_at', { ascending: false });
   const finalQuery = filter !== 'all' ? query.eq('status', filter as Tanda['status']) : query;
 
   const { data: tandas } = await finalQuery;

@@ -1,15 +1,24 @@
 # 🛡️ Tandot Smart Contracts
 
-Solidity escrow contracts for the Tandot rotating savings platform. Deployed on **Arbitrum Sepolia**.
+Solidity escrow contracts for the Tandot rotating savings platform. Deployed on **BOT Chain Mainnet** and **Testnet**.
 
 ## Deployed Addresses
 
-| Contract | Address | Arbiscan |
-|----------|---------|----------|
-| **TandaEscrow** | `0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c` | [View ↗](https://sepolia.arbiscan.io/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c) |
-| **MockMXNB** | `0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7` | [View ↗](https://sepolia.arbiscan.io/address/0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7) |
+### 🟢 Mainnet (chain 677 — `scan.botchain.ai`)
 
-> Deployer: `0x4cCB355e6e97c9cEcC936b58e5e0CfDB5ede95d8`
+| Contract | Address | Explorer |
+|----------|---------|----------|
+| **TandaEscrow** | `0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c` | [View ↗](https://scan.botchain.ai/address/0x8413eCc78A8110D0EA05F346c9c2C7d0886B352c) |
+| **MockMXNB** | `0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7` | [View ↗](https://scan.botchain.ai/address/0x0B551C18aAF6b1c1c12c026e7ABd2CFAd511BFe7) |
+
+### 🟡 Testnet (chain 968 — `scan.bohr.life`)
+
+| Contract | Address | Explorer |
+|----------|---------|----------|
+| **TandaEscrow** | `0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e` | [View ↗](https://scan.bohr.life/address/0x15eF821fEc9eEFd20f30e443A5a8239873EDe80e) |
+| **MockMXNB** | `0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa` | [View ↗](https://scan.bohr.life/address/0xC57D472C2CD8fbE83B2B9FABd9c167A0C2c6DCEa) |
+
+> Deployer (Both): `0x4cCB355e6e97c9cEcC936b58e5e0CfDB5ede95d8`
 
 ## Contracts
 
@@ -45,40 +54,32 @@ npm install
 
 # Copy env file and configure
 cp .env.example .env
-# Edit .env with your PRIVATE_KEY and ARBITRUM_RPC_URL
+# Edit .env with your PRIVATE_KEY and BOT_CHAIN_RPC_URL
 ```
 
 ### Environment Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `PRIVATE_KEY` | ✅ | Deployer wallet private key (needs Arbitrum Sepolia ETH) |
-| `ARBITRUM_RPC_URL` | ❌ | RPC endpoint (defaults to public Arbitrum Sepolia) |
-| `ARBISCAN_API_KEY` | ❌ | For contract verification on Arbiscan |
+| `PRIVATE_KEY` | ✅ | Deployer wallet private key (needs BOT for gas) |
+| `BOT_CHAIN_RPC_URL` | ❌ | RPC endpoint (defaults to public BOT Chain RPC) |
+| `BOTSCAN_API_KEY` | ❌ | For contract verification on BOTScan |
 
 ### Funding Your Deployer Wallet
 
-Your wallet needs **Arbitrum Sepolia ETH** (L2) for gas — not regular Sepolia ETH (L1).
+Your wallet needs **BOT** tokens for gas.
 
-> [!WARNING]
-> Faucets like [Google Cloud Web3 Faucet](https://cloud.google.com/application/web3/faucet/ethereum/sepolia) dispense **Ethereum Sepolia (L1) ETH**, which won't work for Arbitrum deployments. You must either use an Arbitrum-specific faucet or bridge L1 → L2.
+> [!NOTE]
+> Use a BOT Chain–specific faucet to fund the deployer wallet. Faucets for other
+> networks (Ethereum Sepolia, Arbitrum, etc.) will **not** work for BOT Chain
+> deployments.
 
-**Option A — Direct Arbitrum Sepolia faucets** (recommended):
+**BOT Chain faucet:** [faucet.botchain.ai](https://faucet.botchain.ai)
 
-| Faucet | Auth | Link |
-|--------|------|------|
-| QuickNode | None | [faucet.quicknode.com/arbitrum/sepolia](https://faucet.quicknode.com/arbitrum/sepolia) |
-| Chainlink | GitHub | [faucets.chain.link/arbitrum-sepolia](https://faucets.chain.link/arbitrum-sepolia) |
-| Triangle | None | [faucet.triangleplatform.com/arbitrum/sepolia](https://faucet.triangleplatform.com/arbitrum/sepolia) |
-
-**Option B — Bridge from Ethereum Sepolia**:
-
-If you already have Sepolia L1 ETH, bridge it to Arbitrum Sepolia:
-
-1. Go to [bridge.arbitrum.io](https://bridge.arbitrum.io/?destinationChain=arbitrum-sepolia&sourceChain=sepolia)
-2. Connect wallet → select **Sepolia → Arbitrum Sepolia**
-3. Bridge your ETH (keep ~0.002 ETH on L1 for gas)
-4. Wait ~10 minutes for the bridge to complete
+- RPC (mainnet): `https://rpc.botchain.ai`
+- RPC (testnet): `https://rpc.bohr.life`
+- Explorer: [scan.bohr.life](https://scan.bohr.life)
+- Chain ID: `677` (mainnet) / `968` (testnet)
 
 ## Commands
 
@@ -89,8 +90,11 @@ npx hardhat compile
 # Run tests (28 tests)
 npx hardhat test
 
-# Deploy to Arbitrum Sepolia (auto-verifies on Arbiscan)
-npx hardhat run scripts/deploy.ts --network arbitrumSepolia
+# Deploy to BOT Chain testnet (968, rpc.bohr.life) — matches the live demo contracts
+npx hardhat run scripts/deploy.ts --network botChainTestnet
+
+# Deploy to BOT Chain mainnet (677, rpc.botchain.ai)
+npx hardhat run scripts/deploy.ts --network botChainMainnet
 
 # Deploy locally (Hardhat network)
 npx hardhat run scripts/deploy.ts
@@ -117,7 +121,7 @@ npx hardhat run scripts/deploy.ts
 | Hardhat | 2.28.6 |
 | OpenZeppelin | 5.6.1 |
 | Optimizer | 200 runs |
-| Chain | Arbitrum Sepolia (421614) |
+| Chain | BOT Chain Testnet (968) |
 
 ## License
 

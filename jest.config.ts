@@ -7,6 +7,8 @@ const config: Config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.css$': '<rootDir>/__mocks__/styleMock.js',
+    '^@rainbow-me/rainbowkit$': '<rootDir>/__mocks__/rainbowkitMock.js',
+    '^wagmi$': '<rootDir>/__mocks__/wagmiMock.js',
   },
   transform: {
     '^.+\\.tsx?$': ['ts-jest', {
