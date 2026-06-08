@@ -118,7 +118,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
           <div className="glass-card p-3 flex items-center gap-3">
             <span className={`w-2 h-2 rounded-full ${address ? 'bg-emerald-400 pulse-live' : 'bg-red-500'}`} />
             <div>
-              <p className="text-xs font-medium">{t.dash_network_status}</p>
+              <p className="text-xs font-medium">BOT {NETWORK === 'mainnet' ? 'Mainnet' : 'Testnet'}</p>
               <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
                 {address ? t.dash_connected : 'Disconnected'}
               </p>
@@ -142,10 +142,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-4">
             <LanguageToggle />
             
-            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border ${NETWORK === 'mainnet' ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400' : 'border-amber-500/30 bg-amber-500/10 text-amber-400'}`}>
-              <div className={`w-1.5 h-1.5 rounded-full ${NETWORK === 'mainnet' ? 'bg-emerald-400' : 'bg-amber-400'}`} />
-              {NETWORK === 'mainnet' ? 'BOT Mainnet' : 'BOT Testnet'}
-            </div>
+
 
 
             <ConnectButton showBalance={false} />
